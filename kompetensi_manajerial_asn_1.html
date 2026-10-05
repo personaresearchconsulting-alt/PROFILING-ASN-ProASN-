@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAT ProASN Metrologi - BIMBEL CERDAS NTB</title>
+    <style>
+        :root { 
+            --bg: #f8fafc;
+            --white: #ffffff;
+            --text-black: #000000;
+            --text-dark: #0f172a;
+            --text-muted: #475569;
+            --gold: #b45309; 
+            --gold-light: #fef3c7;
+            --gold-border: #d97706;
+            --header-bg: #000000; /* Header Hitam dengan Aksen Emas */
+            --border-color: #cbd5e1;
+        }
+        
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: var(--bg); 
+            margin: 0; 
+            padding: 0; 
+            color: var(--text-black); 
+            -webkit-user-select: none; 
+            user-select: none; 
+        }
+        
+        header { 
+            background: var(--header-bg); 
+            color: #ffffff; 
+            padding: 25px 20px; 
+            text-align: center; 
+            border-bottom: 5px solid var(--gold-border); 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .container { max-width: 950px; margin: 30px auto; padding: 0 20px; }
+        
+        /* Card Layout */
+        .card { 
+            background: var(--white); 
+            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
+            margin-bottom: 25px; 
+            border: 1px solid var(--border-color);
+            color: var(--text-black);
+        }
+        
+        .user-card input { 
+            width: 80%; 
+            max-width: 400px; 
+            padding: 12px; 
+            font-size: 16px; 
+            border: 2px solid var(--gold-border); 
+            background: #ffffff;
+            color: var(--text-black);
+            border-radius: 8px; 
+            text-align: center; 
+            margin-top: 10px; 
+            outline: none;
+            font-weight: bold;
+        }
+        
+        /* Grid Menu Subtes */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 20px; }
+        .subtes-card { 
+            background: var(--white); 
+            padding: 20px; 
+            border-radius: 10px; 
+            border-left: 6px solid var(--gold-border); 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06); 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: space-between; 
+            border-top: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-black);
+        }
+        
+        /* Opsi Jawaban */
+        .opt { 
+            padding: 14px; 
+            margin: 10px 0; 
+            border: 1.5px solid var(--border-color); 
+            border-radius: 8px; 
+            cursor: pointer; 
+            transition: 0.2s; 
+            font-size: 15px; 
+            background: #f8fafc;
+            color: var(--text-black);
+            font-weight: 500;
+        }
+        .opt:hover { background: #e2e8f0; border-color: #000000; }
+        .opt.selected { background: var(--gold-light); border-color: var(--gold-border); font-weight: bold; color: #000000; }
+        
+        /* Navigasi Soal Grid */
+        .nav-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-top: 15px; }
+        .nav-item { 
+            height: 35px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            border: 1px solid var(--border-color); 
+            background: #f1f5f9;
+            color: #000000;
+            border-radius: 4px; 
+            cursor: pointer; 
+            font-size: 12px; 
+            font-weight: bold; 
+        }
+        .nav-item.filled { background: var(--gold-border); color: #ffffff; }
+        .nav-item.active { border: 2px solid #000000; box-shadow: 0 0 6px rgba(0, 0, 0, 0.3); }
+        
+        /* Tombol & Status */
+        .btn { 
+            background: #000000; 
+            color: #ffffff; 
+            border: none; 
+            padding: 12px 20px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            text-decoration: none; 
+            text-align: center; 
+            display: inline-block; 
+            transition: 0.2s;
+            border-bottom: 3px solid var(--gold-border);
+        }
+        .btn:hover { background: #1e293b; color: #fbbf24; }
+        .btn-dark { background: #e2e8f0; color: #000000; border: 1px solid #cbd5e1; }
+        .btn-dark:hover { background: #cbd5e1; }
+        
+        .status-badge { 
+            display: inline-block; 
+            padding: 4px 10px; 
+            border-radius: 12px; 
+            font-size: 12px; 
+            font-weight: bold; 
+            margin-top: 5px; 
+            background: #e2e8f0; 
+            color: var(--text-muted); 
+        }
+        .done { background: #dcfce7; color: #15803d; border: 1px solid #86efac; }
+        #timer { font-size: 22px; font-weight: bold; color: var(--gold-border); font-family: monospace; }
+        
+        /* Tabel Rekap */
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; text-align: left; color: var(--text-black); }
+        th, td { padding: 12px 15px; border-bottom: 1px solid var(--border-color); }
+        th { background: #f1f5f9; color: #000000; border-bottom: 2px solid var(--gold-border); font-weight: bold; }
+        .badge { display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: bold; }
+        .badge-tinggi { background: #dcfce7; color: #15803d; }
+        .badge-sedang { background: #fef9c3; color: #a16207; }
+        .badge-rendah { background: #fee2e2; color: #b91c1c; }
+        
+        .summary-box { background: #f8fafc; border-left: 5px solid var(--gold-border); padding: 20px; border-radius: 8px; margin-top: 20px; border: 1px solid var(--border-color); color: var(--text-black); }
+        .author-tag { font-size: 13px; color: #fbbf24; margin-top: 8px; font-style: italic; letter-spacing: 0.5px; font-weight: 600; }
+    </style>
+</head>
+<body oncontextmenu="return false" onkeydown="return disableKeys(event)">
+
+<header>
+    <h1 style="margin:0; font-size:28px; letter-spacing: 1px; color: #ffffff;">BIMBEL CERDAS NTB</h1>
+    <div class="author-tag">Soal disusun & dikembangkan oleh: Persona Research & Consulting</div>
+    <p style="margin:10px 0 0; color: #cbd5e1; font-weight: 500; font-size: 14px;">TES KOMPETENSI ASN METROLOGI — SUBTES 3: KOMPETENSI MANAJERIAL ASN</p>
+</header>
+
+<div class="container">
+
+    <!-- VIEW 1: HOME / MENU UTAMA -->
+    <div id="viewHome">
+        <div class="card user-card" style="text-align: center;">
+            <h3 style="margin:0; color:#000000; border-bottom: 2px solid var(--gold-border); display: inline-block; padding-bottom: 4px;">IDENTITAS PESERTA UJIAN PROASN</h3>
+            <p style="font-size:14px; color:var(--text-muted); margin-top: 10px;">Masukkan Nama Lengkap Anda sebelum memulai ujian komprehensif.</p>
+            <input type="text" id="inputNama" placeholder="Nama Lengkap Peserta..." oninput="saveName()">
+        </div>
+
+        <h3 style="color:#000000; border-bottom: 2px solid var(--gold-border); padding-bottom: 8px;">MODUL UJIAN KOMPETENSI ASN METROLOGI</h3>
+        <div class="grid">
+            <div class="subtes-card">
+                <div>
+                    <h4 style="margin:0; color:#000000;">SUBTES 3: KOMPETENSI MANAJERIAL ASN METROLOGI LEGAL</h4>
+                    <p style="font-size:13px; color:var(--text-black); margin-top: 8px; line-height: 1.5;">50 Soal Studi Kasus Situasional: Integritas, Kerja Sama, Komunikasi, Pelayanan Publik, Orientasi Hasil, Pengelolaan Perubahan & Konflik</p>
+                    <div id="st3" class="status-badge">Belum Dikerjakan</div>
+                </div>
+                <button class="btn" style="margin-top:20px;" onclick="startSubtes(0)">MULAI SUBTES 3</button>
+            </div>
+        </div>
+
+        <div style="margin-top: 30px; text-align: center;">
+            <button class="btn" onclick="showRekap()" style="font-size:16px; padding:15px 30px;">📊 LIHAT HASIL & PEMBAHASAN SUBTES 3</button>
+        </div>
+    </div>
+
+    <!-- VIEW 2: PENGERJAAN SOAL CAT -->
+    <div id="viewQuiz" style="display: none;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; background: var(--white); padding: 15px 20px; border-radius: 10px; border: 1px solid var(--border-color); box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+            <div id="subtesTitle" style="font-weight:bold; color:#000000;">SUBTES 3 — KOMPETENSI MANAJERIAL ASN METROLOGI LEGAL</div>
+            <div id="timer">60:00</div>
+        </div>
+
+        <div style="display:flex; gap:20px; flex-wrap: wrap;">
+            <div style="flex:3; min-width: 300px;">
+                <div class="card">
+                    <div id="q-no" style="font-weight:bold; color:var(--gold-border); margin-bottom:12px; font-size: 16px;">Soal 1 dari 50</div>
+                    <div id="q-text" style="font-size:16px; line-height:1.7; margin-bottom:20px; white-space: pre-line; color: #000000; font-weight: 500;"></div>
+                    <div id="options"></div>
+                    <div style="margin-top:25px; display:flex; justify-content:space-between;">
+                        <button class="btn btn-dark" onclick="prevQ()">Sebelumnya</button>
+                        <button class="btn" id="btn-next" onclick="nextQ()">Selanjutnya</button>
+                    </div>
+                </div>
+            </div>
+
+            <div style="flex:1; min-width: 220px;">
+                <div class="card" style="padding:15px;">
+                    <div style="text-align:center; font-size:13px; font-weight:bold; color:#000000; margin-bottom:10px;">NAVIGASI SOAL</div>
+                    <div id="navGrid" class="nav-grid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW 3: HASIL REKAP NILAI & PEMBAHASAN -->
+    <div id="viewRekap" style="display: none;">
+        <div class="card">
+            <h2 style="text-align: center; color: #000000; margin-bottom: 5px;">HASIL KOMPETENSI MANAJERIAL ASN</h2>
+            <p style="text-align: center; color: var(--text-muted); font-weight: 500; margin-top:0;">BIMBEL CERDAS NTB — ANALISIS PERSONA RESEARCH & CONSULTING</p>
+            <div id="namaPesertaRekap" style="text-align: center; font-weight: bold; font-size: 18px; margin: 20px 0; background: var(--gold-light); padding: 12px; border-radius: 8px; border: 1px solid var(--gold-border); color: #000000;">NAMA: -</div>
+
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px;">
+                <div style="background:#f8fafc; padding:15px; border-radius:10px; text-align:center; border:1px solid var(--border-color);">
+                    <small style="color:var(--text-muted); font-weight:bold;">JUMLAH BENAR</small>
+                    <div id="totalBenar" style="font-size:32px; font-weight:900; color:#000000; margin-top: 5px;">0 / 50</div>
+                </div>
+                <div style="background:#f8fafc; padding:15px; border-radius:10px; text-align:center; border:1px solid var(--border-color);">
+                    <small style="color:var(--text-muted); font-weight:bold;">PERSENTASE KELULUSAN</small>
+                    <div id="skorAkurasi" style="font-size:32px; font-weight:900; color:var(--gold-border); margin-top: 5px;">0%</div>
+                </div>
+            </div>
+
+            <h3 style="color: #000000; border-bottom: 2px solid var(--gold-border); padding-bottom: 5px;">DETAIL EVALUASI SUBTES 3</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Modul Subtes</th>
+                        <th>Soal</th>
+                        <th>Skor</th>
+                        <th>Kategori</th>
+                    </tr>
+                </thead>
+                <tbody id="tbodyRekap"></tbody>
+            </table>
+
+            <div class="summary-box">
+                <h3 style="margin-top:0; color:#000000; border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">ANALISIS KAPABILITAS MANAJERIAL ASN</h3>
+                <p><b>Status Evaluasi Manajerial:</b><br><span id="txtKuat" style="color:var(--text-black);">-</span></p>
+                <p><b>Rekomendasi Pengembangan Kompetensi:</b><br><span id="txtLatih" style="color:var(--text-black);">-</span></p>
+            </div>
+
+            <div style="margin-top: 25px; text-align: center; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+                <button class="btn" onclick="downloadPembahasanSemua()">📥 DOWNLOAD PEMBAHASAN</button>
+                <button class="btn btn-dark" onclick="window.print()">🖨 CETAK HASIL</button>
+                <button class="btn btn-dark" onclick="showHome()">🏠 KEMBALI KE BERANDA</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function disableKeys(e) {
+        if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 67 || e.keyCode === 73 || e.keyCode === 74)) {
+            return false;
+        }
+        if (e.keyCode === 123) return false;
+    }
+
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbyFxmO0ocvr5HqK2WuGyjt7_JeTOcs4vGDg7QZejeiE2QvCP_qkonJcZc5hz9AFW2Vg/exec";
+
+    let currentSessionId = 'SESS-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+    let sessionStartTime = null;
+    let sessionStartTimeStr = '';
+
+    // BANK SOAL SUBTES 3 MANAJERIAL (50 SOAL: 10 MUDAH, 20 SEDANG, 20 SULIT)
+    const rawSoalList = [
+        // --- 10 SOAL MUDAH ---
+        {
+            q: "Saat melakukan pemeriksaan tera ulang alat ukur di pasar, seorang pengelola pasar menawarkan uang tunai kepada Anda agar laporan pengawasan dibuat cepat selesai tanpa pemeriksaan mendalam. Sikap yang paling tepat sesuai standar integritas ASN adalah...",
+            opts: [
+                "Menolak dengan sopan dan memberikan penjelasan bahwa pengujian harus dilakukan sesuai prosedur baku tanpa imbalan apapun",
+                "Menerima uang tersebut karena menganggapnya sebagai uang lelah dari pengelola pasar",
+                "Menerima uang tersebut lalu membagikannya kepada seluruh tim pengawas",
+                "Menolak uang tersebut tetapi mempercepat pemeriksaan tanpa standar teknis",
+                "Melaporkan pengelola pasar ke media sosial agar jera"
+            ],
+            ans: 0,
+            pem: "Jawaban benar: A\n\n1. Kompetensi: Integritas (Tingkat Dasar).\n2. Masalah Utama: Penawaran uang imbalan (gratifikasi/suap) saat penugasan pengawasan.\n3. Analisis Situasi: ASN wajib menjaga profesionalitas dan keteguhan integritas dengan menolak imbalan tidak sah serta menjalankan SOP secara konsisten.\n4. Alasan Jawaban Benar: Opsi A menunjukkan penolakan yang sopan, keteguhan prinsip integritas, dan komitmen pada SOP pengujian.\n5. Alasan Opsi Lain Kurang Tepat: Opsi B & C merupakan tindakan koruptif (gratifikasi). Opsi D mengorbankan standar mutu teknis. Opsi E tidak sesuai prosedur penanganan penegakan disiplin/hukum.\n6. Prinsip Manajerial: Menolak segala bentuk gratifikasi untuk menjaga objektivitas dan reputasi institusi."
+        },
+        {
+            q: "Anda adalah anggota tim pengawasan BDKT yang baru dibentuk. Salah satu anggota tim belum memahami cara mencatat data sampel BDKT sesuai format standar terbaru. Tindakan yang paling tepat adalah...",
+            opts: [
+                "Meninggalkan anggota tersebut dan mengerjakan seluruh pencatatan sendiri agar cepat",
+                "Melaporkan ketidakmampuan anggota tersebut langsung kepada pimpinan agar diganti",
+                "Membantu menjelaskan format standar pencatatan data BDKT dan membimbingnya hingga paham",
+                "Menegur anggota tersebut di depan seluruh tim agar lebih giat belajar",
+                "Membawa kasus ini ke rapat evaluasi bulanan tanpa memberikan bantuan teknis"
+            ],
+            ans: 2,
+            pem: "Jawaban benar: C\n\n1. Kompetensi: Kerja Sama & Pengembangan Orang Lain.\n2. Masalah Utama: Rekan tim mengalami kesulitan memahami format administrasi pencatatan data BDKT.\n3. Analisis Situasi: Kerja sama tim yang efektif menuntut kepedulian antaranggota melalui bimbingan (coaching) guna mendukung pencapaian target tim.\n4. Alasan Jawaban Benar: Opsi C memfasilitasi transfer pengetahuan dan membangun solidaritas kerja tanpa menghambat operasional.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A memicu ketergantungan dan mengabaikan teamwork. Opsi B & D dapat merusak hubungan kerja. Opsi E tidak menyelesaikan masalah operasional secara langsung.\n6. Prinsip Manajerial: Membimbing rekan kerja secara konstruktif untuk meningkatkan kompetensi kolektif tim."
+        },
+        {
+            q: "Seorang pelaku usaha mendatangi loket pelayanan Metrologi Legal dengan nada marah karena menganggap proses tera alat ukurnya terlalu lama. Tindakan pelayanan publik yang paling tepat dilakukan adalah...",
+            opts: [
+                "Menolak melayani pelaku usaha tersebut sampai ia tenang dan meminta maaf",
+                "Mendengarkan keluhan dengan tenang, memberikan penjelasan mengenai alur serta estimasi waktu sesuai SOP pelayanan",
+                "Meminta petugas keamanan mengusir pelaku usaha tersebut keluar dari area kantor",
+                "Membalas dengan nada tegas agar pelaku usaha paham bahwa petugas sedang sibuk",
+                "Menyerahkan penanganan sepenuhnya kepada atasan tanpa berusaha meredakan situasi terlebih dahulu"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Pelayanan Publik.\n2. Masalah Utama: Keluhan dan emosi pengguna layanan terkait durasi pelayanan tera.\n3. Analisis Situasi: Pelayan publik wajib menunjukkan empati, mengendalikan emosi, dan memberikan kepastian informasi sesuai standar pelayanan.\n4. Alasan Jawaban Benar: Opsi B mencerminkan sikap profesional, responsif, dan memberikan solusi transparan sesuai SOP.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A & C bersifat reaktif dan tidak ramah. Opsi D memperkeruh konflik. Opsi E menunjukkan kelemahan tanggung jawab garda depan.\n6. Prinsip Manajerial: Komunikasi empati dan kepastian informasi adalah kunci penanganan complain pengguna layanan."
+        },
+        {
+            q: "Dinas Perdagangan mulai menerapkan sistem pendaftaran tera ulang secara daring (online). Seorang staf senior merasa ragu menggunakan sistem tersebut karena terbiasa dengan pencatatan manual. Tindakan Anda sebagai rekan kerja adalah...",
+            opts: [
+                "Membiarkan staf senior tersebut tetap menggunakan pencatatan manual",
+                "Mengajak dan mendampingi staf senior tersebut untuk mempelajari langkah-langkah penggunaan aplikasi daring secara bertahap",
+                "Melaporkan staf senior tersebut kepada pimpinan karena dianggap menghambat digitalisasi",
+                "Mengambil alih seluruh tugas pendaftaran daring staf senior tersebut seterusnya",
+                "Mengkritik kebiasaan lama staf senior di depan rekan kerja lainnya"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Mengelola Perubahan & Kerja Sama.\n2. Masalah Utama: Resistensi atau kecanggokan anggota tim terhadap transformasi digital pelayanan.\n3. Analisis Situasi: Proses transisi teknologi membutuhkan edukasi persuasif dan dukungan antarpegawai agar adaptasi berjalan mulus.\n4. Alasan Jawaban Benar: Opsi B memadukan dukungan interpersonal dan komitmen terhadap kebijakan perubahan organisasi.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A menghambat inovasi. Opsi C & E menurunkan moral kerja. Opsi D menciptakan kebergantungan tanpa alih pengetahuan.\n6. Prinsip Manajerial: Mendampingi proses adaptasi teknologi menciptakan budaya kerja yang adaptif dan inklusif."
+        },
+        {
+            q: "Anda ditugaskan menyusun laporan hasil pelayanan tera/tera ulang mingguan. Pada saat yang sama, atasan meminta data statistik ringkas untuk bahan rapat mendadak dalam waktu 30 menit. Langkah yang paling tepat adalah...",
+            opts: [
+                "Menolak permintaan atasan karena sedang fokus menyusun laporan mingguan",
+                "Menyusun data statistik ringkas yang diminta atasan terlebih dahulu, lalu melanjutkan laporan mingguan setelahnya",
+                "Mengerjakan kedua laporan secara acak tanpa memprioritaskan salah satu",
+                "Meminta atasan menunda rapat sampai laporan mingguan Anda selesai seluruhnya",
+                "Pura-pura tidak membaca pesan dari atasan agar tidak terganggu"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Orientasi pada Hasil & Prioritas Tugas.\n2. Masalah Utama: Tiga tugas berbenturan dengan tingkat kegentingan (urgensi) yang berbeda.\n3. Analisis Situasi: ASN harus mampu menilai tingkat urgensi kebutuhan organisasi (rapat mendadak) tanpa mengabaikan tugas rutin.\n4. Alasan Jawaban Benar: Opsi B menunjukkan fleksibilitas kerja dan pengelolaan prioritas yang tepat waktu.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A & D kaku terhadap kebutuhan pimpinan. Opsi C berisiko menurunkan kualitas kedua tugas. Opsi E melanggar etika kerja.\n6. Prinsip Manajerial: Utamakan tugas dengan tenggat waktu paling mendesak yang memiliki dampak langsung bagi pimpinan/organisasi."
+        },
+        {
+            q: "Saat kegiatan pengawasan lapangan di stasiun pengisian bahan bakar, Anda menemukan adanya ketidaksesuaian kecil pada dokumen administrasi yang dapat dipenuhi dalam hitungan jam. Langkah paling profesional yang diambil adalah...",
+            opts: [
+                "Langsung menyegel SPBU tanpa memberikan kesempatan klarifikasi administrasi",
+                "Mencatat temuan administrasi, memberikan peringatan resmi, dan menetapkan tenggat waktu singkat bagi pengelola untuk melengkapinya",
+                "Mengabaikan temuan tersebut karena menganggapnya tidak penting",
+                "Meminta imbalan agar catatan ketidaksesuaian dihapuskan dari laporan",
+                "Menyerahkan seluruh berkas pengawasan kepada masyarakat untuk dinilai"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Pengambilan Keputusan & Etika Penegakan Aturan.\n2. Masalah Utama: Temuan minor bersifat administratif saat penugasan lapangan.\n3. Analisis Situasi: Keputusan harus proporsional antara penegakan aturan dan pembinaan terhadap pelaku usaha.\n4. Alasan Jawaban Benar: Opsi B menerapkan asas proporsionalitas, edukasi hukum, dan kepastian batas waktu perbaikan.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A terlalu represif untuk pelanggaran minor. Opsi C melalaikan pengawasan. Opsi D tindak pelanggaran integritas. Opsi E salah sasaran kewenangan.\n6. Prinsip Manajerial: Ambil tindakan pembinaan yang terukur sebelum menerapkan sanksi berat sesuai klasifikasi pelanggaran."
+        },
+        {
+            q: "Ketika menyampaikan hasil pengujian alat ukur kepada pemilik toko yang kurang memahami istilah teknis metrologi, cara komunikasi yang paling tepat adalah...",
+            opts: [
+                "Menggunakan istilah teknis kompleks agar terlihat berpendidikan dan berwibawa",
+                "Menjelaskan hasil pengujian menggunakan bahasa yang sederhana, mudah dipahami, serta menyampaikan konsekuensinya secara jelas",
+                "Meminta pemilik toko membaca sendiri peraturan perundang-undangan yang berlaku",
+                "Mengirimkan berkas teknis tanpa memberikan penjelasan lisan sama sekali",
+                "Menyarankan pemilik toko menyewa konsultan hukum untuk mengartikan hasil pengujian"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Komunikasi Publik.\n2. Masalah Utama: Hambatan pemahaman istilah teknis metrologi oleh masyarakat/pelaku usaha.\n3. Analisis Situasi: Komunikasi efektif mensyaratkan penyesuaian gaya dan istilah agar pesan diterima secara akurat oleh audiens.\n4. Alasan Jawaban Benar: Opsi B memastikan transparansi informasi dan pemahaman pengguna layanan.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A menciptakan barrier komunikasi. Opsi C, D, & E tidak empatik dan melepas tanggung jawab komunikasi publik.\n6. Prinsip Manajerial: Sederhanakan penyampaian informasi teknis agar dipahami dengan tepat oleh masyarakat luas."
+        },
+        {
+            q: "Anda menemukan kesalahan pengetikkan kecil pada draf laporan rekapitulasi tera ulang yang telah ditandatangani oleh ketua tim, namun laporan belum dikirim ke Dinas. Tindakan terbaik Anda adalah...",
+            opts: [
+                "Mengabaikan kesalahan tersebut karena laporan sudah ditandatangani",
+                "Menginformasikan kesalahan pengetikkan tersebut kepada ketua tim dan mengajukan koreksi draf sebelum dikirim",
+                "Mengubah isi laporan secara diam-diam tanpa memberitahu ketua tim",
+                "Menyalahkan petugas pembuat draf di depan umum",
+                "Menunda pengiriman laporan hingga batas waktu yang tidak ditentukan"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Integritas & Kecermatan Hasil Kerja.\n2. Masalah Utama: Adanya kekeliruan data/ketikan pada dokumen resmi yang terlanjur ditandatangani.\n3. Analisis Situasi: Setiap perbaikan dokumen resmi wajib mengedepankan transparansi, koordinasi, dan akuntabilitas hierarki.\n4. Alasan Jawaban Benar: Opsi B menjaga keakuratan dokumen sekaligus menghormati etika birokrasi dan hierarki kepemimpinan.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A membiarkan kebohongan administrasi. Opsi C menyalahi kewenangan/etika. Opsi D merusak iklim kerja. Opsi E tidak profesional.\n6. Prinsip Manajerial: Lakukan klarifikasi dan koreksi secara terbuka melalui koordinasi hierarki sebelum dokumen dipublikasikan."
+        },
+        {
+            q: "Untuk meningkatkan kualitas pelayanan penerbitan Surat Keterangan Hasil Pengujian (SKHP), unit kerja Anda menetapkan target penyelesaian dari 3 hari menjadi 2 hari kerja. Sikap Anda terhadap perubahan target ini adalah...",
+            opts: [
+                "Menolak target baru karena akan menambah beban kerja harian",
+                "Menerima target baru dan mengevaluasi alur kerja untuk menemukan cara kerja yang lebih efisien",
+                "Bekerja asal cepat tanpa memperhatikan kerapian dan ketelitian data SKHP",
+                "Meminta tambahan gaji terlebih dahulu sebelum menjalankan target baru",
+                "Mengerjakan dokumen seperti biasa tanpa mempedulikan target waktu baru"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Orientasi pada Hasil & Pengelolaan Perubahan.\n2. Masalah Utama: Peningkatan standar target kinerja (service level agreement) penerbitan dokumen.\n3. Analisis Situasi: ASN proaktif akan menjadikan peningkatan target sebagai dorongan melakukan perbaikan efisiensi alur kerja (process improvement).\n4. Alasan Jawaban Benar: Opsi B menunjukkan komitmen mutu, efisiensi kerja, dan sikap positif terhadap tantangan organisasi.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A & E menunjukkan resistensi kaku. Opsi C merusak mutu pelayanan. Opsi D mengabaikan kewajiban pengabdian ASN.\n6. Prinsip Manajerial: Tanggapi kenaikan target dengan perbaikan metode kerja secara berkelanjutan."
+        },
+        {
+            q: "Dalam sebuah diskusi tim pengawasan, terjadi perbedaan pendapat antara dua rekan kerja mengenai metode sampling barang kemasan. Sebagai anggota tim, tindakan Anda adalah...",
+            opts: [
+                "Mendukung rekan yang paling dekat secara personal tanpa melihat argumen teknis",
+                "Mendorong kedua rekan untuk menyampaikan argumen berdasarkan aturan teknis yang berlaku dan mencari solusi bersama",
+                "Acuh tak acuh dan membiarkan perdebatan berlangsung tanpa penyelesaian",
+                "Melaporkan perdebatan tersebut ke media sosial kantor",
+                "Pindah ke tim kerja lain agar tidak terlibat perbedaan pendapat"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Bekerja Sama & Mengelola Konflik.\n2. Masalah Utama: Perbedaan pendapat teknis antaranggotadalam tim pengawasan.\n3. Analisis Situasi: Perbedaan pendapat harus diselesaikan secara rasional dan objektif dengan mengacu pada regulasi/SOP resmi.\n4. Alasan Jawaban Benar: Opsi B mengarahkan diskusi ke basis aturan objektif (evidence-based) dan menjaga keharmonisan tim.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A bersikap subjektif/subyektif. Opsi C pasif. Opsi D melanggar etika. Opsi E menghindar dari tanggung jawab tim.\n6. Prinsip Manajerial: Selesaikan silang pendapat tim dengan merujuk pada standar dan aturan hukum resmi."
+        },
+
+        // --- 20 SOAL SEDANG ---
+        {
+            q: "Anda bertugas dalam tim pengujian tera ulang Alat Ukur, Takar, Timbang, dan Perlengkapannya (UTTP) di area pedalaman. Salah satu peralatan standar uji mengalami penurunan akurasi akibat guncangan perjalanan. Sementara itu, antrean pedagang yang ingin menera alat ukurnya cukup panjang. Tindakan yang paling tepat adalah...",
+            opts: [
+                "Tetap menggunakan alat standar tersebut agar pelayanan selesai cepat dan masyarakat tidak kecewa",
+                "Menghentikan sementara pengujian, melakukan penyesuaian/kalibrasi ulang peralatan standar sesuai prosedur, baru melanjutkan pelayanan",
+                "Menerapkan perkiraan kasar penunjukan alat ukur pedagang tanpa menggunakan alat standar",
+                "Membatalkan seluruh kegiatan tera ulang dan langsung pulang ke kantor dinas",
+                "Meminta pedagang menentukan sendiri apakah alat ukurnya sah atau tidak"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Pengambilan Keputusan & Akuntabilitas Teknis.\n2. Masalah Utama: Kerusakan/penurunan akurasi instrumen standar uji di lapangan saat antrean pelayanan tinggi.\n3. Analisis Situasi: Keabsahan metrologi legal berlandaskan validitas alat standar. Pengujian dengan alat standar rusak membatalkan kepastian hukum produk tera.\n4. Alasan Jawaban Benar: Opsi B mengutamakan keabsahan hukum dan kepastian akurasi pengujian dengan melakukan penyesuaian standar terlebih dahulu.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A & C melanggar hukum metrologi dan merugikan konsumen/pedagang. Opsi D tidak solutif dan merusak citra dinas. Opsi E melepas kewenangan dinas.\n6. Prinsip Manajerial: Kualitas dan keabsahan legally-binding tidak boleh dikorbankan demi mengejar kecepatan pelayanan."
+        },
+        {
+            q: "Sebuah asosiasi pedagang mengajukan keberatan atas jadwal pengawasan metrologi legal yang bertepatan dengan puncak hari pasar. Mereka mengancam akan melakukan aksi protes jika jadwal tidak diubah. Sebagai koordinator tim pengawasan, langkah terbaik Anda adalah...",
+            opts: [
+                "Membatalkan seluruh rencana pengawasan di pasar tersebut untuk menghindari konflik",
+                "Mengajak perwakilan asosiasi pedagang berdiskusi untuk menjelaskan tujuan pengawasan serta menyepakati penyesuaian teknis alur pengawasan tanpa mengurangi efektivitas",
+                "Tetap melaksanakan pengawasan dengan membawa aparat pengamanan secara masif untuk menekan pedagang",
+                "Memindahkan lokasi pengawasan ke pasar lain secara diam-diam tanpa pemberitahuan",
+                "Melaporkan seluruh pedagang ke pihak kepolisian atas tuduhan penghambatan tugas"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Komunikasi, Mengelola Konflik & Pelayanan Publik.\n2. Masalah Utama: Penolakan jadwal pengawasan oleh asosiasi pedagang karena dikhawatirkan mengganggu omzet transaksi.\n3. Analisis Situasi: Koordinator harus mampu berdialog secara persuasif, mencari titik temu tanpa mengorbankan esensi regulasi pengawasan.\n4. Alasan Jawaban Benar: Opsi B menunjukkan pendekatan persuasif, dialogis, win-win solution, dan menjaga kondusifitas hubungan kemitraan.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A lemah dalam penegakan aturan. Opsi C kaku dan memicu eskalasi konflik. Opsi D & E tidak profesional serta tidak komunikatif.\n6. Prinsip Manajerial: Gunakan komunikasi dialogis untuk membangun kesadaran hukum tanpa menciptakan gesekan publik."
+        },
+        {
+            q: "Anda mendapatkan tugas melakukan pengawasan Barang Dalam Keadaan Terbungkus (BDKT) di beberapa supermarket. Dalam waktu bersamaan, atasan menugaskan Anda menjadi saksi ahli dalam persidangan dugaan pelanggaran metrologi. Kedua tugas jatuh pada hari dan jam yang sama. Tindakan yang harus dilakukan adalah...",
+            opts: [
+                "Menghadiri persidangan sebagai saksi ahli karena sifatnya mengikat hukum, serta berkoordinasi dengan atasan untuk mendeputasikan/mengatur ulang jadwal pengawasan BDKT",
+                "Melaksanakan pengawasan BDKT dan mengabaikan panggilan persidangan",
+                "Meminta rekan kerja menggantikan posisi Anda sebagai saksi ahli tanpa konfirmasi pengadilan",
+                "Tidak menghadiri kedua tugas tersebut karena bingung menentukan pilihan",
+                "Mengikuti persidangan sebentar lalu kabur di tengah acara untuk mengawasi BDKT"
+            ],
+            ans: 0,
+            pem: "Jawaban benar: A\n\n1. Kompetensi: Pengambilan Keputusan & Perencanaan Prioritas.\n2. Masalah Utama: Benturan jadwal antara kewajiban hukum saksi ahli pengadilan dan tugas lapangan pengawasan BDKT.\n3. Analisis Situasi: Panggilan persidangan memiliki konsekuensi hukum mengikat (mandatory court order) yang harus diprioritaskan ketimbang pengawasan rutin yang jadwalnya masih dapat disesuaikan.\n4. Alasan Jawaban Benar: Opsi A tepat secara hukum formal, akuntabel, dan menyelesaikan kedua tanggung jawab melalui delegasi/penjadwalan ulang resmi.\n5. Alasan Opsi Lain Kurang Tepat: Opsi B melanggar hukum acara peradilan. Opsi C menyalahi prosedur saksi ahli yang ditunjuk secara personal. Opsi D & E tidak bertanggung jawab dan merusak kredibilitas ASN.\n6. Prinsip Manajerial: Utamakan kewajiban hukum formal yang tidak dapat diwakilkan, lalu koordinasikan penyesuaian tugas operasional lainnya."
+        },
+        {
+            q: "Di unit kerja Anda, terjadi penumpukan tunggakan permohonan tera ulang instrumen timbangan industri akibat terbatasnya jumlah petugas tera yang tersertifikasi. Sebagai koordinator pelayanan, langkah strategis yang perlu Anda ambil adalah...",
+            opts: [
+                "Menolak permohonan baru sampai seluruh tunggakan selesai dikerjakan",
+                "Menyusun pemetaan prioritas berdasarkan risiko dan batas waktu, serta membagi peran pendukung bagi staf non-teknis untuk membantu proses administrasi petugas tera",
+                "Menerbitkan sertifikat tera ulang tanpa melakukan pengujian fisik demi mengejar target",
+                "Mewajibkan petugas tera bekerja 24 jam nonstop tanpa istirahat",
+                "Membiarkan penumpukan terjadi karena hal tersebut adalah konsekuensi keterbatasan personel"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Perencanaan, Delegasi & Orientasi pada Hasil.\n2. Masalah Utama: Bottleneck pelayanan akibat ketidakseimbangan volume permohonan dan keterbatasan SDM fungsional.\n3. Analisis Situasi: Pemimpin/koordinator harus mampu merekayasa alur kerja (workflow engineering) dan mengoptimalkan pembaginya agar tenaga ahli fokus pada tugas inti teknis.\n4. Alasan Jawaban Benar: Opsi B mengoptimalkan sumber daya secara efisien, tidak melanggar SOP teknis, dan mengurai backlog secara sistematis.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A merugikan dunia usaha. Opsi C merupakan malpraktik dan kejahatan jabatan. Opsi D merusak kesehatan/keselamatan kerja. Opsi E pasif.\n6. Prinsip Manajerial: Optimalkan pembagian beban kerja pendukung untuk membebaskan tenaga ahli fokus pada proses teknis utama."
+        },
+        {
+            q: "Tim Anda ditugaskan melakukan pemetaan Daerah Tertib Ukur (DTU) di wilayah pesisir. Dalam perjalanan, salah satu mobil operasional mengalami kerusakan berat sehingga memperlambat pergerakan tim. Bagaimana tindakan kepemimpinan yang tepat dilakukan oleh ketua tim?",
+            opts: [
+                "Menyalahkan pengemudi mobil dan menghentikan seluruh kegiatan pemetaan",
+                "Mengevaluasi ulang target harian, mengkonsolidasikan personel ke kendaraan yang tersisa, dan mengarahkan fokus pada titik sasaran utama yang efisien",
+                "Meminta seluruh anggota tim berjalan kaki membawa peralatan standar yang berat",
+                "Meninggalkan anggota yang mobilnya rusak di jalan tanpa bantuan",
+                "Melaporkan kepada pimpinan bahwa tugas tidak bisa dilaksanakan sama sekali"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Kepemimpinan, Adaptasi & Penyelesaian Masalah.\n2. Masalah Utama: Kendala logistik/sarana transportasi saat penugasan lapangan berbatas waktu.\n3. Analisis Situasi: Pemimpin tim harus bersikap tenang, adaptif terhadap hambatan mendadak, dan mengorganisasi ulang sumber daya agar target utama tetap tercapai.\n4. Alasan Jawaban Benar: Opsi B mencerminkan fleksibilitas taktis, kepedulian tim, dan orientasi penyelesaian target dalam keterbatasan.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A emosional dan tidak solutif. Opsi C membahayakan keselamatan personel. Opsi D merusak soliditas. Opsi E menyerah tanpa upaya mitigasi.\n6. Prinsip Manajerial: Hadapi hambatan operasional dengan melakukan penyesuaian taktis dan optimalisasi daya yang ada."
+        },
+        {
+            q: "Seorang pelaku usaha grosir bahan pokok adalah kerabat dekat dari atasan Anda. Ketika dilakukan uji petik BDKT, ditemukan kemasan beras grosir milik kerabat tersebut kurang dari kuantitas yang tertera. Atasan meminta Anda 'memaklumi' temuan tersebut. Tindakan berintegritas Anda adalah...",
+            opts: [
+                "Mengikuti instruksi atasan untuk menghapus data temuan dari laporan demi menjaga hubungan baik",
+                "Tetap mencatat data hasil uji petik secara akurat sesuai kenyataan, menyusun BAP, dan menyampaikannya secara profesional sesuai SOP pengawasan",
+                "Membocorkan informasi ini ke media massa agar atasan ditegur publik",
+                "Pura-pura sakit agar tidak perlu menyelesaikan laporan pengawasan BDKT tersebut",
+                "Mengubah angka hasil penimbangan agar terlihat lulus tetapi memberikan teguran lisan pribadi"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Integritas & Menghindari Konflik Kepentingan.\n2. Masalah Utama: Tekanan atasan untuk mengabaikan pelanggaran BDKT kerabatnya (intervensi/nepotisme).\n3. Analisis Situasi: Petugas pengawas terikat pada prinsip kebenaran objektif, akuntabilitas publik, dan kepatuhan hukum tanpa pandang bulu.\n4. Alasan Jawaban Benar: Opsi B menegakkan objektivitas, profesionalitas, integritas ASN, dan menjalankan SOP tanpa terpengaruh konflik kepentingan.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A melanggar integritas ASN. Opsi C melanggar etika saluran komunikasi kedinasan. Opsi D menghindar secara tidak satria. Opsi E pemalsuan data dokumen negara.\n6. Prinsip Manajerial: Independensi dan objektivitas data pengawasan adalah harga mati integritas aparatur."
+        },
+        {
+            q: "Dalam rangka meningkatkan koordinasi pengawasan metrologi legal lintas sektor, Anda ditunjuk mewakili dinas untuk berdiskusi dengan Kepolisian dan Kejaksaan. Namun, perwakilan instansi lain memiliki persepsi teknis yang berbeda mengenai pasal tata cara penyitaan UTTP. Sikap komunikasi Anda adalah...",
+            opts: [
+                "Ngotot bahwa pendapat Anda paling benar dan mengancam akan keluar dari ruang rapat",
+                "Menjelaskan dasar hukum metrologi legal secara faktual dan ilmiah, serta mendengarkan sudut pandang hukum acara mereka untuk mencapai kesepahaman prosedur bersama",
+                "Menerima seluruh pendapat instansi lain meskipun bertentangan dengan UU Metrologi Legal",
+                "Mengabaikan perbedaan pendapat dan menyusun aturan sendiri secara sepihak",
+                "Meminta rapat dibatalkan karena menganggap instansi lain tidak memahami metrologi"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Komunikasi & Kerja Sama Lintas Bidang/Instansi.\n2. Masalah Utama: Perbedaan penafsiran hukum tata cara penyitaan barang bukti antara Dinas dan APH.\n3. Analisis Situasi: Komunikasi antarinstansi membutuhkan sikap saling menghormati, kejelasan argumentasi berbasis regulasi, dan fleksibilitas untuk menyelaraskan SOP bersama.\n4. Alasan Jawaban Benar: Opsi B membangun hubungan kerja inter-lembaga yang konstruktif dan harmonis tanpa mengorbankan kepatuhan hukum.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A arogan dan merusak sinergi. Opsi C mengorbankan asas hukum teknis metrologi. Opsi D & E destruktif dan egosentris.\n6. Prinsip Manajerial: Sinergi antar-instansi dibangun melalui komunikasi faktual, saling mendengarkan, dan penyelarasan pandangan hukum."
+        },
+        {
+            q: "Anda ditugaskan mengelola inventaris alat standar metrologi yang bernilai tinggi. Anda mendapati bahwa salah satu alat standar laboratorium tidak dikalibrasi sesuai jadwal tahunan karena kelalaian petugas administrasi periode sebelumnya. Tindakan yang paling tepat adalah...",
+            opts: [
+                "Melaporkan kondisi tersebut kepada pimpinan disertai usulan jadwal kalibrasi ulang secepatnya dan menghentikan sementara penggunaan alat tersebut demi menjamin rantai ketertelusuran",
+                "Tetap menggunakan alat standar tersebut untuk pelayanan tera ulang agar pendapatan retribusi tidak berkurang",
+                "Sembunyi-sembunyi mengubah tanggal stiker kalibrasi agar terlihat masih berlaku",
+                "Menyalahkan pejabat terdahulu secara terbuka di rapat dinas tanpa memberikan usulan solusi",
+                "Menjual alat standar tersebut karena dianggap sudah tidak berguna lagi"
+            ],
+            ans: 0,
+            pem: "Jawaban benar: A\n\n1. Kompetensi: Pengambilan Keputusan, Manajemen Risiko & Akuntabilitas.\n2. Masalah Utama: Terlewatinya masa berlakunya kalibrasi alat standar laboratorium akibat kelalaian masa lalu.\n3. Analisis Situasi: Keabsahan metrologis bertumpu pada rantai ketertelusuran (traceability). Alat standar kadaluarsa legalitasnya dapat membatalkan seluruh produk tera.\n4. Alasan Jawaban Benar: Opsi A memitigasi risiko hukum metrologi, transparan, dan memberikan solusi pemulihan akreditasi standar.\n5. Alasan Opsi Lain Kurang Tepat: Opsi B membahayakan legalitas pelayanan publik. Opsi C tindak kejahatan pemalsuan. Opsi D tidak profesional. Opsi E kejahatan penyalahgunaan aset negara.\n6. Prinsip Manajerial: Hentikan penggunaan fasilitas pengujian yang kadaluarsa untuk melindungi legalitas hukum institusi."
+        },
+        {
+            q: "Sebuah inovasi baru berupa layanan 'Tera Drive-Thru' untuk timbangan pedagang kecil diresmikan oleh pimpinan. Namun, pada minggu pertama penerapannya, jumlah pedagang yang memanfaatkan layanan tersebut sangat sedikit. Sebagai penanggung jawab operasional, tindakan Anda adalah...",
+            opts: [
+                "Menutup layanan Drive-Thru karena dinilai tidak efektif dan membuang anggaran",
+                "Melakukan evaluasi lapangan, mengidentifikasi penyebab rendahnya partisipasi (seperti kurangnya sosialisasi atau lokasi), serta merumuskan strategi promosi yang tepat",
+                "Memaksa seluruh pedagang untuk menggunakan layanan Drive-Thru dengan sanksi denda",
+                "Menyalahkan masyarakat yang dianggap tidak mau memanfaatkan fasilitas modern",
+                "Mendiamkan kondisi tersebut sampai pimpinan sendiri yang menegur"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Evaluasi Hasil, Mengelola Perubahan & Pelayanan Publik.\n2. Masalah Utama: Rendahnya utilisasi inovasi layanan publik yang baru diluncurkan.\n3. Analisis Situasi: Kegagalan awal inovasi harus direspon dengan evaluasi berbasis data (fact-based evaluation) untuk mengidentifikasi bottleneck pemanfaatan.\n4. Alasan Jawaban Benar: Opsi B menunjukkan pola pikir adaptif, analitis, dan komitmen terhadap perbaikan berlanjut (continuous improvement).\n5. Alasan Opsi Lain Kurang Tepat: Opsi A prematur dan tidak solutif. Opsi C otoriter dan memperkeruh hubungan dengan publik. Opsi D menyalahkan pelanggan. Opsi E pasif dan tidak bertanggung jawab.\n6. Prinsip Manajerial: Lakukan evaluasi objektif dan penyesuaian strategi saat inovasi baru belum mencapai hasil optimal."
+        },
+        {
+            q: "Saat penugasan tera ulang di pasar daerah terpencil, fasilitas listrik padam total dan tidak ada generator cadangan, padahal masih ada 20 timbangan digital pedagang yang belum diuji. Tindakan yang paling tepat adalah...",
+            opts: [
+                "Membubuhkan cap tera sah pada 20 timbangan tersebut tanpa diuji karena kasihan pada pedagang yang sudah menunggu",
+                "Menjelaskan kendala teknis kepada pedagang secara empatik, mencatat data pemilik timbangan, serta menjadwalkan ulang pelayanan atau membawa genset portabel pada hari berikutnya",
+                "Meminta pedagang membawa sendiri timbangan digital mereka ke kantor dinas di ibu kota kabupaten yang jauh",
+                "Meninggalkan lokasi pasar begitu saja tanpa memberikan penjelasan apapun",
+                "Memaksa menguji timbangan digital menggunakan baterai rakitan yang tidak terstandarisasi"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Pelayanan Publik, Komunikasi & Pengambilan Keputusan.\n2. Masalah Utama: Gangguan sarana utilitas (listrik padam) saat pengujian alat digital di daerah terpencil.\n3. Analisis Situasi: Pelayan publik harus mampu mengomunikasikan keterbatasan teknis secara jujur, menjaga empati, serta menyediakan solusi konkret pengganti.\n4. Alasan Jawaban Benar: Opsi B menjaga kredibilitas hukum pengujian sekaligus memberikan kepastian jadwal pelayanan susulan yang terencana.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A melanggar hukum tera. Opsi C memberatkan masyarakat secara finansial/jarak. Opsi D acuh tak acuh. Opsi E membahayakan peralatan uji dan ketelitian.\n6. Prinsip Manajerial: Jaga standar teknis pengujian sembari memberikan kepastian solusi pelayanan kepada masyarakat."
+        },
+        {
+            q: "Rekan kerja satu tim Anda sering terlambat menyerahkan laporan hasil tera ulang sehingga memicu keterlambatan penginputan data rekapitulasi tingkat dinas. Tindakan interpersonal yang paling tepat Anda lakukan sebagai sesama staf adalah...",
+            opts: [
+                "Melaporkan kebiasaan buruknya langsung kepada Kepala Dinas agar diberikan sanksi berat",
+                "Mengajaknya berbicara secara personal, menanyakan kendala yang dihadapi, dan menawarkan bantuan metode penyusunan laporan yang lebih cepat",
+                "Mengerjakan seluruh laporannya tanpa memberi tahu yang bersangkutan agar tugas Anda tidak terhambat",
+                "Sindat-sindat rekan tersebut di grup WhatsApp kantor agar merasa malu",
+                "Mendiamkan saja karena merasa itu bukan tanggung jawab Anda"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Kerja Sama, Komunikasi Persuasif & Mengelola Konflik.\n2. Masalah Utama: Keterlambatan kinerja rekan kerja berpengaruh pada output kolektif tim.\n3. Analisis Situasi: Pendekatan awal antar-rekan setingkat (peer-to-peer) hendaknya dilakukan secara konstruktif dan empatik sebelum melibatkan hierarki atas.\n4. Alasan Jawaban Benar: Opsi B membangun hubungan kerja sehat, mencari akar masalah (root cause), dan menawarkan solusi saling mendukung.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A terlalu cepat melompati mekanisme komunikasi rekan sejawat. Opsi C memanjakan kelalaian. Opsi D destruktif dan menciptakan konflik beracun. Opsi E acuh pada kinerja tim.\n6. Prinsip Manajerial: Lakukan pendekatan persuasif personal untuk menyelesaikan kendala kerja rekan setim secara kekeluargaan profesional."
+        },
+        {
+            q: "Dinas Anda menerima instrumen standar pengujian baru berteknologi tinggi. Mayoritas pegawai senior enggan menggunakannya karena menganggap alat lama masih berfungsi. Sebagai pegawai yang telah dilatih mengoperasikan alat baru tersebut, tindakan Anda adalah...",
+            opts: [
+                "Simpan pengetahuan tersebut untuk diri sendiri agar Anda menjadi pegawai yang paling diandalkan",
+                "Membuat sesi berbagi pengetahuan (sharing session) dan mendampingi rekan-rekan senior dalam praktik langsung penggunaan alat baru",
+                "Mengejek pegawai senior yang tidak mampu mengoperasikan alat baru",
+                "Meminta pimpinan membuang alat standar lama ke tempat pembuangan sampah",
+                "Menolak mengoperasikan alat baru tersebut agar tidak dimusuhi oleh senior"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Pengembangan Diri/Orang Lain & Mengelola Perubahan.\n2. Masalah Utama: Kesenjangan kemampuan operasional teknologi baru antara pegawai muda dan senior.\n3. Analisis Situasi: Pegawai yang memiliki kompetensi baru bertindak sebagai agen perubahan (agent of change) melalui peer-learning yang inklusif.\n4. Alasan Jawaban Benar: Opsi B merangkul seluruh anggota tim, memfasilitasi alih teknologi, dan menghormati pegawai senior secara santun.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A egois dan ego-sentris. Opsi C tidak beretika. Opsi D tidak rasional. Opsi E tidak berkontribusi pada kemajuan organisasi.\n6. Prinsip Manajerial: Bagikan pengetahuan teknologi baru secara inklusif untuk mendorong modernisasi organisasi bersama."
+        },
+        {
+            q: "Dalam pengawasan rutin BDKT di distributor besar, ditemukan kekurangan volume yang melampaui batas toleransi. Pemilik distributor memohon agar tidak ditindak dengan alasan barang tersebut impor dan ia hanya menyalurkan. Keputusan yang paling sesuai aturan adalah...",
+            opts: [
+                "Meloloskan distributor tersebut karena ia bukan produsen pembuat barang",
+                "Tetap melakukan penyegelan/penarikan sampel resmi, menerbitkan BAP Pengawasan, dan melarang peredaran lot BDKT tersebut sesuai prosedur hukum BDKT",
+                "Meminta distributor membayar denda tunai di tempat tanpa Berita Acara",
+                "Menyarankan distributor menjual barang tersebut ke pasar tradisional saja",
+                "Menyerahkan seluruh barang bukti BDKT tersebut untuk dikonsumsi pribadi petugas"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Penegakan Aturan, Objektivitas & Pelayanan Publik.\n2. Masalah Utama: Pemilik distributor mengelak dari tanggung jawab hukum peredaran BDKT tidak sesuai standar netto.\n3. Analisis Situasi: Hukum BDKT mengikat seluruh rantai distribusi (produsen, pengemas, pengimpor, distributor) untuk menjamin perlindungan konsumen akhir.\n4. Alasan Jawaban Benar: Opsi B menerapkan regulasi pengawasan secara objektif, konsisten, dan akuntabel.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A pembiaran pelanggaran hukum. Opsi C tindak pungli/gratifikasi. Opsi D mengalihkan bahaya ke konsumen tidak mampu. Opsi E penyelewengan barang bukti.\n6. Prinsip Manajerial: Tegakkan standar pengawasan hukum secara konsisten pada seluruh alur distribusi untuk melindungi konsumen."
+        },
+        {
+            q: "Anda dipercaya menyusun rencana anggaran kegiatan pengawasan metrologi legal tahun depan. Namun, alokasi anggaran yang disetujui oleh Pemda dipangkas sebesar 30%. Strategi perencanaan yang harus Anda lakukan adalah...",
+            opts: [
+                "Menghentikan seluruh kegiatan pengawasan lapangan selama satu tahun penuh",
+                "Mengulang analisis skala prioritas, memfokuskan lokasi pengawasan pada sektor berrisiko tinggi (seperti BBM dan beras), serta mengoptimalkan metode pengawasan gabungan (integrated inspection)",
+                "Mengajukan protes keras dan mogok kerja sampai anggaran dikembalikan utuh",
+                "Mengurangi kuantitas timbangan yang diuji tetapi melaporkan jumlah yang sama",
+                "Meminta pengusaha pasar membiayai seluruh operasional pengawasan"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Perencanaan, Manajemen Risiko & Orientasi pada Hasil.\n2. Masalah Utama: Keterbatasan alokasi anggaran operasional pengawasan sebesar 30%.\n3. Analisis Situasi: Keterbatasan anggaran menuntut optimalisasi berbasis prioritas risiko (risk-based resource allocation) agar fungsi pengawasan utama tetap berjalan efektif.\n4. Alasan Jawaban Benar: Opsi B menunjukkan kecerdasan finansial, pemetaan prioritas berbasis risiko, dan efisiensi metode kerja.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A melalaikan fungsi pelayanan publik. Opsi C emosional dan tidak profesional. Opsi D pemalsuan laporan kinerja. Opsi E memicu konflik kepentingan dan kejahatan gratifikasi.\n6. Prinsip Manajerial: Siasati keterbatasan anggaran dengan alokasi berbasis skala prioritas risiko dampak publik terbesar."
+        },
+        {
+            q: "Seorang warga masyarakat melaporkan dugaan kecurangan timbangan pedagang buah melalui media sosial dan menjadi viral. Pimpinan meminta Anda menangani masalah ini. Langkah pertama yang paling tepat adalah...",
+            opts: [
+                "Mengabaikan postingan tersebut karena menganggap keluhan media sosial tidak resmi",
+                "Segera melakukan verifikasi lapangan ke lokasi pedagang terkait, menguji akurasi timbangan, dan menyampaikan klarifikasi penanganan secara transparan kepada publik",
+                "Menuntut warga yang memposting dengan UU ITE karena mencemarkan nama baik pasar",
+                "Menutup seluruh toko buah di pasar tersebut tanpa pemeriksaan",
+                "Membuat pernyataan fiktif di media sosial bahwa timbangan pedagang sudah diperiksa dan akurat"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Tanggap Pelayanan Publik, Komunikasi Krisis & Penyelesaian Masalah.\n2. Masalah Utama: Isu viral dugaan kecurangan takaran pedagang yang meresahkan masyarakat di media sosial.\n3. Analisis Situasi: Respons terhadap krisis publik memerlukan tindakan cepat berbasis fakta (quick response) dan transparansi informasi penanganan kepada publik.\n4. Alasan Jawaban Benar: Opsi B memadukan respon aksi nyata pengawasan lapangan dan komunikasi publik yang responsif akuntabel.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A lambat dan defensif. Opsi C menunjukkan antikritik. Opsi D gegabah dan merugikan pedagang lain. Opsi E kebohongan publik.\n6. Prinsip Manajerial: Tanggapi keluhan publik dengan aksi verifikasi lapangan yang cepat dan klarifikasi fakta yang transparan."
+        },
+        {
+            q: "Anda ditugaskan mendampingi tim pemeriksa auditor internal kementerian. Ketika mengaudit dokumen pelayanan tera, auditor menemukan kelengkapan administrasi yang kurang rapi dari berkas kerja Anda beberapa bulan lalu. Sikap Anda adalah...",
+            opts: [
+                "Menolak temuan auditor dan menyalahkan rekan kerja yang menyimpan dokumen",
+                "Menerima masukan auditor dengan terbuka, mengakui kekurangan administrasi, dan segera melengkapi serta memperbaiki sistem kearsipan berkas",
+                "Mencoba menyembunyikan berkas-berkas yang belum lengkap agar tidak diperiksa lebih lanjut",
+                "Marah dan meninggalkan ruang audit",
+                "Meminta pimpinan Anda menegur auditor tersebut karena dianggap mencari-cari kesalahan"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Integritas, Akuntabilitas & Pengembangan Diri.\n2. Masalah Utama: Ditemukannya kelemahan administrasi kearsipan oleh auditor internal.\n3. Analisis Situasi: Sikap profesional ASN dalam audit adalah akuntabel, menerima rekomendasi perbaikan (feedback), dan berbenah diri.\n4. Alasan Jawaban Benar: Opsi B menunjukkan kedewasaan profesional, tanggung jawab pribadi, dan komitmen perbaikan sistem kearsipan.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A melempar kesalahan. Opsi C tidak jujur/manipulatif. Opsi D & E emosional dan tidak kooperatif.\n6. Prinsip Manajerial: Jadikan hasil audit sebagai peluang evaluasi dan perbaikan tata kelola administrasi kerja."
+        },
+        {
+            q: "Dalam penugasan pengawasan SPBU jelang libur panjang, ditemukan satu nozzle BBM subsidi jenis Pertalite memiliki takaran yang keluar dari batas BKD. Namun pengelola SPBU beralasan nozzle tersebut sangat dibutuhkan karena antrean kendaraan sangat panjang. Keputusan Anda adalah...",
+            opts: [
+                "Membiarkan nozzle tetap beroperasi demi mengurai antrean kendaraan",
+                "Tetap melakukan penyegelan pada nozzle yang melanggar BKD, menerbitkan BAP, serta meminta pengelola mengoptimalkan nozzle lain yang sah dan memenuhi syarat",
+                "Menyegel seluruh SPBU sehingga tidak ada BBM yang bisa disalurkan sama sekali",
+                "Meminta uang imbalan agar penyegelan ditunda sampai libur panjang selesai",
+                "Mengubah catatan kesalahan volume agar nozzle terlihat masuk batas BKD"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Pengambilan Keputusan, Penegakan Hukum & Pelayanan Publik.\n2. Masalah Utama: Dilema antara urgensi kelancaran antrean kendaraan dan penegakan akurasi takaran BBM subsidi.\n3. Analisis Situasi: Pengawas harus tegas menyegel instrumen yang merugikan publik secara takaran, sembari memberikan kepastian agar instrumen lain yang valid tetap beroperasi melayani masyarakat.\n4. Alasan Jawaban Benar: Opsi B menjaga keseimbangan hukum ketepatan takaran dan kelancaran arus distribusi pelayanan publik.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A mengorbankan konsumen dari kecurangan volume. Opsi C disproposional dan memicu kelangkaan BBM. Opsi D & E pelanggaran tindak pidana jabatan.\n6. Prinsip Manajerial: Hentikan instrumen bermasalah secara spesifik tanpa melumpuhkan total akses pelayanan publik yang valid."
+        },
+        {
+            q: "Tim Anda harus menyelesaikan rekapitulasi data potensi retribusi daerah dalam waktu 2 hari. Salah satu anggota tim yang memegang data kunci tiba-tiba sakit keras. Langkah cepat pimpinan/koordinator tim adalah...",
+            opts: [
+                "Pasrah dan melaporkan kepada pimpinan bahwa rekapitulasi gagal diselesaikan tepat waktu",
+                "Mengunjungi anggota yang sakit dengan sopan untuk mengambil/mentransfer data kerja dengan izinnya, lalu membagi tugas pengolahan data kepada anggota tim lain yang ada",
+                "Memaksa anggota yang sakit untuk tetap bekerja dari rumah sakit",
+                "Mengarang data statistik retribusi tanpa merujuk pada data asli",
+                "Mengeluh di media sosial tentang nasib buruk tim Anda"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Penyelesaian Masalah, Kepemimpinan & Orientasi pada Hasil.\n2. Masalah Utama: Kendala ketidakhadiran darurat personel pemegang data kunci saat tenggat waktu singkat.\n3. Analisis Situasi: Pemimpin/koordinator harus mampu melakukan taktik mitigasi darurat secara empatik tanpa melanggar kerahasiaan/etika untuk mengamankan kelangsungan target.\n4. Alasan Jawaban Benar: Opsi B empatik, cepat mengambil tindakan penyelamatan data, serta mengorganisir redistribusi tugas tim secara efektif.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A menyerah tanpa upaya. Opsi C tidak empatik pada kondisi kesehatan pegawai. Opsi D manipulasi data publik. Opsi E tidak profesional.\n6. Prinsip Manajerial: Amankan ketersediaan data kunci secara etis dan redistribusikan beban kerja saat terjadi kondisi darurat."
+        },
+        {
+            q: "Dalam rapat penyusunan SOP Pelayanan Tera Ulang, terdapat benturan pandangan antara tim teknis penguji dan tim administrasi keuangan terkait alur verifikasi pembayaran. Sebagai koordinator rapat, langkah Anda adalah...",
+            opts: [
+                "Memilih pandangan tim teknis karena menganggap bidang teknis adalah yang paling penting",
+                "Mefasilitasi pemetaan alur bersama (value stream mapping) yang mengintegrasikan kecepatan pemeriksaan teknis dan keabsahan akuntabilitas keuangan secara seimbang",
+                "Membubarkan rapat dan menyerahkan penyusunan SOP kepada atasan",
+                "Mengadopsi seluruh usulan tanpa menyelaraskan perbedaan yang ada",
+                "Meminta kedua tim berdebat sampai salah satu menyerah"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Pengelolaan Konflik, Kerja Sama & Koordinasi.\n2. Masalah Utama: Ego sektoral antara unit teknis pengujian dan unit administrasi keuangan dalam penyusunan SOP.\n3. Analisis Situasi: Koordinator harus bertindak sebagai fasilitator netral yang mengintegrasikan kebutuhan teknis dan kepatuhan akuntabilitas keuangan menjadi alur efisien.\n4. Alasan Jawaban Benar: Opsi B menghapus ego sektoral, membangun koordinasi harmonis, dan melahirkan SOP yang efisien holistik.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A memihak secara subjektif. Opsi C melempar tanggung jawab. Opsi D menciptakan SOP yang kontradiktif. Opsi E membiarkan konflik menguras energi.\n6. Prinsip Manajerial: Integrasikan fungsi antar-unit untuk menciptakan prosedur kerja yang padu dan akuntabel."
+        },
+        {
+            q: "Anda menemukan adanya potensi bahaya keselamatan kerja (K3) pada ruang uji bejana standar laboratorium yang dapat membahayakan petugas tera saat pengujian tekanan. Tindakan preventif yang paling tepat adalah...",
+            opts: [
+                "Mendiamkan hal tersebut sampai terjadi kecelakaan kerja baru melapor",
+                "Segera mencatat identifikasi potensi bahaya K3, melaporkannya tertulis kepada pimpinan beserta usulan perbaikan/penyediaan APD standar, dan memasang tanda peringatan sementara",
+                "Melarang seluruh petugas masuk ke laboratorium secara permanen",
+                "Meminta petugas tera menanggung sendiri risiko kerja pengujian tekanan",
+                "Menghapus fasilitas pengujian tekanan dari jenis pelayanan dinas"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Manajemen Risiko, Keselamatan Kerja & Proaktif.\n2. Masalah Utama: Terdeteksinya bahaya K3 di ruang laboratorium pengujian metrologi.\n3. Analisis Situasi: Perlindungan SDM dan aset laboratorium mensyaratkan mitigasi risiko dini yang sistematis dan terprosedur.\n4. Alasan Jawaban Benar: Opsi B menunjukkan kepekaan risiko K3, proaktif, dan melakukan tindakan pengamanan terukur serta usulan perbaikan formal.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A ceroboh dan tidak bertanggung jawab. Opsi C & E melumpuhkan operasional secara ekstrim. Opsi D mengabaikan kewajiban perlindungan tenaga kerja.\n6. Prinsip Manajerial: Identifikasi dan mitigasi risiko keselamatan kerja secara dini untuk melindungi keselamatan SDM dan kelancaran operasional."
+        },
+
+        // --- 20 SOAL SULIT ---
+        {
+            q: "Anda ditunjuk sebagai Ketua Tim Penanganan Kasus Kejahatan Metrologi Legal yang melibatkan jaringan pengusaha SPBU skala besar dengan dugaan manipulasi alat ukur berbasis modifikasi perangkat elektronik tersembunyi. Saat pengawasan lapangan, tim Anda mendapat tekanan fisik dan intimidasi dari kelompok massa suruhan oknum pengusaha tersebut. Di sisi lain, bukti digital kecurangan berada dalam bahaya dimusnahkan jika pengawasan tertunda. Langkah kepemimpinan taktis paling tepat yang harus Anda ambil adalah...",
+            opts: [
+                "Instruksikan tim segera mundur dari lokasi dan menghentikan seluruh proses pengawasan demi keselamatan jiwa seluruh anggota",
+                "Tetap bertahan secara nekat di lokasi tanpa bantuan pengamanan untuk mengamankan bukti fisik meskipun berisiko keselamatan tinggi",
+                "Lakukan koordinasi darurat dengan Kepolisian/APH setempat untuk meminta bantuan pengamanan resmi dengan cepat, sembari memerintahkan sebagian anggota Amankan Bukti Digital secara cermat dan mendokumentasikan tindakan intimidasi dalam BAP Kejadian",
+                "Menegosiasikan uang damai dengan oknum pengusaha agar massa dibubarkan dan pengawasan dapat berjalan formalitas",
+                "Memerintahkan anggota tim melawan aksi massa secara fisik di lokasi pengawasan"
+            ],
+            ans: 2,
+            pem: "Jawaban benar: C\n\n1. Kompetensi: Kepemimpinan Krisis, Manajemen Risiko, Integritas & Pengambilan Keputusan Strategis.\n2. Masalah Utama: Intimidasi fisik dan potensi penghilangan barang bukti digital kecurangan metrologi di lapangan.\n3. Analisis Situasi: Pemimpin tim harus mampu menjaga keselamatan personel, mengamankan legitimasi hukum bukti melalui sinergi APH, serta bertindak cepat mengamankan barang bukti kritikal.\n4. Alasan Jawaban Benar: Opsi C memadukan perlindungan keselamatan jiwa melalui jalur hukum resmi (Kepolisian), pengamanan barang bukti digital yang terukur, dan dokumentasi BAP yang sah.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A gagal mengamankan barang bukti tindak pidana. Opsi B konyol mengabaikan keselamatan jiwa. Opsi D tindak pidana korupsi/gratifikasi. Opsi E memicu kekerasan liar di luar hukum.\n6. Prinsip Manajerial: Lindungi keselamatan tim melalui sinergi APH resmi, sembari mengamankan barang bukti kunci secara cermat dan berpayung hukum."
+        },
+        {
+            q: "Sebuah Peraturan Menteri Perdagangan terbaru mengamanatkan perubahan mendasar pada metode pengujian BDKT dari metode konvensional menjadi metode pengujian statistik berbasis digital dalam waktu transisi 3 bulan. Sebagian besar Pengawas senior merasa terancam dan menolak penerapan metode baru karena dinilai menyulitkan dan berpotensi meningkatkan kesalahan penafsiran. Sebagai koordinator pengawasan BDKT, strategi manajemen perubahan yang paling efektif Anda terapkan adalah...",
+            opts: [
+                "Mewajibkan penggunaan metode baru secara serta-merta dan memberikan sanksi pemotongan tunjangan bagi pegawai yang menolak",
+                "Menunda penerapan Peraturan Menteri tersebut secara sepihak sampai seluruh pegawai senior pensiun",
+                "Menyelenggarakan program pelatihan intensif bertahap, membimbing secara langsung melalui contoh kasus nyata, serta membentuk tim pendampingan sejawat (peer-mentoring) antara staf muda dan senior untuk mengawal masa transisi",
+                "Mengizinkan pegawai senior menggunakan metode lama seterusnya dan hanya mewajibkan metode baru bagi pegawai baru",
+                "Mengabaikan Peraturan Menteri tersebut dan melanjutkan cara kerja lama yang sudah terbiasa"
+            ],
+            ans: 2,
+            pem: "Jawaban benar: C\n\n1. Kompetensi: Mengelola Perubahan, Kepemimpinan & Pengembang Orang Lain.\n2. Masalah Utama: Resistensi pegawai senior terhadap perubahan regulasi dan metode teknis baru BDKT berbasis digital.\n3. Analisis Situasi: Perubahan regulasi mewajibkan strategi pengolahan perubahan yang komunikatif, empatik, bertahap, serta menyediakan sarana pendampingan kompetensi.\n4. Alasan Jawaban Benar: Opsi C mereduksi kecemasan pegawai, membangun kapabilitas teknis secara terstruktur, dan menjamin keberlanjutan implementasi kebijakan resmi.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A otoriter memicu konflik internal. Opsi B & E pembangkangan terhadap regulasi kementerian. Opsi D menciptakan dualisme standar yang merusak keabsahan data.\n6. Prinsip Manajerial: Kelola resistensi perubahan melalui edukasi, pembimbingan langsung, dan pendampingan terstruktur hingga tercipta kemahiran baru."
+        },
+        {
+            q: "Dalam evaluasi tahunan, Unit Metrologi Legal (UML) tempat Anda bekerja mencatatkan penurunan tingkat kepatuhan tera ulang oleh pedagang pasar tradisional sebesar 40%. Hasil survei awal menunjukkan akar masalah meliputi: persepsi biaya retribusi mahal, informasi jadwal tera tidak sampai, dan kekhawatiran pedagang bahwa alat ukurnya yang rusak akan disita tanpa solusi pengganti. Rencana aksi strategis holistik yang harus Anda susun adalah...",
+            opts: [
+                "Meningkatkan razia gabungan dengan Satpol PP untuk menangkap seluruh pedagang yang melanggar dan menyita timbangannya",
+                "Mengembangkan program 'Metrologi Edukatif & Ramah': menyusun sosialisasi terpadu melalui tokoh pasar, transparansi biaya retribusi, menyediakan fasilitas klinik perbaikan timbangan gratis bekerja sama dengan reparir sah, serta menyederhanakan lokasi pelayanan di pasar",
+                "Menurunkan tarif retribusi menjadi nol secara sepihak tanpa persetujuan Peraturan Daerah",
+                "Membiarkan tingkat kepatuhan menurun karena pasar tradisional dianggap sulit diatur",
+                "Mewajibkan pedagang membeli timbangan baru merek tertentu yang direkomendasikan dinas"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Pelayanan Publik, Pengambilan Keputusan Strategis & Analisis Masalah.\n2. Masalah Utama: Penurunan tajam kepatuhan tera ulang pedagang akibat faktor komunikasi, persepsi biaya, dan ketakutan kehilangan alat usaha.\n3. Analisis Situasi: Solusi manajerial harus menyasar akar masalah secara komprehensif melalui pendekatan persuasif, edukatif, kemudahan akses, dan penyediaan solusi teknis (reparasi).\n4. Alasan Jawaban Benar: Opsi B menyelesaikan masalah dari hulu ke hilir secara holistik, empatik, dan berkelanjutan tanpa melanggar Perda.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A purely represif dan memperkeruh penolakan publik. Opsi C melanggar hukum keuangan daerah. Opsi D pasif menyerah. Opsi E tindak monopoli dan penyalahgunaan wewenang.\n6. Prinsip Manajerial: Atasi masalah kepatuhan masyarakat dengan mengombinasikan kemudahan akses pelayanan, sosialisasi edukatif, dan solusi nyata atas kendala warga."
+        },
+        {
+            q: "Anda adalah Ketua Tim Sidik Kasus yang sedang mendalami dugaan kejahatan metrologi sistematis pada penyaluran BBM industri. Di tengah proses investigasi, Anda menerima dokumen anonim yang membocorkan bahwa salah satu pejabat internal di dinas Anda menerima aliran dana rutin untuk membocorkan jadwal pengawasan. Langkah berintegritas dan taktis yang wajib Anda tempuh adalah...",
+            opts: [
+                "Mengabaikan dokumen tersebut karena statusnya anonim dan fokus saja pada pengusaha BBM",
+                "Melakukan verifikasi dan validasi awal atas kebenaran dokumen anonim tersebut secara tertutup, mengamankan barang bukti pendukung, dan melaporkan secara resmi kepada Inspektorat Daerah/Aparat Penegak Hukum sesuai saluran Whistleblowing System (WBS)",
+                "Langsung menuduh pejabat tersebut di depan media massa untuk menciptakan efek jera",
+                "Mengkonfrontasi pejabat tersebut secara pribadi dan memintanya membagi uang tersebut kepada tim sidik",
+                "Menghentikan seluruh investigasi karena takut terseret dalam konflik internal"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Integritas Tinggi, Analisis Masalah & Akuntabilitas Hukum.\n2. Masalah Utama: Adanya indikasi kebocoran informasi internal/korupsi pejabat dinas yang merusak kredibilitas pengawasan.\n3. Analisis Situasi: ASN berintegritas harus merespons informasi pelanggaran secara objektif, melalui mekanisme WBS/Inspektorat resmi, serta mengamankan keabsahan bukti tanpa kegaduhan prematur.\n4. Alasan Jawaban Benar: Opsi B sesuai prosedur hukum akuntabel, asas praduga tak bersalah melalui verifikasi internal, dan memanfaatkan saluran resmi WBS.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A membiarkan kejahatan internal. Opsi C menghakimi tanpa pembuktian resmi (trial by press). Opsi D tindakan koruptif dan pemerasan. Opsi E penakut dan mengabaikan kewajiban negara.\n6. Prinsip Manajerial: Tangani dugaan kejahatan internal secara sistematis, objektif, dan terukur melalui prosedur regulasi resmi WBS/Inspektorat."
+        },
+        {
+            q: "Dalam penugasan pengawasan terpadu jelang Hari Raya Keagamaan, Dinas Anda ditargetkan memeriksa 100 titik lokasi (SPBU, Pasar, Distributor BDKT, dan Agen LPG) dalam waktu 5 hari dengan sumber daya 3 tim pengawas. Pembagikan prioritas dan manajemen waktu paling optimal yang Anda rancang adalah...",
+            opts: [
+                "Membagi 100 lokasi secara merata (33 lokasi per tim) tanpa memperhitungkan kompleksitas dan tingkat risiko lokasi",
+                "Melakukan pemetaan risiko lokasi berbasis historis pelanggaran dan dampak konsumen, mengalokasikan SPBU dan Agen LPG utama pada pengawasan intensif, serta menerapkan metode sampling terstruktur untuk distributor BDKT dan pasar",
+                "Hanya memeriksa 10 lokasi terdekat dari kantor dinas dan menganggap 90 lokasi lainnya sudah terwakili",
+                "Meminta pemilik usaha mengisi formulir penilaian mandiri (self-assessment) tanpa ada uji fisik lapangan sama sekali",
+                "Memperpanjang masa pengawasan menjadi 1 bulan secara sepihak tanpa melapor ke atasan"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Perencanaan Strategis, Orientasi pada Hasil & Manajemen Risiko.\n2. Masalah Utama: Target volume pengawasan tinggi (100 lokasi) dengan keterbatasan waktu (5 hari) dan personel (3 tim).\n3. Analisis Situasi: Pencapaian target bertekanan tinggi memerlukan manajemen prioritas berbasis risiko (risk-based allocation) dan penggunaan metode sampling teknis yang sah.\n4. Alasan Jawaban Benar: Opsi B mengoptimalkan sumber daya pada area berdampak masif pada masyarakat (BBM, LPG, Pangan) dengan metode terukur.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A kaku dan tidak efisien secara geografis/risiko. Opsi C pemalsuan dan penurunan mutu kinerja. Opsi D mengabaikan fungsi hakiki pengawasan fisik. Opsi E melanggar arahan pimpinan.\n6. Prinsip Manajerial: Gunakan pemetaan risiko dampak publik untuk mengalokasikan beban kerja dan metode sampling yang efisien."
+        },
+        {
+            q: "Anda menghadapi situasi di mana dua pejabat struktural di dinas memberikan arahan yang saling bertentangan terkait prosedur legalisasi SKHP alat ukur ekspor pabrik besar. Keadaan ini membingungkan pelaku usaha dan menahan proses ekspor. Langkah manajerial penyelesaian masalah yang paling tepat adalah...",
+            opts: [
+                "Mengikuti arahan pejabat yang memiliki jabatan paling tinggi tanpa mempedulikan aturan hukum yang berlaku",
+                "Mengambil inisiatif memfasilitasi pertemuan koordinasi antara kedua pejabat tersebut bersama tim teknis hukum, menyajikan kajian matriks regulasi yang berlaku, serta menyepakati satu prosedur baku yang sah",
+                "Membiarkan berkas SKHP menumpuk di meja Anda sampai kedua pejabat tersebut menyelesaikannya sendiri",
+                "Menerbitkan dua SKHP yang berbeda sesuai permintaan masing-masing pejabat",
+                "Menyarankan pihak pabrik melaporkan kedua pejabat tersebut kepada Gubernur"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Pengelolaan Konflik Kebijakan, Pengambilan Keputusan & Komunikasi Koordinatif.\n2. Masalah Utama: Arahan kontradiktif antar-pejabat internal yang menghambat proses pelayanan publik sektor vital (ekspor).\n3. Analisis Situasi: Bawahan/fungsional yang profesional bertindak sebagai penyambung solusi melalui penyajian data hukum faktual dalam forum klarifikasi resmi.\n4. Alasan Jawaban Benar: Opsi B menunjukkan kepemimpinan pemikiran (thought leadership), memediasi penyelarasan kebijakan, dan menjaga kepastian hukum pelayanan.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A mengabaikan asas keabsahan hukum. Opsi C melepas tanggung jawab dan merugikan dunia usaha. Opsi D malpraktik administrasi. Opsi E adu domba instansi.\n6. Prinsip Manajerial: Selesaikan kontradiksi arahan internal melalui forum klarifikasi resmi berbasis matriks aturan hukum baku."
+        },
+        {
+            q: "Hasil audit eksternal menemukan bahwa terdapat selisih anggaran operasional pelayanan tera luar kantor antara yang dilaporkan dengan bukti kas di lapangan akibat penggunaan sistem reimbursement manual. Sebagai kepala subbagian pengelola pelayanan, tindakan perbaikan sistemik yang harus Anda terapkan adalah...",
+            opts: [
+                "Meminta petugas tera menutup selisih anggaran tersebut menggunakan uang pribadi mereka",
+                "Mengubah sistem administrasi keuangan menjadi berbasis digital terintegrasi (e-reimbursement) dengan kewajiban uploading bukti transaksi riil secara real-time dan verifikasi bertingkat sebelum pencairan",
+                "Menghapuskan seluruh kegiatan pelayanan tera di luar kantor untuk menghindari selisih anggaran",
+                "Mengabaikan temuan audit karena menganggap nilai selisihnya relatif kecil",
+                "Membuat kwitansi fiktif baru untuk menyamakan catatan laporan dengan bukti kas"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Pengelolaan Sistem, Akuntabilitas Keuangan & Inovasi.\n2. Masalah Utama: Kelemahan tata kelola sistem reimbursement manual yang menimbulkan celah akuntabilitas finansial.\n3. Analisis Situasi: Temuan sistemik keuangan harus direspon dengan perbaikan sistem terintegrasi (systemic solution) berbasis teknologi kontrol transparan.\n4. Alasan Jawaban Benar: Opsi B membangun sistem pencegahan (mitigasi permanen), meningkatkan transparansi, dan efisiensi akuntabilitas pertanggungjawaban keuangan.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A merugikan pegawai secara tidak adil. Opsi C mematikan akses pelayanan publik. Opsi D melanggar akuntabilitas. Opsi E tindakan pidana pemalsuan kwitansi.\n6. Prinsip Manajerial: Atasi kelemahan tata kelola dengan memodernisasi sistem pengawasan digital terintegrasi."
+        },
+        {
+            q: "Saat memimpin tim pengawasan BDKT minyak goreng di pasar induk, Anda menemukan sebuah merek baru yang dijual murah namun ternyata isi bersihnya kurang 10% dari label. Penjualan merek ini sangat diminati warga berpenghasilan rendah karena harga terjangkau. Tindakan berimbang dan tegas yang harus diambil adalah...",
+            opts: [
+                "Membiarkan minyak goreng tersebut tetap dijual karena membantu masyarakat kurang mampu mendapatkan harga murah",
+                "Menghentikan sementara peredaran dan menyegel lot BDKT tersebut, menerbitkan BAP, serta memanggil produsen/distributor untuk diproses hukum sekaligus menuntut penyesuaian isi/label demi melindungi masyarakat dari penipuan kuantitas",
+                "Menyita seluruh minyak goreng untuk dibagikan secara gratis kepada anggota tim pengawas",
+                "Hanya menegur pedagang eceran di pasar tanpa menindak produsen minyak goreng tersebut",
+                "Menaikkan harga minyak goreng tersebut agar sesuai dengan isi bersihnya yang berkurang"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Pelayanan Publik, Penegakan Aturan & Integritas.\n2. Masalah Utama: Peredaran BDKT minyak goreng tidak sesuai netto yang menyasar konsumen menengah ke bawah dengan harga murah deceptive.\n3. Analisis Situasi: Membiarkan BDKT tidak sesuai netto dengan alasan harga murah adalah pembiaran penipuan publik. Penegakan hukum wajib mengincar produsen/distributor utama.\n4. Alasan Jawaban Benar: Opsi B melindungi masyarakat rentan dari praktik kecurangan tersembunyi dan menyasar sumber pelanggaran hukum (produsen/distributor).\n5. Alasan Opsi Lain Kurang Tepat: Opsi A membiarkan eksploitasi kecurangan pada warga miskin. Opsi C penyelewengan barang sitaan. Opsi D salah sasaran (pedagang kecil hanya korban). Opsi E di luar kewenangan dan tidak solutif.\n6. Prinsip Manajerial: Lindungi hak konsumen dari penipuan takaran dengan menindak tegas sumber produsen utama."
+        },
+        {
+            q: "Anda ditugaskan menyusun prioritas alokasi pembagian alat standar baru (Bejana Ukur dan Anak Timbangan Standar) kepada 4 Unit Metrologi Legal (UML) Wilayah Kabupaten/Kota. Data menunjukkan UML A memiliki volume transaksi tertinggi tetapi kekurangan alat, UML B memiliki alat lengkap tetapi pemeliharaan buruk, UML C berada di daerah terisolir dengan potensi ekonomi berkembang, dan UML D memiliki serapan retribusi rendah. Kebijakan pembagian yang paling rasional adalah...",
+            opts: [
+                "Membagi alat standar secara sama rata (25% per UML) tanpa melihat kebutuhan dan kapasitas daerah",
+                "Menyusun alokasi berbasis analisis kebutuhan komprehensif: memprioritaskan UML A (volume tinggi) dan UML C (akses terisolir), sembari mewajibkan UML B membenahi tata kelola pemeliharaan sebelum mendapat alokasi baru",
+                "Memberikan seluruh alat baru kepada UML B karena berada di ibu kota provinsi",
+                "Menjual alat baru tersebut dan membagikan hasilnya sebagai dana operasional ke seluruh UML",
+                "Memberikan alat baru kepada UML yang pejabatnya paling dekat dengan Anda"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Pengambilan Keputusan Strategis, Alokasi Sumber Daya & Objektivitas.\n2. Masalah Utama: Distribusi aset standar metrologi pada beberapa wilayah dengan karakteristik dan kendala yang berbeda.\n3. Analisis Situasi: Pengambilan keputusan alokasi aset negara harus didasarkan pada kriteria teknis objektif (volume transaksi, aksesibilitas, dan kesiapan tata kelola).\n4. Alasan Jawaban Benar: Opsi B menerapkan azas keadilan proporsional, efisiensi pemanfaatan aset, dan memberikan insentif perbaikan tata kelola bagi UML B.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A mengabaikan efisiensi kebutuhan riil. Opsi C pemborosan pada unit yang tidak terawat. Opsi D kejahatan penjualan aset negara. Opsi E nepotisme.\n6. Prinsip Manajerial: Alokasikan sumber daya organisasi berdasarkan analisis kebutuhan objektif dan kesiapan tata kelola unit penerima."
+        },
+        {
+            q: "Sebuah program digitalisasi pelayanan tera ulang yang telah direncanakan selama 6 bulan terancam gagal diluncurkan minggu depan karena vendor pengembang software terlambat menyelesaikan fitur integrasi pembayaran nontunai. Pimpinan menuntut launching tetap berjalan sesuai jadwal. Langkah mitigasi risiko terbaik yang Anda rancang adalah...",
+            opts: [
+                "Membatalkan seluruh rencana launching digitalisasi dan kembali ke sistem manual sepenuhnya",
+                "Menerapkan strategi 'Soft Launching' berfokus pada fitur pendaftaran dan penjadwalan yang sudah stabil, sementara pembayaran tetap menggunakan modul transfer/teller resmi secara paralel hingga integrasi siap 100%",
+                "Memaksa meluncurkan aplikasi yang penuh dengan kekeliruan (bugs) pembayaran tanpa pengujian keselamatan data",
+                "Menyalahkan vendor di depan media massa saat acara launching berlangsung",
+                "Pura-pura aplikasi sudah siap dan menerima pembayaran tunai di luar sistem resmi"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Manajemen Risiko, Orientasi pada Hasil & Mengelola Perubahan.\n2. Masalah Utama: Keterlambatan salah satu modul sistem TI menjelang tenggat waktu launching proyek publik.\n3. Analisis Situasi: Dalam kegagalan salah satu komponen sistem TI, lakukan mitigasi penahapan fungsi (staged rollout/soft launch) agar nilai utama pelayanan tetap dapat dinikmati publik tanpa risiko kebocoran keuangan.\n4. Alasan Jawaban Benar: Opsi B menyelamatkan komitmen jadwal launching, memitigasi risiko kegagalan transaksi keuangan, dan memberikan ruang penyempurnaan vendor.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A mundur total dan merusak reputasi dinas. Opsi C berbahaya memicu fatalitas kebocoran keuangan publik. Opsi D tidak profesional. Opsi E membuka celah pungli.\n6. Prinsip Manajerial: Terapkan peluncuran bertahap (soft launch) untuk memitigasi risiko teknis tanpa melumpuhkan tenggat waktu organisasi."
+        },
+        {
+            q: "Anda adalah koordinator pengawasan yang menemukan indikasi bahwa sebuah perusahaan manufaktur besar secara rutin melakukan 'modifikasi teknis' pada meter arus cair (flowmeter) minyak sawit mentah (CPO) untuk transaksi ekspor. Ketika hendak diinspeksi, perusahaan menutup akses dengan dalih rahasia kawasan industri terbatas. Langkah hukum dan koordinatif yang wajib dilakukan adalah...",
+            opts: [
+                "Mundur dan membatalkan pengawasan karena takut berhadapan dengan perusahaan besar",
+                "Menyusun Laporan Kejadian Resmi, berkoordinasi dengan PPNS Kemetrologian dan Pimpinan Dinas untuk menerbitkan Surat Perintah Tugas Khusus, serta meminta pendampingan Polisi/Kejaksaan untuk melakukan pengawasan mendadak dan pengamanan alat bukti sesuai UU",
+                "Memaksa masuk dengan mendobrak gerbang perusahaan tanpa dokumen perintah yang sah",
+                "Menerima tawaran sponsor kegiatan dinas dari perusahaan tersebut agar kasus dianggap selesai",
+                "Mengabaikan penemuan tersebut dan mengalihkan pengawasan ke pedagang kecil"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Akuntabilitas Penegakan Hukum, Integritas & Kepemimpinan Taktis.\n2. Masalah Utama: Penghambatan tugas pengawasan metrologi pada entitas korporasi besar di kawasan terbatas.\n3. Analisis Situasi: Pengawasan terhadap pihak tidak kooperatif mensyaratkan kelengkapan legalitas formal (Surat Perintah) dan dukungan koordinasi penegak hukum untuk tindakan hukum sah.\n4. Alasan Jawaban Benar: Opsi B sesuai prosedur hukum acara penegakan metrologi legal, akuntabel, tegas, dan terlindungi secara legalitas.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A lemah dan diskriminatif. Opsi C main hakim sendiri dan melanggar hukum acara. Opsi D korupsi dan gratifikasi. Opsi E tidak adil dan tidak berintegritas.\n6. Prinsip Manajerial: Hadapi penghambatan penegakan aturan dengan kelengkapan legalitas formal dan sinergi aparat hukum resmi."
+        },
+        {
+            q: "Dalam sebuah tim pengawasan pasar, terjadi konflik tajam antara dua kelompok pegawai: kelompok senior yang berpegang pada pendekatan manual rasional dan kelompok muda yang menuntut penggunaan aplikasi digital secara total. Konflik ini menyebabkan kegiatan pengawasan stagnan. Langkah Anda sebagai koordinator tim adalah...",
+            opts: [
+                "Memilih memihak kelompok muda dan memensiunkan peran kelompok senior dari lapangan",
+                "Membentuk alur kerja gabungan yang saling melengkapi (hybrid workflow): kelompok muda memimpin pengoperasian instrumen digital dan entri data, sementara kelompok senior memimpin komunikasi diplomasi dan verifikasi fisik di lapangan",
+                "Membubarkan tim dan meminta pimpinan mengganti seluruh personel",
+                "Membiarkan konflik terjadi hingga salah satu kelompok mengalah sendiri",
+                "Membagi tim menjadi dua dan membiarkan mereka bekerja sendiri-sendiri tanpa koordinasi"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Pengelolaan Konflik Internal, Kerja Sama Tim & Kepemimpinan Inklusif.\n2. Masalah Utama: Konflik antargenerasi (senior vs muda) terkait metode kerja yang melumpuhkan operasional tim.\n3. Analisis Situasi: Pemimpin harus memadukan keunggulan kompetensi masing-masing kelompok (pengalaman diplomasi senior & kemahiran teknologi generasi muda) menjadi kekuatan kolaboratif.\n4. Alasan Jawaban Benar: Opsi B menerapkan prinsip sinergi inklusif, menghargai keahlian tiap generasi, dan menghentikan stagnasi operasional.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A memicu diskriminasi usia. Opsi C melarikan diri dari peran kepemimpinan. Opsi D pasif. Opsi E menciptakan tumpang tindih dan kebingungan lapangan.\n6. Prinsip Manajerial: Integrasikan potensi keunggulan antar-generasi untuk menciptakan alur kerja kolaboratif yang solid."
+        },
+        {
+            q: "Unit kerja Anda ditargetkan meraih predikat Wilayah Bebas dari Korupsi (WBK). Namun, dari hasil uji petik independen, masih ditemukan persepsi masyarakat bahwa proses permohonan tera ulang membutuhkan 'uang lelah' untuk petugas lapangan. Langkah sistemik dan radikal untuk memberantas praktik tersebut adalah...",
+            opts: [
+                "Membuat banner penolakan pungli yang besar di kantor tanpa mengubah alur pelayanan lapangan",
+                "Melakukan digitalisasi penuh sistem pembayaran retribusi (cashless payment), menerapkan sistem penugasan acak (randomized assignment) petugas tera via aplikasi, dan memperketat pengawasan melekat serta sanksi disiplin tegas",
+                "Menghentikan seluruh pungutan retribusi tera ulang secara sepihak",
+                "Membela diri di media sosial bahwa tuduhan masyarakat tidak terbukti secara hukum",
+                "Mengancam tidak akan melayani warga yang memberikan penilaian negatif dalam survei"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Integritas Organisasi, Pelayanan Publik & Transformasi Sistemik.\n2. Masalah Utama: Masih adanya persepsi/praktik 'uang lelah' (pungli) di lapangan yang menghalangi predikat WBK.\n3. Analisis Situasi: Pemberantasan korupsi/pungli lapangan tidak mempan hanya dengan slogan, melainkan butuh pemotongan celah interaksi finansial langsung via sistem digital cashless dan pengawasan acak.\n4. Alasan Jawaban Benar: Opsi B memotong akar penyebab korupsi (menghilangkan transaksi tunai & interaksi subjektif) dan memperkuat penegakan disiplin.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A formalitas seremonial semata. Opsi C menyalahi hukum retribusi daerah. Opsi D defensif dan antikritik. Opsi E intimidasi publik yang merusak reformasi birokrasi.\n6. Prinsip Manajerial: Tutup peluang praktik kecurangan dengan mentransformasi sistem pelayanan menjadi serba digital dan transparan."
+        },
+        {
+            q: "Anda sebagai Pengawas Metrologi mendapati bahwa sebuah rumah sakit daerah menggunakan alat ukur suhu dan tekanan medis yang belum ditera ulang selama 5 tahun. Pihak rumah sakit beralasan anggaran tera terbatas dan pemakaian alat sangat krusial untuk pasien darurat. Keputusan manajerial yang berimbang dan aman bagi keselamatan publik adalah...",
+            opts: [
+                "Menyegel seluruh alat ukur medis RS saat itu juga tanpa memberikan solusi pelayanan pasien",
+                "Melakukan pengujian tera ulang di tempat (in-situ testing) secara diprioritaskan bekerja sama dengan tim teknis, menerbitkan rekomendasi perbaikan bertahap, dan membantu penyusunan usulan anggaran tera RS untuk tahun berikutnya",
+                "Membiarkan alat ukur medis tidak ditera selamanya karena alasan kemanusiaan",
+                "Meminta uang imbalan agar RS dibebaskan dari kewajiban tera ulang",
+                "Memindahkan seluruh pasien darurat ke rumah sakit lain secara sepihak"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Pengambilan Keputusan, Pelayanan Publik & Manajemen Risiko Kesehatan.\n2. Masalah Utama: Keterlambatan tera ulang instrumen medis RS akibat kendala anggaran pada fasilitas pelayanan publik vital.\n3. Analisis Situasi: Keputusan harus menjamin keselamatan medis pasien sekaligus menegakkan kepatuhan hukum metrologi legal melalui fasilitas pengujian langsung (in-situ) tanpa menghentikan pelayanan darurat.\n4. Alasan Jawaban Benar: Opsi B mengutamakan keselamatan jiwa pasien, memberikan solusi teknis di tempat, dan memandu mitigasi anggaran jangka panjang.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A membahayakan nyawa pasien darurat. Opsi C melanggar UU Metrologi dan membahayakan akurasi dosis medis. Opsi D tindak kejahatan korupsi. Opsi E melampaui kewenangan dinas perdagangan.\n6. Prinsip Manajerial: Berikan solusi teknis kemudahan pengujian di tempat bagi fasilitas vital publik tanpa mengorbankan keselamatan dan regulasi."
+        },
+        {
+            q: "Saat memimpin pengawasan BDKT pada stasiun pengisian elpiji (SPBE), tim Anda menemukan bahwa 15% tabung gas 3 kg memiliki berat bersih di bawah toleransi minus yang diizinkan. Pemilik SPBE adalah pimpinan partai politik lokal yang sedang berkampanye. Langkah berintegritas dan profesional Anda adalah...",
+            opts: [
+                "Menunda pengawasan dan penyegelan sampai masa kampanye politik selesai",
+                "Tetap menjalankan pengujian secara transparan berbasis data objektif, menghentikan pengisian pada line mesin yang rusak, menerbitkan BAP Pengawasan BDKT, dan melaporkannya secara tegak lurus sesuai regulasi tanpa terpengaruh dinamika politik",
+                "Mengubah isi laporan BDKT menjadi lulus seluruhnya untuk menghindari benturan politik",
+                "Membocorkan temuan tersebut kepada media lawan politik untuk menjatuhkan pemilik SPBE",
+                "Meminta jaminan jabatan dari pemilik SPBE agar kasus tidak dilanjutkan"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Integritas Netralitas ASN, Penegakan Aturan & Pengambilan Keputusan.\n2. Masalah Utama: Temuan kecurangan BDKT LPG yang melibatkan tokoh politik berpengaruh saat dinamika politik sensitif.\n3. Analisis Situasi: ASN wajib menjaga integritas, profesionalitas, dan netralitas penuh dari pengaruh politik dengan berpegang murni pada data pengujian hukum yang sah.\n4. Alasan Jawaban Benar: Opsi B mencerminkan keteguhan integritas ASN, independen, akuntabel, dan berorientasi pada perlindungan masyarakat konsumen gas LPG.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A & C pelanggaran berat integritas dan pembiaran kecurangan BDKT. Opsi D melanggar netralitas ASN (terlibat politik praktis). Opsi E tindak pemerasan/korupsi.\n6. Prinsip Manajerial: Jaga independensi dan profesionalitas penegakan hukum dari segala bentuk intervensi politik."
+        },
+        {
+            q: "Dalam proses penyusunan rencana kerja dinas, terjadi pemotongan durasi kegiatan tera ulang pasar dari 10 hari menjadi 4 hari akibat efisiensi waktu anggaran. Tim pengawas mengeluh tidak akan sanggup mencapai target kualitas uji. Sebagai koordinator pengawasan, langkah Anda adalah...",
+            opts: [
+                "Menolak melakukan kegiatan tera ulang pasar sama sekali",
+                "Melakukan rekayasa ulang proses (business process re-engineering): menyederhanakan alur administrasi prapengujian via pra-pendaftaran, membagi tim menjadi sub-unit paralel, dan memfokuskan pengujian pada titik-titik krusial tanpa mengurangi standar teknis",
+                "Menguji hanya 20% timbangan dan membubuhkan cap tera sah pada 80% sisanya tanpa diuji",
+                "Menyuruh pedagang pasar melakukan pengujian mandiri di rumah masing-masing",
+                "Mengabaikan keluhan tim dan memaksa mereka bekerja tanpa perubahan metode kerja"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Re-engineering Proses, Orientasi pada Hasil & Kepemimpinan Operasional.\n2. Masalah Utama: Pemotongan alokasi waktu lapangan (dari 10 hari menjadi 4 hari) yang mengancam mutu pengujian.\n3. Analisis Situasi: Keterbatasan waktu diatasi dengan inovasi efisiensi alur administrasi (pra-pendaftaran) dan pembagian sub-tim tanpa mengorbankan standar teknis baku.\n4. Alasan Jawaban Benar: Opsi B menunjukkan kemampuan adaptasi kerja tinggi, efisiensi alur, dan penjagaan standar mutu pengujian.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A mogok kerja tidak bertanggung jawab. Opsi C tindak kejahatan pemalsuan pengujian tera. Opsi D tidak rasional. Opsi E kaku dan memicu burn-out tim.\n6. Prinsip Manajerial: Lakukan efisiensi dan rekayasa alur kerja untuk menjaga kualitas target di tengah pemangkasan waktu."
+        },
+        {
+            q: "Anda menemukan adanya celah regulasi lokal di mana tarif retribusi pelayanan tera ulang untuk industri besar dianggap terlalu rendah dibanding biaya operasional pengujian yang dikeluarkan dinas. Tindakan manajerial strategis yang perlu Anda lakukan adalah...",
+            opts: [
+                "Memungut biaya tambahan secara tidak resmi di lapangan kepada pihak industri",
+                "Menyusun naskah akademik kajian evaluasi tarif retribusi metrologi legal, mengajukan usulan revisi Peraturan Daerah kepada pimpinan, serta mengusulkan skema perhitungan tarif berdasar beban operasional yang akuntabel",
+                "Menolak memberikan pelayanan tera ulang kepada industri besar",
+                "Membiarkan kondisi tersebut karena menganggap revisi aturan memakan waktu lama",
+                "Meminta industri besar membelikan peralatan kantor untuk dinas sebagai ganti biaya retribusi murah"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Perencanaan Kebijakan, Akuntabilitas Keuangan & Tata Kelola.\n2. Masalah Utama: Celah regulasi lokal (Perda Tarif) yang tidak lagi mencukupi biaya operasional teknis pengujian industri besar.\n3. Analisis Situasi: Masalah kelemahan regulasi harus diselesaikan melalui jalur perundang-undangan (legal reform) berbasis naskah akademik dan kajian resmi.\n4. Alasan Jawaban Benar: Opsi B solutif secara sistemik, akuntabel, taat hukum tata negara, dan memberikan kepastian penerimaan daerah yang adil.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A tindak pungli/gratifikasi. Opsi C diskriminasi pelayanan publik. Opsi D pembiaran kebocoran anggaran daerah. Opsi E gratifikasi fasilitas barang.\n6. Prinsip Manajerial: Selesaikan ketidaksesuaian regulasi tarif melalui usulan revisi aturan resmi berbasis kajian akademik."
+        },
+        {
+            q: "Sebuah pabrik semen besar mengajukan permohonan pengujian tera ulang untuk timbangan ban berjalan (belt conveyor scale) kapasitas sangat besar. Tim Anda kekurangan peralatan standar berat khusus untuk pengujian tersebut. Langkah kolaboratif yang akuntabel adalah...",
+            opts: [
+                "Menolak permohonan tersebut dan menyuruh pabrik semen beroperasi tanpa tera sah",
+                "Membangun kerja sama operasional (KSO) atau menyewa peralatan standar uji yang terkalibrasi dari Unit Metrologi Legal daerah lain atau instansi terakreditasi resmi sesuai regulasi yang berlaku",
+                "Menerbitkan Sertifikat Tera Sah berbasis perkiraan visual tanpa pengujian berat",
+                "Meminta pabrik semen membuat peralatan standar sendiri tanpa verifikasi ketertelusuran",
+                "Menguji timbangan ban berjalan menggunakan batu biasa di sekitar pabrik"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Kerja Sama Lintas Unit, Akuntabilitas Teknis & Penyelesaian Masalah.\n2. Masalah Utama: Keterbatasan ketersediaan fasilitas standar khusus untuk pengujian instrumen industri skala besar.\n3. Analisis Situasi: Solusi kendala kapasitas peralatan dilakukan melalui kolaborasi antar-UML / instansi terakreditasi untuk menjaga rantai ketertelusuran (traceability).\n4. Alasan Jawaban Benar: Opsi B menjamin kepatuhan hukum teknis pengujian, solutif bagi dunia industri, dan akuntabel.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A menghambat pertumbuhan ekonomi. Opsi C kejahatan administrasi metrologi. Opsi D melanggar asas standar metrologi. Opsi E tidak ilmiah dan melanggar SOP.\n6. Prinsip Manajerial: Bangun kolaborasi antar-instansi resmi untuk mengatasi keterbatasan fasilitas teknis pengujian."
+        },
+        {
+            q: "Dalam rapat evaluasi kinerja dinas, unit kerja Anda dikritik karena capaian Indikator Kinerja Utama (IKU) pengawasan BDKT tidak mencapai target. Penyebab utamanya adalah alokasi kendaraan operasional sering dipakai oleh unit kerja lain secara tidak terjadwal. Langkah diplomatis dan tegas yang Anda ambil adalah...",
+            opts: [
+                "Menyerang unit kerja lain di depan pimpinan secara emosional",
+                "Menyajikan data logistik penggunaan kendaraan secara objektif, lalu mengusulkan penyusunan Sistem Penjadwalan Berbagi Pakai Aset (Asset-Sharing System) terpadu yang disetujui pimpinan agar alokasi operasional pengawasan terjamin",
+                "Menolak melakukan pengawasan BDKT lagi sampai diberikan kendaraan khusus baru",
+                "Mengabaikan kritik pimpinan dan menyalahkan alokasi anggaran",
+                "Menggunakan kendaraan pribadi tanpa mengajukan penggantian bensin secara resmi"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Kepemimpinan Solutif, Komunikasi Diplomatis & Pengelolaan Aset.\n2. Masalah Utama: Cipta kinerja IKU terhambat akibat benturan penggunaan fasilitas operasional kendaraan oleh unit lain.\n3. Analisis Situasi: Masalah koordinasi pemanfaatan aset harus diselesaikan melalui penyajian data objektif dan usulan sistem tata kelola berbagi pakai aset yang disahkan pimpinan.\n4. Alasan Jawaban Benar: Opsi B profesional, berbasis fakta, memberikan solusi perbaikan tata kelola aset dinas, dan mengamankan target IKU unit kerja.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A emosional dan merusak iklim organisasi. Opsi C mogok kerja. Opsi D pasif antikritik. Opsi E tidak berkesinambungan bagi organisasi.\n6. Prinsip Manajerial: Selesaikan benturan pemanfaatan fasilitas melalui penyusunan sistem tata kelola berbagi aset yang transparan."
+        },
+        {
+            q: "Anda dipercaya menyusun pedoman Kode Etik Pengawas Metrologi Legal di tingkat kabupaten. Kasus yang paling sering terjadi adalah dilema interaksi sosial antara pengawas dan pedagang tradisional yang sering memberikan hasil bumi saat pengawasan. Norma aturan paling tepat yang harus dituangkan dalam pedoman adalah...",
+            opts: [
+                "Mengizinkan penerimaan hasil bumi selama nilainya di bawah Rp 50.000,-",
+                "Menetapkan batasan tegas larangan penerimaan pemberian dalam bentuk apapun (zero-gratification policy), menyediakan mekanisme penolakan secara edukatif dan santun, serta mewajibkan pelaporan setiap penawaran gratifikasi ke Unit Pengendalian Gratifikasi (UPG)",
+                "Melarang pengawas berbicara dengan pedagang di luar proses pemeriksaan fisik",
+                "Mewajibkan pengawas membeli seluruh barang dagangan pedagang yang diuji",
+                "Menyerahkan kebijakan penerimaan barang kepada masing-masing pribadi pengawas"
+            ],
+            ans: 1,
+            pem: "Jawaban benar: B\n\n1. Kompetensi: Penyusunan Kebijakan Integritas, Etika ASN & Pencegahan Korupsi.\n2. Masalah Utama: Perumusan pedoman etika pengawasan terkait potensi gratifikasi dari masyarakat/pedagang.\n3. Analisis Situasi: Kebijakan integritas aparatur wajib menerapkan prinsip Zero-Gratification secara konsisten, dilengkapi dengan panduan penolakan santun dan prosedur pelaporan WBS/UPG.\n4. Alasan Jawaban Benar: Opsi B memberikan kepastian aturan integritas mutlak, mendidik pengawas bertindak empatik namun tegas, serta memperkuat fungsi UPG.\n5. Alasan Opsi Lain Kurang Tepat: Opsi A membuka celah kompromi gratifikasi. Opsi C asosial dan menghambat komunikasi publik. Opsi D tidak realistis. Opsi E menciptakan ketidakpastian standar etika.\n6. Prinsip Manajerial: Tegakkan standar integritas tanpa toleransi (zero-gratification) yang dilengkapi panduan edukasi penolakan santun."
+        }
+    ];
+
+    let currentSubtesIdx = 0;
+    let currentQIdx = 0;
+    let userAnswers = {};
+    let timerInterval = null;
+    let masterSubtes = [];
+    let isNexting = false;
+
+    function shuffleArray(array) {
+        let arr = [...array];
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+
+    function prepareQuestions() {
+        let shuffledSoal = rawSoalList.map((item) => {
+            let optsWithIdx = item.opts.map((opt, idx) => ({ opt: opt, originalIdx: idx }));
+            let shuffledOpts = shuffleArray(optsWithIdx);
+            let newAns = shuffledOpts.findIndex(o => o.originalIdx === item.ans);
+
+            return {
+                q: item.q,
+                opts: shuffledOpts.map(o => o.opt),
+                ans: newAns,
+                pem: item.pem
+            };
+        });
+
+        masterSubtes = [
+            {
+                nama: "SUBTES 3: KOMPETENSI MANAJERIAL ASN METROLOGI LEGAL",
+                soal: shuffledSoal
+            }
+        ];
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        prepareQuestions();
+        const savedName = localStorage.getItem('prc_nama_peserta_ntb');
+        if(savedName) document.getElementById('inputNama').value = savedName;
+        updateStatusBadges();
+    });
+
+    function getPName() {
+        let name = document.getElementById('inputNama').value.trim();
+        if(!name) {
+            name = localStorage.getItem('prc_nama_peserta_ntb') || "";
+        }
+        return name;
+    }
+
+    function saveName() {
+        const val = document.getElementById('inputNama').value.trim();
+        localStorage.setItem('prc_nama_peserta_ntb', val);
+    }
+
+    function updateStatusBadges() {
+        const score = localStorage.getItem(`prc_metro_ntb_subtes_3_manajerial`);
+        const badge = document.getElementById(`st3`);
+        if(score !== null) {
+            badge.textContent = `Selesai (Skor: ${score})`;
+            badge.classList.add('done');
+        }
+    }
+
+    function showHome() {
+        if(timerInterval) clearInterval(timerInterval);
+        document.getElementById('viewHome').style.display = 'block';
+        document.getElementById('viewQuiz').style.display = 'none';
+        document.getElementById('viewRekap').style.display = 'none';
+        updateStatusBadges();
+    }
+
+    function startSubtes(subtesIdx) {
+        const pName = getPName();
+        if(!pName) {
+            alert("Harap masukkan Nama Lengkap Anda terlebih dahulu!");
+            return;
+        }
+
+        currentSubtesIdx = subtesIdx;
+        currentQIdx = 0;
+        userAnswers = {};
+        isNexting = false;
+
+        const now = new Date();
+        sessionStartTime = now;
+        sessionStartTimeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+        document.getElementById('viewHome').style.display = 'none';
+        document.getElementById('viewQuiz').style.display = 'block';
+        document.getElementById('viewRekap').style.display = 'none';
+
+        document.getElementById('subtesTitle').textContent = masterSubtes[subtesIdx].nama;
+        
+        renderNavGrid();
+        loadQuestion(0);
+        startTimer(60 * 60);
+    }
+
+    function loadQuestion(idx) {
+        currentQIdx = idx;
+        const qData = masterSubtes[currentSubtesIdx].soal[idx];
+        
+        document.getElementById('q-no').textContent = `Soal ${idx + 1} dari 50`;
+        document.getElementById('q-text').innerText = qData.q;
+
+        let optsHtml = '';
+        qData.opts.forEach((opt, i) => {
+            const isSelected = userAnswers[idx] === i ? 'selected' : '';
+            optsHtml += `<div class="opt ${isSelected}" onclick="selectOption(${i})">${String.fromCharCode(65 + i)}. ${opt}</div>`;
+        });
+        document.getElementById('options').innerHTML = optsHtml;
+
+        document.getElementById('btn-next').textContent = idx === 49 ? "Selesai & Kirim" : "Selanjutnya";
+        renderNavGrid();
+    }
+
+    function selectOption(optIdx) {
+        if(isNexting) return;
+        userAnswers[currentQIdx] = optIdx;
+        loadQuestion(currentQIdx);
+        
+        isNexting = true;
+        setTimeout(() => {
+            if(currentQIdx < 49) {
+                nextQ();
+            }
+            isNexting = false;
+        }, 200);
+    }
+
+    function renderNavGrid() {
+        let gridHtml = '';
+        for(let i = 0; i < 50; i++) {
+            let cls = 'nav-item';
+            if(userAnswers[i] !== undefined) cls += ' filled';
+            if(i === currentQIdx) cls += ' active';
+            gridHtml += `<div class="${cls}" onclick="loadQuestion(${i})">${i + 1}</div>`;
+        }
+        document.getElementById('navGrid').innerHTML = gridHtml;
+    }
+
+    function nextQ() {
+        if(currentQIdx === 49) {
+            if(confirm("Apakah Anda yakin ingin menyelesaikan Ujian Subtes 3 Manajerial ini?")) {
+                finishSubtes();
+            }
+            return;
+        }
+        loadQuestion(currentQIdx + 1);
+    }
+
+    function prevQ() {
+        if(currentQIdx > 0) loadQuestion(currentQIdx - 1);
+    }
+
+    function startTimer(seconds) {
+        if(timerInterval) clearInterval(timerInterval);
+        let t = seconds;
+        timerInterval = setInterval(() => {
+            let m = Math.floor(t / 60);
+            let s = t % 60;
+            document.getElementById('timer').textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+            if(--t < 0) {
+                clearInterval(timerInterval);
+                alert("Waktu pengerjaan Ujian Subtes 3 telah habis!");
+                finishSubtes();
+            }
+        }, 1000);
+    }
+
+    function finishSubtes() {
+        if(timerInterval) clearInterval(timerInterval);
+
+        let benar = 0;
+        const currentBank = masterSubtes[currentSubtesIdx].soal;
+        currentBank.forEach((q, i) => {
+            if(userAnswers[i] === q.ans) benar++;
+        });
+
+        const score100 = Math.round((benar / 50) * 100);
+        localStorage.setItem(`prc_metro_ntb_subtes_3_manajerial`, score100);
+        localStorage.setItem(`prc_metro_ntb_ans_3_manajerial`, JSON.stringify(userAnswers));
+        localStorage.setItem(`prc_metro_ntb_bank_3_manajerial`, JSON.stringify(currentBank));
+
+        sendToDatabasePRC(score100, benar);
+
+        alert(`Subtes 3 Manajerial Selesai!\nSkor Anda: ${score100} / 100 (Benar: ${benar} dari 50 Soal)`);
+        showRekap();
+    }
+
+    function sendToDatabasePRC(skor, totalBenar) {
+        const pName = getPName();
+        const endTime = new Date();
+        const sessionEndTimeStr = endTime.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        
+        let durasiSec = sessionStartTime ? Math.round((endTime - sessionStartTime) / 1000) : 0;
+        let durasiMin = Math.floor(durasiSec / 60);
+        let durasiRestSec = durasiSec % 60;
+        let sessionDurationStr = `${durasiMin} Menit ${durasiRestSec} Detik`;
+
+        const todayStr = new Date().toLocaleDateString('id-ID');
+
+        const payload = {
+            sessionId: currentSessionId,
+            namaSiswa: pName,
+            program: "ASN",
+            namaTryout: "TES KOMPETENSI ASN METROLOGI — SUBTES 3",
+            tanggal: todayStr,
+            waktuMulai: sessionStartTimeStr || "-",
+            waktuSelesai: sessionEndTimeStr,
+            durasi: sessionDurationStr,
+
+            kecerdasan: "",
+            kepribadian: "",
+            kecermatan: "",
+
+            tiu: "",
+            twk: "",
+            tkp: "",
+
+            pengetahuanUmum: skor,
+
+            nilaiAkhir: skor
+        };
+
+        if(GAS_URL) {
+            fetch(GAS_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).catch(err => console.log("DB sync status:", err));
+        }
+    }
+
+    function showRekap() {
+        const pName = getPName();
+        document.getElementById('viewHome').style.display = 'none';
+        document.getElementById('viewQuiz').style.display = 'none';
+        document.getElementById('viewRekap').style.display = 'block';
+
+        document.getElementById('namaPesertaRekap').textContent = "PESERTA: " + pName.toUpperCase();
+
+        const score = parseInt(localStorage.getItem(`prc_metro_ntb_subtes_3_manajerial`) || 0);
+        const benarPerSub = Math.round((score / 100) * 50);
+
+        document.getElementById('totalBenar').textContent = `${benarPerSub} / 50`;
+        document.getElementById('skorAkurasi').textContent = `${score}%`;
+
+        let katText = 'Rendah', badgeCls = 'badge-rendah';
+        let txtStatus = 'Memerlukan Pendalaman Kepemimpinan Taktis, Pengelolaan Konflik, Pengambilan Keputusan Strategis Berbasis Risiko, dan Manajemen Perubahan Organisasi.';
+        let txtRekomendasi = 'Tingkatkan latihan analisis studi kasus situasi dilematis di lingkungan birokrasi pemerintahan, khususnya penanganan konflik kepentingan, efisiensi alur kerja, dan integritas penegakan aturan.';
+
+        if(score >= 80) {
+            katText = 'Tinggi'; badgeCls = 'badge-tinggi';
+            txtStatus = 'Memiliki Kapabilitas Manajerial ASN yang Sangat Matang, Keteguhan Integritas Tinggi, Responsif Publik, serta Unggul dalam Kepemimpinan Krisis.';
+            txtRekomendasi = 'Pertahankan objektivitas pengambilan keputusan dan kepemimpinan inklusif dalam mengawal dinamika tata kelola pelayanan metrologi legal.';
+        } else if(score >= 60) {
+            katText = 'Sedang'; badgeCls = 'badge-sedang';
+            txtStatus = 'Memahami Prinsip Tata Kelola Manajerial ASN dengan Baik, Namun Perlu Ketajaman Lebih Lanjut pada Kasus Dilema Kompleks dan Manajemen Perubahan.';
+            txtRekomendasi = 'Pelajari kembali pendekatan penyelesaian masalah berbasis data (root-cause analysis), re-engineering alur kerja, serta strategi diplomasi organisasi.';
+        }
+
+        const tbody = document.getElementById('tbodyRekap');
+        tbody.innerHTML = `
+            <tr>
+                <td><b>SUBTES 3: KOMPETENSI MANAJERIAL ASN METROLOGI LEGAL</b></td>
+                <td>50 Soal</td>
+                <td><b>${score} / 100</b></td>
+                <td><span class="badge ${badgeCls}">${katText}</span></td>
+            </tr>
+        `;
+
+        document.getElementById('txtKuat').textContent = txtStatus;
+        document.getElementById('txtLatih').textContent = txtRekomendasi;
+    }
+
+    function downloadPembahasanSemua() {
+        const pName = getPName();
+        const score = parseInt(localStorage.getItem(`prc_metro_ntb_subtes_3_manajerial`) || 0);
+        const savedAns = JSON.parse(localStorage.getItem(`prc_metro_ntb_ans_3_manajerial`) || '{}');
+        const savedBank = JSON.parse(localStorage.getItem(`prc_metro_ntb_bank_3_manajerial`) || '[]');
+
+        if(savedBank.length === 0) {
+            alert("Data latihan tidak ditemukan. Harap selesaikan ujian terlebih dahulu!");
+            return;
+        }
+
+        let printWindow = window.open('', '_blank');
+        let htmlContent = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Pembahasan Subtes 3 Manajerial - ${pName}</title>
+                <style>
+                    body { font-family: Arial, sans-serif; padding: 20px; color: #000; line-height: 1.6; }
+                    h1, h2, h3 { text-align: center; margin: 5px 0; }
+                    .header-box { border: 2px solid #b45309; padding: 15px; margin-bottom: 20px; background: #fef3c7; border-radius: 8px; }
+                    .q-box { border: 1px solid #cbd5e1; padding: 15px; margin-bottom: 15px; border-radius: 6px; page-break-inside: avoid; }
+                    .q-text { font-weight: bold; margin-bottom: 10px; }
+                    .opt-list { margin-left: 20px; }
+                    .user-ans { font-weight: bold; }
+                    .correct-ans { color: #15803d; font-weight: bold; }
+                    .wrong-ans { color: #b91c1c; font-weight: bold; }
+                    .pem-box { background: #f8fafc; border-left: 4px solid #d97706; padding: 10px; margin-top: 10px; font-size: 14px; white-space: pre-line; }
+                </style>
+            </head>
+            <body>
+                <h1>BIMBEL CERDAS NTB — PERSONA RESEARCH & CONSULTING</h1>
+                <h2>PEMBAHASAN RESMI SUBTES 3: KOMPETENSI MANAJERIAL ASN METROLOGI LEGAL</h2>
+                
+                <div class="header-box">
+                    <p style="margin:3px 0;"><b>NAMA PESERTA:</b> ${pName.toUpperCase()}</p>
+                    <p style="margin:3px 0;"><b>TANGGAL TES:</b> ${new Date().toLocaleDateString('id-ID')}</p>
+                    <p style="margin:3px 0;"><b>SKOR AKHIR SUBTES 3:</b> ${score} / 100</p>
+                </div>
+        `;
+
+        savedBank.forEach((qData, i) => {
+            const userChoiceIdx = savedAns[i];
+            const isCorrect = userChoiceIdx === qData.ans;
+            
+            let userChoiceText = userChoiceIdx !== undefined ? `${String.fromCharCode(65 + userChoiceIdx)}. ${qData.opts[userChoiceIdx]}` : "Tidak Dijawab";
+            let correctChoiceText = `${String.fromCharCode(65 + qData.ans)}. ${qData.opts[qData.ans]}`;
+
+            htmlContent += `
+                <div class="q-box">
+                    <div class="q-text">Soal ${i + 1}: ${qData.q}</div>
+                    <div class="opt-list">
+            `;
+
+            qData.opts.forEach((opt, oIdx) => {
+                htmlContent += `<div>${String.fromCharCode(65 + oIdx)}. ${opt}</div>`;
+            });
+
+            htmlContent += `
+                    </div>
+                    <p style="margin: 8px 0 3px 0;">
+                        Jawaban Anda: <span class="${isCorrect ? 'correct-ans' : 'wrong-ans'}">${userChoiceText}</span>
+                    </p>
+                    <p style="margin: 3px 0;">
+                        Jawaban Benar: <span class="correct-ans">${correctChoiceText}</span>
+                    </p>
+                    <div class="pem-box">
+                        <b>PEMBAHASAN LENGKAP:</b><br>${qData.pem}
+                    </div>
+                </div>
+            `;
+        });
+
+        htmlContent += `
+            </body>
+            </html>
+        `;
+
+        printWindow.document.write(htmlContent);
+        printWindow.document.close();
+        printWindow.focus();
+        setTimeout(() => {
+            printWindow.print();
+        }, 500);
+    }
+</script>
+</body>
+</html>

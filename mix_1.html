@@ -1,0 +1,1802 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TES KOMPETENSI ASN METROLOGI — FULL TEST 100 SOAL</title>
+    <style>
+        :root { 
+            --bg: #f8fafc;
+            --white: #ffffff;
+            --text-black: #000000;
+            --text-dark: #0f172a;
+            --text-muted: #475569;
+            --gold: #b45309; 
+            --gold-light: #fef3c7;
+            --gold-border: #d97706;
+            --header-bg: #000000;
+            --border-color: #cbd5e1;
+        }
+        
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: var(--bg); 
+            margin: 0; 
+            padding: 0; 
+            color: var(--text-black); 
+            -webkit-user-select: none; 
+            user-select: none; 
+        }
+        
+        header { 
+            background: var(--header-bg); 
+            color: #ffffff; 
+            padding: 25px 20px; 
+            text-align: center; 
+            border-bottom: 5px solid var(--gold-border); 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .container { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
+        
+        .card { 
+            background: var(--white); 
+            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
+            margin-bottom: 25px; 
+            border: 1px solid var(--border-color);
+            color: var(--text-black);
+        }
+        
+        .user-card input { 
+            width: 80%; 
+            max-width: 400px; 
+            padding: 12px; 
+            font-size: 16px; 
+            border: 2px solid var(--gold-border); 
+            background: #ffffff;
+            color: var(--text-black);
+            border-radius: 8px; 
+            text-align: center; 
+            margin-top: 10px; 
+            outline: none;
+            font-weight: bold;
+        }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
+        .subtes-card { 
+            background: var(--white); 
+            padding: 20px; 
+            border-radius: 10px; 
+            border-left: 6px solid var(--gold-border); 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06); 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: space-between; 
+            border-top: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-black);
+        }
+        
+        .opt { 
+            padding: 14px; 
+            margin: 10px 0; 
+            border: 1.5px solid var(--border-color); 
+            border-radius: 8px; 
+            cursor: pointer; 
+            transition: 0.2s; 
+            font-size: 15px; 
+            background: #f8fafc;
+            color: var(--text-black);
+            font-weight: 500;
+        }
+        .opt:hover { background: #e2e8f0; border-color: #000000; }
+        .opt.selected { background: var(--gold-light); border-color: var(--gold-border); font-weight: bold; color: #000000; }
+        
+        .nav-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-top: 15px; max-height: 400px; overflow-y: auto; padding-right: 5px; }
+        .nav-item { 
+            height: 35px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            border: 1px solid var(--border-color); 
+            background: #f1f5f9;
+            color: #000000;
+            border-radius: 4px; 
+            cursor: pointer; 
+            font-size: 12px; 
+            font-weight: bold; 
+        }
+        .nav-item.filled { background: var(--gold-border); color: #ffffff; }
+        .nav-item.active { border: 2px solid #000000; box-shadow: 0 0 6px rgba(0, 0, 0, 0.3); }
+        
+        .btn { 
+            background: #000000; 
+            color: #ffffff; 
+            border: none; 
+            padding: 12px 20px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            text-decoration: none; 
+            text-align: center; 
+            display: inline-block; 
+            transition: 0.2s;
+            border-bottom: 3px solid var(--gold-border);
+        }
+        .btn:hover { background: #1e293b; color: #fbbf24; }
+        .btn-dark { background: #e2e8f0; color: #000000; border: 1px solid #cbd5e1; }
+        .btn-dark:hover { background: #cbd5e1; }
+        
+        .status-badge { 
+            display: inline-block; 
+            padding: 4px 10px; 
+            border-radius: 12px; 
+            font-size: 12px; 
+            font-weight: bold; 
+            margin-top: 5px; 
+            background: #e2e8f0; 
+            color: var(--text-muted); 
+        }
+        .done { background: #dcfce7; color: #15803d; border: 1px solid #86efac; }
+        #timer { font-size: 22px; font-weight: bold; color: var(--gold-border); font-family: monospace; }
+        
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; text-align: left; color: var(--text-black); }
+        th, td { padding: 12px 15px; border-bottom: 1px solid var(--border-color); }
+        th { background: #f1f5f9; color: #000000; border-bottom: 2px solid var(--gold-border); font-weight: bold; }
+        .badge { display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: bold; }
+        .badge-tinggi { background: #dcfce7; color: #15803d; }
+        .badge-sedang { background: #fef9c3; color: #a16207; }
+        .badge-rendah { background: #fee2e2; color: #b91c1c; }
+        
+        .summary-box { background: #f8fafc; border-left: 5px solid var(--gold-border); padding: 20px; border-radius: 8px; margin-top: 20px; border: 1px solid var(--border-color); color: var(--text-black); }
+        .author-tag { font-size: 13px; color: #fbbf24; margin-top: 8px; font-style: italic; letter-spacing: 0.5px; font-weight: 600; }
+    </style>
+</head>
+<body oncontextmenu="return false" onkeydown="return disableKeys(event)">
+
+<header>
+    <h1 style="margin:0; font-size:26px; letter-spacing: 1px; color: #ffffff;">CAT TES KOMPETENSI ASN METROLOGI</h1>
+    <div class="author-tag">Persona Research & Consulting | WA: 0877 425 5786</div>
+    <p style="margin:10px 0 0; color: #cbd5e1; font-weight: 500; font-size: 14px;">TES KOMPETENSI ASN METROLOGI — FULL TEST 100 SOAL</p>
+</header>
+
+<div class="container">
+
+    <!-- VIEW 1: HOME -->
+    <div id="viewHome">
+        <div class="card user-card" style="text-align: center;">
+            <h3 style="margin:0; color:#000000; border-bottom: 2px solid var(--gold-border); display: inline-block; padding-bottom: 4px;">IDENTITAS PESERTA UJIAN</h3>
+            <p style="font-size:14px; color:var(--text-muted); margin-top: 10px;">Masukkan Nama Lengkap Anda sebelum memulai ujian komprehensif.</p>
+            <input type="text" id="inputNama" placeholder="Nama Lengkap Peserta..." oninput="saveName()">
+        </div>
+
+        <h3 style="color:#000000; border-bottom: 2px solid var(--gold-border); padding-bottom: 8px;">STRUKTUR MODUL UJIAN (TOTAL 100 SOAL)</h3>
+        <div class="grid">
+            <div class="subtes-card">
+                <div>
+                    <h4 style="margin:0; color:#000000;">SIMULASI FULL TEST 100 SOAL</h4>
+                    <p style="font-size:13px; color:var(--text-black); margin-top: 8px; line-height: 1.5;">
+                        <b>Subtes 1:</b> Tekn. Kemetrologian (40 Soal)<br>
+                        <b>Subtes 2:</b> Pengawasan & Regulasi (35 Soal)<br>
+                        <b>Subtes 3:</b> Manajerial ASN (25 Soal)
+                    </p>
+                    <div id="stFull" class="status-badge">Belum Dikerjakan</div>
+                </div>
+                <button class="btn" style="margin-top:20px;" onclick="startFullTest()">MULAI FULL TEST (100 SOAL)</button>
+            </div>
+        </div>
+
+        <div style="margin-top: 30px; text-align: center;">
+            <button class="btn" onclick="showRekap()" style="font-size:16px; padding:15px 30px;">📊 LIHAT HASIL & DOWNLOAD PEMBAHASAN</button>
+        </div>
+    </div>
+
+    <!-- VIEW 2: QUIZ CAT -->
+    <div id="viewQuiz" style="display: none;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; background: var(--white); padding: 15px 20px; border-radius: 10px; border: 1px solid var(--border-color); box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+            <div id="subtesTitle" style="font-weight:bold; color:#000000; font-size:15px;">TES KOMPETENSI ASN METROLOGI</div>
+            <div id="timer">120:00</div>
+        </div>
+
+        <div style="display:flex; gap:20px; flex-wrap: wrap;">
+            <div style="flex:3; min-width: 300px;">
+                <div class="card">
+                    <div id="q-subtes-tag" style="font-size:12px; font-weight:bold; color:var(--gold); text-transform:uppercase; margin-bottom:5px;"></div>
+                    <div id="q-no" style="font-weight:bold; color:var(--gold-border); margin-bottom:12px; font-size: 16px;">Soal 1 dari 100</div>
+                    <div id="q-text" style="font-size:15px; line-height:1.7; margin-bottom:20px; white-space: pre-line; color: #000000; font-weight: 500;"></div>
+                    <div id="options"></div>
+                    <div style="margin-top:25px; display:flex; justify-content:space-between;">
+                        <button class="btn btn-dark" onclick="prevQ()">Sebelumnya</button>
+                        <button class="btn" id="btn-next" onclick="nextQ()">Selanjutnya</button>
+                    </div>
+                </div>
+            </div>
+
+            <div style="flex:1; min-width: 220px;">
+                <div class="card" style="padding:15px;">
+                    <div style="text-align:center; font-size:13px; font-weight:bold; color:#000000; margin-bottom:10px;">NAVIGASI SOAL (100 SOAL)</div>
+                    <div id="navGrid" class="nav-grid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW 3: REKAP & HASIL -->
+    <div id="viewRekap" style="display: none;">
+        <div class="card">
+            <h2 style="text-align: center; color: #000000; margin-bottom: 5px;">HASIL TES KOMPETENSI ASN METROLOGI</h2>
+            <p style="text-align: center; color: var(--text-muted); font-weight: 500; margin-top:0;">Persona Research & Consulting — Professional Assessment System</p>
+            <div id="namaPesertaRekap" style="text-align: center; font-weight: bold; font-size: 18px; margin: 20px 0; background: var(--gold-light); padding: 12px; border-radius: 8px; border: 1px solid var(--gold-border); color: #000000;">NAMA: -</div>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px;">
+                <div style="background:#f8fafc; padding:15px; border-radius:10px; text-align:center; border:1px solid var(--border-color);">
+                    <small style="color:var(--text-muted); font-weight:bold;">TOTAL BENAR</small>
+                    <div id="totalBenar" style="font-size:28px; font-weight:900; color:#000000; margin-top: 5px;">0 / 100</div>
+                </div>
+                <div style="background:#f8fafc; padding:15px; border-radius:10px; text-align:center; border:1px solid var(--border-color);">
+                    <small style="color:var(--text-muted); font-weight:bold;">PERSENTASE AKURASI</small>
+                    <div id="skorAkurasi" style="font-size:28px; font-weight:900; color:var(--gold-border); margin-top: 5px;">0%</div>
+                </div>
+                <div style="background:#f8fafc; padding:15px; border-radius:10px; text-align:center; border:1px solid var(--border-color);">
+                    <small style="color:var(--text-muted); font-weight:bold;">NILAI AKHIR</small>
+                    <div id="nilaiAkhir" style="font-size:28px; font-weight:900; color:#15803d; margin-top: 5px;">0</div>
+                </div>
+            </div>
+
+            <h3 style="color: #000000; border-bottom: 2px solid var(--gold-border); padding-bottom: 5px;">REKAPITULASI PER SUBTES</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Kompetensi Subtes</th>
+                        <th>Jumlah Soal</th>
+                        <th>Benar</th>
+                        <th>Skor Subtes</th>
+                    </tr>
+                </thead>
+                <tbody id="tbodyRekap"></tbody>
+            </table>
+
+            <div class="summary-box">
+                <h3 style="margin-top:0; color:#000000; border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">ANALISIS KELULUSAN & EVALUASI</h3>
+                <p><b>Status Kualifikasi:</b><br><span id="txtStatus" style="color:var(--text-black);">-</span></p>
+                <p><b>Rekomendasi Pengembangan:</b><br><span id="txtRekomendasi" style="color:var(--text-black);">-</span></p>
+            </div>
+
+            <div style="margin-top: 25px; text-align: center; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+                <button class="btn" onclick="downloadPembahasanSemua()">📥 DOWNLOAD PEMBAHASAN (PDF)</button>
+                <button class="btn btn-dark" onclick="window.print()">🖨 CETAK HASIL</button>
+                <button class="btn btn-dark" onclick="showHome()">🏠 KEMBALI KE BERANDA</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function disableKeys(e) {
+        if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 67 || e.keyCode === 73 || e.keyCode === 74)) {
+            return false;
+        }
+        if (e.keyCode === 123) return false;
+    }
+
+    // Endpoint Database PRC lama
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbyFxmO0ocvr5HqK2WuGyjt7_JeTOcs4vGDg7QZejeiE2QvCP_qkonJcZc5hz9AFW2Vg/exec";
+
+    let currentSessionId = 'SESS-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+    let sessionStartTime = null;
+    let sessionStartTimeStr = '';
+
+    // ================= BANK SOAL LENGKAP 100 SOAL =================
+    // Subtes 1: 40 Soal (0 - 39)
+    // Subtes 2: 35 Soal (40 - 74)
+    // Subtes 3: 25 Soal (75 - 99)
+    
+    const bankSoalMaster = [
+        // --- SUBTES 1: KOMPETENSI TEKNIS KEMETROLOGIAN (40 SOAL) ---
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "1. Sebuah timbangan elektronik digunakan untuk menimbang standar massa 1000,000 g. Pembacaan pengulangan lima kali berturut-turut menghasilkan data: 1000,002 g; 1000,003 g; 1000,002 g; 1000,004 g; dan 1000,002 g. Nilai koreksi instrumen pada titik ukur tersebut adalah...",
+            opts: ["-0,0026 g", "+0,0026 g", "-0,0023 g", "+0,0023 g", "-0,0030 g"],
+            ans: 0,
+            pem: "Diketahui:\nNilai Standar (S) = 1000,000 g\nRata-rata pembacaan (X̄) = (1000,002 + 1000,003 + 1000,002 + 1000,004 + 1000,002)/5 = 1000,0026 g\n\nDitanyakan: Nilai Koreksi (C)\n\nRumus:\nError (E) = X̄ - S = 1000,0026 - 1000,000 = +0,0026 g\nKoreksi (C) = - Error = -0,0026 g\n\nKesimpulan: Koreksi instrumen adalah -0,0026 g."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "2. Suatu pengujian bejana ukur standar nominal 10 L dilakukan dengan metode volumetri. Pembacaan meniskus cairan pada skala menunjukkan 10.015 mL pada suhu 28 °C. Jika koefisien muai muai ruang bejana sebesar 0,00005 /°C dan suhu acuan metrologi 20 °C, besarnya volume bejana pada suhu acuan 20 °C adalah...",
+            opts: ["10.011,0 mL", "10.019,0 mL", "10.009,0 mL", "10.021,0 mL", "10.005,0 mL"],
+            ans: 0,
+            pem: "Diketahui:\nV_t = 10.015 mL\nt = 28 °C, t_0 = 20 °C (Δt = 8 °C)\nγ = 0,00005 /°C\n\nDitanyakan: Volume acuan V_20\n\nRumus:\nV_20 = V_t / [1 + γ(t - t_0)]\nV_20 = 10.015 / [1 + 0,00005(8)]\nV_20 = 10.015 / 1,0004 = 10.011,0 mL\n\nKesimpulan: Volume bejana pada 20 °C adalah 10.011,0 mL."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "3. Dalam kalibrasi anak timbangan M1 nominal 1 kg, diperoleh nilai simpangan baku pengulangan (repeatability) dari 10 kali penimbangan sebesar 0,35 mg. Komponen ketidakpastian standar tipe A (u_A) dari pengulangan penimbangan tersebut adalah...",
+            opts: ["0,111 mg", "0,350 mg", "0,035 mg", "0,175 mg", "0,011 mg"],
+            ans: 0,
+            pem: "Diketahui:\nSimpangan baku (s) = 0,35 mg\nJumlah pengamatan (n) = 10\n\nDitanyakan: Ketidakpastian standar tipe A (u_A)\n\nRumus:\nu_A = s / √n = 0,35 / √10 = 0,35 / 3,1622 = 0,11068 mg ≈ 0,111 mg\n\nKesimpulan: Nilai u_A adalah 0,111 mg."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "4. Sebuah anak timbangan kelas F2 daya muat 500 g memiliki Batas Kesalahan yang Diizinkan (BKD) sebesar ±2,5 mg. Pada saat tera ulang, hasil pengujian penimbangan memberikan koreksi +1,8 mg dengan ketidakpastian bentangan U (k=2) sebesar ±0,8 mg. Berdasarkan konsep kesesuaian metrologi legal (ISO 14253-1), status keputusan terhadap anak timbangan tersebut adalah...",
+            opts: [
+                "Sah, karena koreksi berada di dalam batas BKD tanpa memperhitungkan U",
+                "Tidak Sah, karena nilai |Koreksi| + U = 2,6 mg melebihi BKD (2,5 mg)",
+                "Sah, karena ketidakpastian bentangan lebih kecil dari nilai BKD",
+                "Diterima bersyarat dengan menurunkan kelas ketelitian menjadi M1",
+                "Pengujian wajib diulang karena zona keraguan belum terdefinisi"
+            ],
+            ans: 1,
+            pem: "Diketahui:\nBKD = ±2,5 mg\nKoreksi = +1,8 mg\nKetidakpastian bentangan U = ±0,8 mg\n\nDitanyakan: Keputusan Kesesuaian (Compliance Decision)\n\nEvaluasi:\nPenyimpangan maksimum terburuk = |Koreksi| + U = 1,8 mg + 0,8 mg = 2,6 mg.\nKarena 2,6 mg > 2,5 mg (BKD), maka posisi pengujian masuk ke zona penolakan (out of tolerance zone).\n\nKesimpulan: Keputusan adalah Tidak Sah."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "5. Pembacaan resolusi timbangan digital adalah d = 0,01 g. Komponen ketidakpastian standar tipe B yang berasal dari resolusi alat ukur tersebut dengan asumsi distribusi segi empat (rectangular distribution) adalah...",
+            opts: ["0,00289 g", "0,00500 g", "0,00289 mg", "0,00100 g", "0,00577 g"],
+            ans: 0,
+            pem: "Diketahui:\nResolusi (d) = 0,01 g\nSetengah rentang resolusi (a) = d / 2 = 0,005 g\n\nDitanyakan: Ketidakpastian standar tipe B (u_resolusi)\n\nRumus (Distribusi segi empat):\nu = a / √3 = 0,005 / 1,73205 = 0,0028867 g ≈ 0,00289 g\n\nKesimpulan: Nilai ketidakpastian standar dari resolusi adalah 0,00289 g."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "6. Pada pengujian meter arus cair (flowmeter) industri, diperoleh dua komponen ketidakpastian standar gabungan u_c1 = 0,12% dan u_c2 = 0,16%. Jika kedua komponen saling bebas (uncorrelated), maka ketidakpastian standar gabungan total (u_combined) adalah...",
+            opts: ["0,20%", "0,28%", "0,14%", "0,04%", "0,10%"],
+            ans: 0,
+            pem: "Diketahui:\nu_c1 = 0,12%\nu_c2 = 0,16%\n\nDitanyakan: Ketidakpastian gabungan total (u_comb)\n\nRumus:\nu_comb = √(u_c1² + u_c2²) = √((0,12)² + (0,16)²) = √(0,0144 + 0,0256) = √0,0400 = 0,20%\n\nKesimpulan: Ketidakpastian standar gabungan total adalah 0,20%."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "7. Sebuah termometer gelas standar digunakan untuk mengukur suhu tangki uji. Pembacaan menunjukkan 25,4 °C. Sertifikat kalibrasi termometer mencantumkan koreksi -0,3 °C pada titik 25 °C. Suhu sebenarnya dari cairan tersebut adalah...",
+            opts: ["25,1 °C", "25,7 °C", "25,4 °C", "24,8 °C", "26,0 °C"],
+            ans: 0,
+            pem: "Diketahui:\nPembacaan (X) = 25,4 °C\nKoreksi (C) = -0,3 °C\n\nDitanyakan: Nilai Sebenarnya (Y)\n\nRumus:\nY = Pembacaan + Koreksi = 25,4 + (-0,3) = 25,1 °C\n\nKesimpulan: Suhu sebenarnya adalah 25,1 °C."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "8. Dalam pengujian kepekaan timbangan halus daya muat 200 g, penambahan imbuh (poise/sensitivity weight) sebesar 2 mg pada piring timbangan menyebabkan pergeseran jarum penunjuk sebesar 4 skala. Kepekaan (sensitivity) timbangan tersebut adalah...",
+            opts: ["2 skala/mg", "0,5 skala/mg", "8 skala/mg", "1 skala/mg", "4 skala/mg"],
+            ans: 0,
+            pem: "Diketahui:\nBeban imbuh (Δm) = 2 mg\nPergeseran skala (Δs) = 4 skala\n\nDitanyakan: Kepekaan (S)\n\nRumus:\nS = Δs / Δm = 4 skala / 2 mg = 2 skala/mg\n\nKesimpulan: Kepekaan timbangan adalah 2 skala/mg."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "9. Dalam pengujian hysteresis pada meter air domestik, diperoleh pembacaan saat laju alir naik sebesar 99,5 L/jam dan saat laju alir turun sebesar 100,3 L/jam untuk laju alir nominal 100 L/jam. Besarnya kesalahan histeresis instrumen tersebut adalah...",
+            opts: ["0,8 L/jam", "-0,8 L/jam", "0,4 L/jam", "0,8%", "0,3 L/jam"],
+            ans: 0,
+            pem: "Diketahui:\nPembacaan Naik = 99,5 L/jam\nPembacaan Turun = 100,3 L/jam\n\nDitanyakan: Histeresis\n\nRumus:\nHisteresis = |Pembacaan Turun - Pembacaan Naik| = |100,3 - 99,5| = 0,8 L/jam\n\nKesimpulan: Nilai histeresis adalah 0,8 L/jam."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "10. Sebuah penguji takaran BBM dispenser memiliki kapasitas nominal 20 Liter. Pada pemeriksaan tera ulang, pengujian 20 L menghasilkan penunjukan bejana sebesar 20.040 mL. Jika BKD untuk dispenser BBM saat tera ulang adalah ±0,5%, maka status dispenser BBM tersebut adalah...",
+            opts: [
+                "Sah, karena penyimpangan (+0,20%) masih di dalam BKD (±0,5%)",
+                "Batal Tera, karena terjadi kelebihan cairan 40 mL",
+                "Sah, tetapi wajib dikalibrasi ulang setiap 3 bulan",
+                "Tidak Sah, karena penyimpangan melebihi 20 mL",
+                "Diizinkan hanya untuk BBM non-subsidi"
+            ],
+            ans: 0,
+            pem: "Diketahui:\nKapasitas Nominal = 20 L = 20.000 mL\nHasil Ukur = 20.040 mL (Penyimpangan = +40 mL)\nBKD = ±0,5% dari 20.000 mL = ±100 mL\n\nDitanyakan: Status Kesesuaian\n\nEvaluasi:\nPenyimpangan Relatif = (40 / 20.000) × 100% = +0,20%.\nKarena |+0,20%| ≤ 0,5% (40 mL ≤ 100 mL), maka dispenser masuk batas toleransi BKD.\n\nKesimpulan: Dispenser Sah."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "11. Rantai ketertelusuran pengukuran (traceability chain) menjamin bahwa hasil pengukuran di tingkat lapangan terhubung ke standar nasional/internasional melalui...",
+            opts: [
+                "Rangkaian kalibrasi tak terputus yang موثوق (terdokumentasi) dengan ketidakpastian yang terhitung",
+                "Kepemilikan sertifikat ISO 9001 oleh laboratorium",
+                "Penggunaan instrumen buatan luar negeri bermerek terkenal",
+                "Pemeriksaan visual secara rutin oleh petugas dinas",
+                "Pengesahan oleh Kepala Dinas Perdagangan setempat"
+            ],
+            ans: 0,
+            pem: "Prinsip Metrologi: Ketertelusuran (Traceability) didefinisikan sebagai sifat hasil pengukuran yang dapat dikaitkan dengan acuan standar nasional atau internasional melalui rantai kalibrasi yang tidak terputus, di mana masing-masing kalibrasi menyumbangkan ketidakpastian pengukuran yang terdokumentasi."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "12. Pada timbangan ban berjalan (belt conveyor scale), parameter teknis utama yang menentukan akurasi penimbangan massa kumulatif adalah keselarasan antara...",
+            opts: [
+                "Kecepatan sabuk konveyor dan integrasi sinyal beban sel beban (load cell)",
+                "Panjang konveyor dan jumlah rol tumpuan",
+                "Suhu motor penggerak dan tegangan listrik utama",
+                "Lebar sabuk dan kedalaman sudut idler",
+                "Kapasitas daya motor dan diameter drum pemutar"
+            ],
+            ans: 0,
+            pem: "Prinsip Kerja Belt Scale: Timbangan sabuk konveyor menghitung total massa dengan mengintegrasikan dua variabel dinamis secara real-time: gaya berat materi pada sel beban (load cell) dan kecepatan pergerakan sabuk (speed sensor)."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "13. Suatu pengukuran konsentrasi gas emisi dilakukan 6 kali: 102, 104, 101, 103, 102, dan 104 ppm. Nilai rata-rata dan deviasi standar sampelnya adalah...",
+            opts: ["102,67 ppm dan 1,21 ppm", "102,50 ppm dan 1,50 ppm", "103,00 ppm dan 1,00 ppm", "102,67 ppm dan 1,47 ppm", "102,00 ppm dan 0,89 ppm"],
+            ans: 0,
+            pem: "Diketahui:\nData: 102, 104, 101, 103, 102, 104 (n=6)\nMean (X̄) = (616)/6 = 102,666... ≈ 102,67 ppm\n\nPerhitungan s (deviasi standar sampel):\nΣ(x_i - X̄)² = (-0,67)² + (1,33)² + (-1,67)² + (0,33)² + (-0,67)² + (1,33)² = 0,4489 + 1,7689 + 2,7889 + 0,1089 + 0,4489 + 1,7689 = 7,3334\ns = √(7,3334 / 5) = √1,4667 = 1,211 ppm ≈ 1,21 ppm\n\nKesimpulan: Mean = 102,67 ppm, s = 1,21 ppm."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "14. Sebuah jembatan timbang kapasitas 50 ton memiliki skala terkecil (e) = 10 kg. Pada pengujian kebenaran dengan beban muatan uji 20 ton (20.000 kg), pembacaan pada indikator menunjukkan 20.020 kg. Besar kesalahan relatif penimbangan tersebut adalah...",
+            opts: ["+0,10%", "+0,01%", "+0,20%", "-0,10%", "+0,05%"],
+            ans: 0,
+            pem: "Diketahui:\nBeban Standar (S) = 20.000 kg\nPembacaan (X) = 20.020 kg\n\nDitanyakan: Kesalahan Relatif (% Error)\n\nRumus:\nAbsolute Error = X - S = 20.020 - 20.000 = +20 kg\n% Error = (20 / 20.000) × 100% = +0,10%\n\nKesimpulan: Kesalahan relatif = +0,10%."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "15. Dalam ISO/IEC Guide 98-3 (GUM), derajat kebebasan efektif (v_eff) untuk menentukan faktor cakupan k dihitung menggunakan persamaan...",
+            opts: ["Welch-Satterthwaite", "Gauss-Markov", "Navier-Stokes", "Boyle-Mariotte", "Taylor-Expanded"],
+            ans: 0,
+            pem: "Prinsip Ketidakpastian Metrologi: Rumus Welch-Satterthwaite digunakan dalam GUM untuk menghitung derajat kebebasan efektif (v_eff) dari kombinasi beberapa komponen ketidakpastian yang memiliki derajat kebebasan berbeda."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "16. Sebuah tangki ukur mobil (TUM) BBM kapasitas 8.000 Liter diuji dengan bejana ukur standar 500 L. Untuk mengisi penuh tangki hingga tanda batas peka (kelembagaan) dibutuhkan 16 kali tuangan bejana. Jika pada tuangan ke-16 permukaan cairan berada 5 mm di bawah garis tanda sah, dan kepekaan leher tangki adalah 2 L/mm, maka volume isi tangki sebenarnya adalah...",
+            opts: ["7.990 Liter", "8.010 Liter", "7.995 Liter", "8.005 Liter", "7.980 Liter"],
+            ans: 0,
+            pem: "Diketahui:\nKapasitas Nominal = 8.000 L\nPosisi cairan = 5 mm di bawah garis nol/tanda sah\nKepekaan leher = 2 L/mm\n\nDitanyakan: Volume Aktual\n\nPerhitungan:\nKekurangan volume = 5 mm × 2 L/mm = 10 Liter\nVolume sebenarnya = 8.000 L - 10 L = 7.990 Liter.\n\nKesimpulan: Volume tangki sebenarnya 7.990 Liter."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "17. Pengujian eksentrisitas (eccentricity test) pada timbangan meja non-otomatis bertujuan untuk memastikan bahwa...",
+            opts: [
+                "Penunjukan timbangan tetap konsisten meskipun beban diletakkan pada posisi berbeda di piring muatan",
+                "Timbangan mampu mengukur beban maksimum tanpa mengalami penyimpangan struktur",
+                "Waktu tanggap jarum penunjuk berada di bawah 3 detik",
+                "Efek suhu lingkungan tidak mempengaruhi sel beban",
+                "Timbangan tidak terpengaruh oleh medan magnet luar"
+            ],
+            ans: 0,
+            pem: "Prinsip Pengujian UTTP: Pengujian eksentrisitas (posisi pembebanan) bertujuan memverifikasi bahwa instrumen memberikan hasil penunjukan yang stabil dan akurat di mana pun posisi pusat gravitasi beban ditaruh pada piring muatan."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "18. Suatu instrumen pengukur panjang laser memiliki koreksi linier C(L) = +0,02 + 0,001×L (dalam mm, L dalam meter). Jika instrumen mengukur jarak nominal L = 50 meter, maka pembacaan koreksi total yang harus ditambahkan adalah...",
+            opts: ["+0,07 mm", "+0,05 mm", "+0,12 mm", "+0,02 mm", "+0,52 mm"],
+            ans: 0,
+            pem: "Diketahui:\nPersamaan Koreksi C(L) = +0,02 + 0,001×L\nL = 50 m\n\nDitanyakan: Koreksi Total\n\nPerhitungan:\nC(50) = 0,02 + 0,001(50) = 0,02 + 0,05 = +0,07 mm.\n\nKesimpulan: Koreksi total adalah +0,07 mm."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "19. Jika faktor cakupan (coverage factor) k = 2 dipilih pada distribusi normal, maka tingkat kepercayaan (level of confidence) ketidakpastian bentangan (expanded uncertainty) adalah sekitar...",
+            opts: ["95,45%", "99,73%", "68,27%", "90,00%", "99,00%"],
+            ans: 0,
+            pem: "Prinsip Statistik Metrologi: Pada distribusi normal, rentang ketidakpastian bentangan dengan k = 2 mencakup sekitar 95,45% (biasa dibulatkan menjadi 95%) dari distribusi probabilitas."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "20. Pengujian kemampuan ulang (repeatability) pada timbangan pegas dilakukan dengan cara...",
+            opts: [
+                "Menimbang beban yang sama berkali-kali pada kondisi pengukuran yang identik",
+                "Menimbang beban yang berbeda oleh dua penguji yang berbeda",
+                "Menimbang beban maksimum selama 24 jam secara terus menerus",
+                "Menimbang beban pada dua suhu lingkungan yang ekstrem",
+                "Menimbang beban dengan memutarkan piring timbangan 180 derajat"
+            ],
+            ans: 0,
+            pem: "Konsep VIM: Repeatability (keterulangan) adalah kedekatan antara hasil pengukuran berturut-turut dari besaran ukur yang sama yang dilakukan di bawah kondisi pengukuran yang sama (penguji, alat, metode, lokasi, dan waktu singkat yang sama)."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "21. Pada penimbangan massa di udara, efek gaya apung udara (buoyancy effect) perlu dikoreksi jika membutuhkan ketelitian tinggi. Persamaan koreksi gaya apung udara melibatkan variabel...",
+            opts: [
+                "Massa jenis udara, massa jenis benda uji, dan massa jenis anak timbangan standar",
+                "Suhu udara, kelembapan relatif, dan tekanan gravitasi lokal saja",
+                "Panjang lengan timbangan dan koefisien gesek pisau timbangan",
+                "Volume piring timbangan dan kecepatan angin laboratorium",
+                "Tegangan permukaan cairan dan daya hantar listrik udara"
+            ],
+            ans: 0,
+            pem: "Prinsip Pengukuran Massa: Koreksi buoyancy membutuhkan data massa jenis udara (ρ_a), massa jenis benda uji (ρ_x), dan massa jenis standar anak timbangan (ρ_s) sesuai rumus m_x = m_s × [1 - (ρ_a/ρ_s)] / [1 - (ρ_a/ρ_x)]."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "22. Sebuah takaran penuang (proving tank) kapasitas 500 L terbuat dari baja karbon (α = 11×10^-6 /°C). Jika terjadi kenaikan suhu dinding bejana sebesar 15 °C dari suhu acuan, perubahan volume bejana akibat ekspansi termal adalah...",
+            opts: ["0,2475 Liter", "0,0825 Liter", "0,1650 Liter", "0,4950 Liter", "0,0165 Liter"],
+            ans: 0,
+            pem: "Diketahui:\nV_0 = 500 L\nKoefisien muai panjang α = 11×10^-6 /°C\nKoefisien muai volume γ = 3 × α = 33×10^-6 /°C\nΔT = 15 °C\n\nDitanyakan: ΔV\n\nRumus:\nΔV = V_0 × γ × ΔT = 500 × (33×10^-6) × 15 = 0,2475 Liter.\n\nKesimpulan: Perubahan volume adalah 0,2475 Liter."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "23. Menurut OIML R76, istilah 'e' pada timbangan non-otomatis menyatakan...",
+            opts: [
+                "Interval skala verifikasi (verification scale interval)",
+                "Interval skala aktual (actual scale interval d)",
+                "Batas kesalahan maksimum diizinkan",
+                "Kapasitas minimum penimbangan",
+                "Rentang tara nol otomatis"
+            ],
+            ans: 0,
+            pem: "Standar OIML R76: Symbol 'e' merepresentasikan 'verification scale interval' (interval skala verifikasi) yang menjadi dasar penentuan kelas ketelitian dan Batas Kesalahan yang Diizinkan (BKD)."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "24. Pada dispenser BBM, komponen mekanis yang berfungsi mengukur volume cairan yang mengalir dan menggerakkan poros register penunjuk adalah...",
+            opts: ["Measuring transducer / meter ukur", "Pumping unit", "Gas separator", "Solenoid valve", "Nozzle automatik"],
+            ans: 0,
+            pem: "Anatomi Dispenser BBM: Measuring transducer (posidispenser meter) adalah komponen pendorong utama yang menerima aliran fluida dan mengukur volume cairan secara presisi untuk ditransmisikan ke kalkulator penunjuk."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "25. Suatu instrumen ukur tekanan (pressure gauge) kelas 0,5 memiliki rentang ukur 0 - 100 bar. Nilai kesalahan maksimum yang diizinkan (BKD) pada setiap titik pembacaan skala adalah...",
+            opts: ["±0,5 bar", "±0,05 bar", "±5,0 bar", "±0,25 bar", "±1,0 bar"],
+            ans: 0,
+            pem: "Diketahui:\nKelas Ketelitian = 0,5 (artinya BKD = ±0,5% dari Full Scale)\nFull Scale (FS) = 100 bar\n\nDitanyakan: BKD (bar)\n\nPerhitungan:\nBKD = ±0,5% × 100 bar = ±0,5 bar.\n\nKesimpulan: BKD instrumen adalah ±0,5 bar."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "26. Pengujian penyimpangan nol (zero setting test) pada jembatan timbang digital dilakukan untuk memastikan bahwa...",
+            opts: [
+                "Indikator kembali menunjukkan angka nol tepat setelah beban muatan dilepaskan",
+                "Timbangan dapat berfungsi tanpa menggunakan arus listrik",
+                "Kapasitas maksimum otomatis bertambah saat tombol zero ditekan",
+                "Sel beban tidak mengalami kaku mekanis pada suhu dingin",
+                "Layar indikator menyala terang saat pembebanan awal"
+            ],
+            ans: 0,
+            pem: "Prinsip Pengujian Timbangan: Pengujian penganolan (zero-setting) menjamin bahwa mekanisme penolkan nol bekerja akurat sehingga tidak ada offset/bias massa awal sebelum pembebanan dimulai."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "27. Hasil pengukuran konsentrasi larutan sampel: 5,01; 5,02; 4,99; 5,00; dan 5,03 mg/L. Jika nilai acuan standar adalah 5,50 mg/L, maka karakteristik hasil pengukuran instrumen tersebut adalah...",
+            opts: [
+                "Presisi tinggi tetapi akurasi rendah (mengalami systematic error)",
+                "Akurasi tinggi tetapi presisi rendah",
+                "Akurasi tinggi dan presisi tinggi",
+                "Akurasi rendah dan presisi rendah",
+                "Mengalami random error yang sangat dominan"
+            ],
+            ans: 0,
+            pem: "Analisis Data Pengukuran:\nData (5,01 - 5,03) memiliki rentang sangat sempit/berkelompok rapat (Presisi Tinggi).\nNamun rata-rata (~5,01) jauh dari nilai acuan sebenarnya 5,50 (Akurasi Rendah due to Bias/Systematic Error)."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "28. Nilai koreksi kalibrasi suatu alat ukur dinyatakan C = -0,05 mm. Jika hasil pembacaan alat saat pengukuran lapangan adalah 12,45 mm, maka nilai terukur sebenarnya (true value estimation) adalah...",
+            opts: ["12,40 mm", "12,50 mm", "12,45 mm", "-12,40 mm", "12,55 mm"],
+            ans: 0,
+            pem: "Diketahui:\nPembacaan (X) = 12,45 mm\nKoreksi (C) = -0,05 mm\n\nDitanyakan: Nilai Sebenarnya (Y)\n\nRumus:\nY = X + C = 12,45 + (-0,05) = 12,40 mm.\n\nKesimpulan: Nilai terukur sebenarnya adalah 12,40 mm."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "29. Alat ukur panjang mikrometer sekrup memiliki kesalahan titik nol (zero error) positif sebesar +0,03 mm. Jika mikrometer mengukur tebal pelat dan terbaca 2,58 mm, tebal pelat yang benar adalah...",
+            opts: ["2,55 mm", "2,61 mm", "2,58 mm", "2,52 mm", "2,65 mm"],
+            ans: 0,
+            pem: "Diketahui:\nZero Error = +0,03 mm (artinya alat kelebihan baca 0,03 mm saat kosong)\nPembacaan = 2,58 mm\n\nPerhitungan:\nTebal Sebenarnya = Pembacaan - Zero Error = 2,58 - 0,03 = 2,55 mm.\n\nKesimpulan: Tebal pelat sebenarnya adalah 2,55 mm."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "30. Dalam pengujian kebenaran penunjukan kran pengukur gas LPG, terjadi perbedaan antara jumlah massa gas yang mengalir dengan pembacaan meter. Faktor utama yang harus dikoreksi pada pengukuran volume gas adalah...",
+            opts: [
+                "Tekanan absolut gas dan suhu mutlak gas (hukum gas ideal)",
+                "Warna tabung gas dan kelembapan udara luar",
+                "Panjang selang penyalur dan diameter kran",
+                "Merek pabrikan alat ukur dan komposisi bau gas",
+                "Kecepatan angin di area pengisian"
+            ],
+            ans: 0,
+            pem: "Metrologi Gas: Kompressibilitas dan volume gas sangat sensitif terhadap perubahan suhu (T) dan tekanan (P) sesuai persamaan P.V = n.R.T, sehingga koreksi kondisi standar (base condition) mutlak diperlukan."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "31. Sebuah tangki ukur tetap silinder vertikal diuji ketinggian cairan menggunakan pita ukur minyak (dipping tape). Jika pita ukur mengalami pemuaian akibat suhu tinggi di lapangan, dampak terhadap pembacaan kedalaman cairan adalah...",
+            opts: [
+                "Pembacaan kedalaman menjadi lebih kecil dari kedalaman sebenarnya (underestimation)",
+                "Pembacaan kedalaman menjadi lebih besar dari kedalaman sebenarnya (overestimation)",
+                "Pembacaan tidak terpengaruh sama sekali oleh suhu",
+                "Pita ukur otomatis terputus akibat tegangan termal",
+                "Nilai kepekaan skala pita meningkat dua kali lipat"
+            ],
+            ans: 0,
+            pem: "Analisis Efek Pemuaian Alat Ukur:\nJika pita ukur memuai (skala memanjang), jarak antar garis skala nominal 1 cm menjadi lebih panjang dari 1 cm riil. Akibatnya, jumlah garis skala yang tercelup menjadi lebih sedikit -> Pembacaan skala terlihat lebih kecil dari fisik riil."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "32. Dalam verifikasi ketidakpastian bentangan, k = 3 digunakan apabila diinginkan tingkat kepercayaan sebesar...",
+            opts: ["99,73%", "95,45%", "68,27%", "90,00%", "99,99%"],
+            ans: 0,
+            pem: "Statistik Distribusi Normal: Luas daerah di bawah kurva normal untuk rentang ±3 standar deviasi (k=3) mencakup 99,73% dari seluruh populasi data."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "33. Pengujian ketahanan aus pisau dan landasan pada timbangan mekanis (Centi-Simal) dilakukan dengan pembebanan...",
+            opts: [
+                "Maksimum bergantian naik-turun secara berulang (endurance test)",
+                "Statis pada titik nol selama 30 hari",
+                "Di bawah titik minimum penimbangan",
+                "Menggunakan arus listrik tegangan tinggi",
+                "Menggunakan bahan kimia korosif"
+            ],
+            ans: 0,
+            pem: "Prinsip Endurance Test: Pengujian daya tahan (ketahanan) mekanis UTTP bertujuan menguji kestabilan fungsional pisau-landasan terhadap gesekan pembebanan siklis berulang."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "34. Sebuah termometer digital menunjukkan angka 37,2 °C. Diketahui koreksi sertifikat kalibrasinya adalah -0,4 °C. Ketidakpastian kalibrasi U = ±0,1 °C. Rentang nilai suhu sebenarnya pada tingkat kepercayaan 95% adalah...",
+            opts: ["36,7 °C hingga 36,9 °C", "36,8 °C hingga 37,0 °C", "37,1 °C hingga 37,3 °C", "36,6 °C hingga 36,8 °C", "37,2 °C hingga 37,6 °C"],
+            ans: 0,
+            pem: "Diketahui:\nPembacaan = 37,2 °C\nKoreksi = -0,4 °C -> Suhu Terkoreksi = 37,2 - 0,4 = 36,8 °C\nU = ±0,1 °C\n\nDitanyakan: Rentang Nilai Sebenarnya\n\nPerhitungan:\nNilai Min = 36,8 - 0,1 = 36,7 °C\nNilai Maks = 36,8 + 0,1 = 36,9 °C\n\nKesimpulan: Rentang nilai adalah 36,7 °C hingga 36,9 °C."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "35. Pada instrumen penimbang otomatis (filling instrument), istilah 'preset value' mengacu pada...",
+            opts: [
+                "Nilai kuantitas muatan sasaran yang diprogramkan untuk diisikan secara otomatis",
+                "Batas maksimum kesalahan yang diizinkan oleh undang-undang",
+                "Massa kosong wadah sebelum diisi produk",
+                "Kecepatan transmisi data dari sensor ke komputer",
+                "Nilai deviasi standar hasil penimbangan"
+            ],
+            ans: 0,
+            pem: "Istilah Metrologi Otomatis: Preset value pada automatic gravimetric filling instrument adalah nilai target bobot yang ditetapkan oleh operator untuk menghentikan pengisian fluida/material."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "36. Penguji melakukan verifikasi instrumen ukur kadar air biji-bijian (moisture meter). Faktor utama yang mempengaruhi akurasi penunjukan alat tersebut selain kadar air adalah...",
+            opts: [
+                "Suhu sampel dan varietas/massa jenis biji-bijian",
+                "Warna kemasan sampel",
+                "Merek mangkuk penampung",
+                "Luas laboratorium pengujian",
+                "Waktu pemetikan biji-bijian"
+            ],
+            ans: 0,
+            pem: "Karakteristik Moisture Meter: Pengukuran konduktivitas/kapasitansi elektrik bahan hayati sangat dipengaruhi oleh konstanta dielektrik varietas biji dan suhu sampel."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "37. Sebuah anak timbangan standar M1 nominal 10 kg memiliki massa konvensional 10.000,12 g dengan ketidakpastian U = 0,05 g. Nilai massa konvensional minimum yang mungkin adalah...",
+            opts: ["10.000,07 g", "10.000,17 g", "9.999,95 g", "10.000,00 g", "10.000,12 g"],
+            ans: 0,
+            pem: "Diketahui:\nMassa Konvensional = 10.000,12 g\nU = 0,05 g\n\nDitanyakan: Nilai Minimum\n\nPerhitungan:\nMin = 10.000,12 - 0,05 = 10.000,07 g.\n\nKesimpulan: Nilai minimum adalah 10.000,07 g."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "38. Kebiasaan 'paralaks' saat membaca skala pada bejana ukur volumetri dapat menimbulkan kesalahan sistematis. Kesalahan paralaks terjadi karena...",
+            opts: [
+                "Garis pandang mata penguji tidak sejajar mendatar dengan permukaan meniskus cairan",
+                "Bejana ukur tidak diletakkan pada fondasi yang rata",
+                "Cairan mengalami penguapan saat pengujian berlangsung",
+                "Suhu ruangan uji melebihi 30 °C",
+                "Dinding dalam bejana dalam keadaan kotor"
+            ],
+            ans: 0,
+            pem: "Definisi Parallax Error: Kesalahan paralaks terjadi akibat sudut pandang mata observer tidak tegak lurus (tegak lurus mendatar) terhadap garis skala meniskus cairan."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "39. Sebuah jembatan timbang diuji menggunakan metode substitusi karena keterbatasan ketersediaan anak timbangan standar (ATS). Kriteria utama beban substitusi yang diizinkan adalah...",
+            opts: [
+                "Beban harus stabil, tidak berubah massanya selama pengujian, dan memiliki nilai yang dapat ditimbang dengan pasti",
+                "Beban harus terbuat dari bahan stainless steel mengkilap",
+                "Beban harus memiliki bentuk geometris yang simetris",
+                "Beban harus memiliki nilai nominal tepat kelipatan 1 ton",
+                "Beban harus disetujui oleh pemilik jembatan timbang"
+            ],
+            ans: 0,
+            pem: "Persyaratan Beban Substitusi: Pada pengujian jembatan timbang (OIML R107/R76), bahan substitusi (seperti blok beton/besi) wajib memiliki kestabilan massa yang mutlak selama siklus pengujian berlangsung."
+        },
+        {
+            subtes: "SUBTES 1 — KOMPETENSI TEKNIS KEMETROLOGIAN",
+            q: "40. Pada sertifikat kalibrasi instrumen, dilaporkan bahwa koreksi C = +0,10 mm dengan ketidakpastian U = 0,02 mm. Pernyataan yang benar mengenai interpretasi data ini adalah...",
+            opts: [
+                "Nilai sebenarnya diperoleh dengan menambahkan +0,10 mm pada pembacaan alat, dengan rentang keraguan ±0,02 mm",
+                "Instrumen mengalami kerusakan sebesar 0,12 mm dan tidak boleh digunakan",
+                "Nilai pembacaan alat harus dikurangi 0,10 mm untuk mendapatkan nilai sebenarnya",
+                "Ketidakpastian alat dapat diabaikan karena nilainya sangat kecil dibanding koreksi",
+                "Instrumen memiliki akurasi sebesar 99,9% pada seluruh rentang ukur"
+            ],
+            ans: 0,
+            pem: "Interpretasi Sertifikat Kalibrasi: Koreksi positif (+0,10 mm) berarti pembacaan alat bernilai lebih rendah dari standar, sehingga harus ditambahkan (+0,10 mm) pada penunjukan, dengan batas tingkat keraguan pengukuran sebesar ±0,02 mm."
+        },
+
+        // --- SUBTES 2: KOMPETENSI PENGAWASAN, REGULASI & METROLOGI LEGAL (35 SOAL) ---
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "41. Berdasarkan Undang-Undang Republik Indonesia Nomor 2 Tahun 1981 tentang Metrologi Legal, yang dimaksud dengan UTTP adalah...",
+            opts: [
+                "Alat Ukur, Alat Takar, Alat Timbang, dan Alat Perlengkapan",
+                "Alat Ukur, Alat Tera, Alat Timbang, dan Peralatan Uji",
+                "Alat Uji, Alat Takar, Timbangan Pasar, dan Pengukur Tekanan",
+                "Alat Pengawasan, Alat Timbang, Timbangan Industri, dan Perlengkapan",
+                "Alat Utama, Alat Tambahan, Timbangan Otomatis, dan Alat Ukur"
+            ],
+            ans: 0,
+            pem: "Landasan Hukum: Menurut Pasal 1 UU No. 2 Tahun 1981 tentang Metrologi Legal, UTTP adalah singkatan resmi dari Alat Ukur, Alat Takar, Alat Timbang, dan Alat Perlengkapan."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "42. Menurut ketentuan UU No. 2 Tahun 1981, kegiatan membubuhkan Tanda Tera Sah pada UTTP yang memenuhi persyaratan teknis dilakukan setelah...",
+            opts: [
+                "Dilakukan pemeriksaan dan pengujian oleh Pegawai Hakkim/Petugas Tera yang berwenang",
+                "Pemilik UTTP membayar biaya retribusi di kas daerah",
+                "Pabrikan menerbitkan sertifikat garansi alat",
+                "Dilakukan pemeriksaan administrasi oleh pengelola pasar",
+                "Alat ukur digunakan dalam transaksi perdagangan selama 1 bulan"
+            ],
+            ans: 0,
+            pem: "Ketentuan UU No. 2/1981: Pembubuhan Tanda Tera Sah mutlak didasarkan atas hasil pemeriksaan fisik dan pengujian teknis metrologik yang dilakukan oleh Pegawai Jatuhan/Petugas Tera yang memiliki kewenangan sah."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "43. Tim Pengawas Metrologi Legal melakukan pengawasan mendadak di supermaket dan menemukan BDKT produk minyak goreng kemasan 1 Liter memiliki isi bersih rata-rata 970 mL (kurang 30 mL). Berdasarkan ketentuan BDKT, toleransi kekurangannya melampaui batas BKD BDKT. Tindakan pengawasan yang paling tepat dan sah sesuai kewenangan adalah...",
+            opts: [
+                "Membuat Berita Acara Pengawasan (BAP), menghentikan sementara peredaran lot BDKT tersebut, dan melakukan pemanggilan kepada produsen/pengemas",
+                "Menyita seluruh barang di supermarket dan menyegel supermarket tersebut",
+                "Meminta pengelola supermarket membayar denda tunai di tempat pengawasan",
+                "Membiarkan barang tetap dijual tetapi memasang stiker peringatan bagi pembeli",
+                "Memerintahkan pengelola memasukkan air ke dalam kemasan agar volumenya pas"
+            ],
+            ans: 0,
+            pem: "Prosedur Pengawasan BDKT: Apabila ditemukan BDKT tidak memenuhi ketentuan kuantitas netto melebihi BKD BDKT, Penerbitan BAP Pengawasan wajib dilakukan, diikuti tindakan penghentian sementara peredaran lot terkait dan klarifikasi hukum kepada produsen/distributor."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "44. Dalam melakukan pengawasan lapangan, Pengawas Metrologi Legal menemukan jembatan timbang pabrik kelapa sawit yang tanda teranya telah dirusak dan terdapat komponen elektronik tambahan terpasang pada kabel load cell. Dugaan tindak pidana ini diatur dalam UU No. 2 Tahun 1981 pada pasal pelanggaran...",
+            opts: [
+                "Merusak, merubah, atau menghilangkan tanda tera sah dengan maksud merugikan publik",
+                "Keterlambatan membayar retribusi daerah",
+                "Kegagalan menyimpan dokumen sertifikat kalibrasi",
+                "Penggunaan alat ukur non-standar ISO",
+                "Penjualan barang tanpa izin edar dinas"
+            ],
+            ans: 0,
+            pem: "Ketentuan Pidana Metrologi: Merusak tanda tera sah dan menambah alat manipulatif pada UTTP merupakan bentuk kejahatan metrologi terencana yang diatur dalam Pasal 25 dan Pasal 32 UU No. 2 Tahun 1981 dengan ancaman pidana penjara/denda."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "45. Sesuai Peraturan Menteri Perdagangan mengenai Tanda Tera yang berlaku, jenis tanda tera yang dibubuhkan pada bagian UTTP yang dapat diakses dari luar untuk mencegah perubahan penyetelan teknis adalah...",
+            opts: ["Tanda Jamin", "Tanda Sah", "Tanda Batal", "Tanda Daerah", "Tanda Pegawai"],
+            ans: 0,
+            pem: "Regulasi Tanda Tera: Tanda Jamin adalah tanda tera yang dibubuhkan atau dipasang pada bagian-bagian pengatur/penyetel UTTP untuk mencegah bagian tersebut dibuka/diubah tanpa merusak tanda jamin."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "46. Seorang pelaku usaha menolak dilakukan pemeriksaan UTTP di dalam lokasi pabriknya oleh Pengawas Metrologi Legal yang membawa Surat Perintah Tugas resmi. Sikap dan penanganan hukum pengawas sesuai regulasi adalah...",
+            opts: [
+                "Menjelaskan dasar hukum kewenangan pengawasan metrologi, dan jika tetap ditolak, membuat BAP Penolakan serta berkoordinasi dengan PPNS/APH untuk tindakan penegakan hukum",
+                "Mundur dan membatalkan pengawasan untuk selamanya",
+                "Memaksa masuk dengan merusak pintu gerbang pabrik secara anarkis",
+                "Memberikan sanksi denda tunai langsung kepada satpam pabrik",
+                "Mengabaikan penolakan dan menganggap UTTP pabrik tersebut sah"
+            ],
+            ans: 0,
+            pem: "SOP Pengawasan Metrologi Legal: Apabila terjadi penghalangan/penolakan pengawasan berizin resmi, Pengawas wajib membuat Berita Acara Penolakan dan melimpahkan penanganan hukum kepada PPNS Kemetrologian bekerjasama dengan Kepolisian (APH)."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "47. Berdasarkan Peraturan Menteri Perdagangan tentang Pengawasan Kemetrologian, cakupan objek pengawasan metrologi legal meliputi...",
+            opts: [
+                "UTTP, BDKT, dan Satuan Ukuran",
+                "UTTP dan Mutu Barang Dagangan saja",
+                "BDKT dan Harga Eceran Tertinggi (HET) saja",
+                "Kuantitas Produk dan Keterangan Label Makanan",
+                "Jembatan Timbang dan Dispenser SPBU saja"
+            ],
+            ans: 0,
+            pem: "Cakupan Pengawasan Metrologi Legal: Pengawasan Kemetrologian mencakup 3 pilar utama: (1) Pengawasan UTTP, (2) Pengawasan BDKT, dan (3) Pengawasan Penggunaan Satuan Ukuran."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "48. Tanda Tera Batal dibubuhkan pada UTTP apabila dari hasil pengujian teknis menunjukkan bahwa...",
+            opts: [
+                "UTTP mengalami kesalahan melebihi BKD dan tidak dapat diperbaiki lagi menjadi akurat",
+                "Masa berlaku tera sah telah habis 1 tahun",
+                "Pemilik UTTP belum membayar retribusi pelayanan",
+                "UTTP dipindahkan lokasi pemakaiannya ke daerah lain",
+                "UTTP merupakan buatan luar negeri"
+            ],
+            ans: 0,
+            pem: "Fungsi Tanda Batal: Tanda Tera Batal dibubuhkan pada UTTP yang rusak, tidak memenuhi syarat teknis metrologi legal, dan tidak mungkin lagi diperbaiki, sehingga alat tersebut ditolak secara hukum untuk digunakan dalam transaksi."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "49. Dalam pengawasan BDKT tepung terigu kemasan 1 kg, dilakukan pengambilan sampel sebanyak 50 kemasan secara acak. Pengujian kuantitas netto BDKT menggunakan metode...",
+            opts: ["Sampling statistik (statistical sampling) BDKT sesuai standar baku", "Sensori visual", "Pemeriksaan 100% seluruh populasi produk di pabrik", "Pengukuran ketebalan plastik kemasan saja", "Penimbangan bersama dengan kardus pembungkus luar"],
+            ans: 0,
+            pem: "Metode Pengawasan BDKT: Pengawasan kuantitas BDKT dilakukan menggunakan metode sampling statistik (uji petik) yang baku sesuai standar ISO/OIML R87 untuk mewakili lot produksi."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "50. Pelaku usaha yang secara sengaja menggunakan UTTP bertanda tera batal atau UTTP yang tidak ditera ulang untuk kepentingan transaksi perdagangan dapat dikenakan sanksi...",
+            opts: [
+                "Sanksi pidana dan/atau sanksi administratif sesuai ketentuan perundang-undangan yang berlaku",
+                "Teguran lisan dari pedagang lain tanpa akibat hukum",
+                "Kewajiban mengganti nama toko secara otomatis",
+                "Penyitaan seluruh aset rumah tangga pemilik usaha",
+                "Pencabutan status kewarganegaraan"
+            ],
+            ans: 0,
+            pem: "Sanksi Pidana Metrologi: Penggunaan UTTP tanpa tera/tera ulang yang sah dalam transaksi perdagangan diancam pidana kurungan/denda sesuai ketentuan UU No. 2/1981 jo UU Perdagangan."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "51. Kewenangan Penyidik Pegawai Negeri Sipil (PPNS) Kemetrologian dalam melakukan penyidikan tindak pidana metrologi legal diatur berdasarkan...",
+            opts: [
+                "KUHAP dan Undang-Undang Metrologi Legal",
+                "Peraturan Daerah Kabupaten/Kota saja",
+                "Surat Keputusan Kepala Pasar",
+                "Instruksi Asosiasi Pedagang Pasar",
+                "Kode Etik Organisasi Profesi Metrologi"
+            ],
+            ans: 0,
+            pem: "Dasar Hukum PPNS: PPNS Kemetrologian memperoleh kewenangan formal penyidikan tindak pidana di bidang metrologi legal berdasarkan Hukum Acara Pidana (KUHAP) dan UU No. 2 Tahun 1981."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "52. Pengawasan metrologi legal pada SPBU menemukan bahwa segel tera jamin pada meter arus dalam kondisi putus. Pengelola SPBU beralasan segel putus tidak sengaja saat pembersihan instrumen. Tindakan standar petugas pengawas adalah...",
+            opts: [
+                "Melakukan penghentian sementara penggunaan nozzle terkait, menerbitkan BAP Pengawasan, dan melakukan pengujian ulang teknis sebelum disegel kembali",
+                "Memasang kembali segel yang putus menggunakan perekat kertas",
+                "Membiarkan SPBU beroperasi asal pengelola berjanji tidak berbuat curang",
+                "Menjual nozzle tersebut ke SPBU lain",
+                "Mengabaikan temuan karena alasan pengelola masuk akal"
+            ],
+            ans: 0,
+            pem: "Penanganan Segel Putus: Segel tera jamin yang putus/rusak membatalkan keabsahan hukum tera instrumen. Pengawas wajib menghentikan operasional nozzle, menerbitkan BAP, dan melakukan tera ulang penuh."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "53. Salah satu tujuan utama pelaksanaan Metrologi Legal di Indonesia adalah untuk memberikan perlindungan kepada...",
+            opts: [
+                "Konsumen dan Pelaku Usaha atas kebenaran pengukuran dalam transaksi perdagangan",
+                "Pabrikan alat ukur luar negeri agar memonopoli pasar",
+                "Pemerintah Daerah agar pendapatan retribusi naik tanpa batas",
+                "Petugas tera agar bebas dari tuntutan hukum",
+                "Importir barang BDKT dari pengenaan pajak"
+            ],
+            ans: 0,
+            pem: "Tujuan Metrologi Legal: Metrologi Legal hadir untuk menjamin kepastian hukum dan kebenaran pengukuran dalam transaksi ekonomi demi melindungi kepentingan konsumen sekaligus menciptakan iklim usaha yang adil jujur bagi pelaku usaha."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "54. Berdasarkan peraturan mengenai Daerah Tertib Ukur (DTU), kriteria utama suatu wilayah kabupaten/kota dapat ditetapkan sebagai DTU adalah...",
+            opts: [
+                "Tingkat penggunaan UTTP yang bertanda tera sah dan tepat akurasi mencapai persentase tinggi secara konsisten serta didukung pasar tertib ukur",
+                "Jumlah jembatan timbang di wilayah tersebut minimal 100 unit",
+                "Seluruh pedagang di wilayah tersebut adalah pegawai negeri",
+                "Tidak adanya transaksi perdagangan secara daring (online)",
+                "Pemasupan anggaran retribusi metrologi melebihi Rp 10 Miliar per tahun"
+            ],
+            ans: 0,
+            pem: "Kriteria DTU: Daerah Tertib Ukur (DTU) ditandai dengan tingginya cakupan UTTP tertera sah, tingginya pemahaman masyarakat atas ketertiban ukur, dan adanya komitmen berkelanjutan pemerintah daerah dalam pengawasan metrologi."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "55. Pada pengawasan BDKT, istilah 'Individual Prepackage Non-Compliance' (ketidaksesuaian individu) terjadi apabila...",
+            opts: [
+                "Kekurangan isi bersih dari satu kemasan sampel melebihi Batas Kesalahan yang Diizinkan (Toleransi Minus)",
+                "Harga produk BDKT dijual di atas HET pemerintah",
+                "Label produk BDKT tidak dicetak menggunakan tinta emas",
+                "Masa kadaluarsa produk BDKT kurang dari 1 bulan",
+                "Kemasan luar BDKT mengalami pudar warna"
+            ],
+            ans: 0,
+            pem: "Regulasi BDKT: Kemasan BDKT dianggap mengalami ketidaksesuaian individu jika isi bersih aktualnya lebih kecil dari (Kuantitas Deklarasi - BKD/Toleransi Minus yang diizinkan)."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "56. Tanda Tera Sah berlaku selama jangka waktu tertentu sesuai dengan jenis UTTP. Jangka waktu masa berlaku tera ulang untuk sebagian besar timbangan perdagangan umum adalah...",
+            opts: ["1 (satu) tahun", "5 (lima) tahun", "6 (enam) bulan", "2 (dua) tahun", "Seumur hidup"],
+            ans: 0,
+            pem: "Masa Berlaku Tera UTTP: Berdasarkan Keputusan Menteri Perdagangan mengenai UTTP Yang Wajib Ditera Dan Ditera Ulang, masa berlaku Tanda Tera Sah untuk alat timbang perdagangan umum pada umumnya adalah 1 (satu) tahun."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "57. Apabila sebuah pabrik industri menggunakan UTTP bertipe yang belum memiliki Izin Tipe (Type Approval) dari Kementerian Perdagangan, maka UTTP tersebut...",
+            opts: [
+                "TIDAK BOLEH ditera dan tidak boleh digunakan dalam transaksi perdagangan",
+                "Boleh ditera langsung selama pabrik membayar biaya dua kali lipat",
+                "Diizinkan beroperasi khusus untuk produk tujuan ekspor saja",
+                "Diberi tanda tera sementara berlaku selama 3 tahun",
+                "Otomatis dianggap sah jika telah lulus sertifikasi ISO"
+            ],
+            ans: 0,
+            pem: "Persyaratan Izin Tipe: UTTP yang wajib ditera hanya dapat ditera apabila tipe UTTP tersebut telah mendapatkan Persetujuan Tipe (Type Approval) resmi dari Dirjen Perlindungan Konsumen dan Tertib Niaga."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "58. Kewajiban mencantumkan informasi Kuantitas Netto (Isi Bersih) pada label kemasan BDKT diatur untuk menjamin prinsip...",
+            opts: [
+                "Transparansi informasi dan perlindungan hak konsumen atas kesesuaian barang yang dibeli",
+                "Estetika desain kemasan produk agar menarik minat pembeli",
+                "Penghematan biaya cetak label bagi produsen",
+                "Kerahasiaan formula bahan baku produk",
+                "Kemudahan proses pengangkutan logistik"
+            ],
+            ans: 0,
+            pem: "Prinsip Pelabelan BDKT: Pencantuman kuantitas netto yang jujur dan presisi pada label BDKT merupakan hak fundamental konsumen untuk mendapatkan informasi yang benar, jelas, dan jujur."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "59. Ketika Pengawas Metrologi Legal mendapati stasiun pengisian gas LPG 3 kg secara berulang mengisikan gas di bawah toleransi minus, langkah hukum administrasi paling tegas sebelum pelimpahan pidana adalah...",
+            opts: [
+                "Penerbitan Surat Peringatan Tertulis dan usulan Pembekuan/Pencabutan Izin Usaha kepada instansi berwenang",
+                "Mengambil seluruh persediaan tabung gas untuk kepentingan pribadi petugas",
+                "Meminta pemilik SPBE membuat surat pernyataan tanpa BAP",
+                "Menaikkan harga eceran gas elpiji secara sepihak",
+                "Memindahkan lokasi pabrik SPBE ke luar daerah"
+            ],
+            ans: 0,
+            pem: "Penegakan Hukum Administrasi: Pelanggaran berulang yang merugikan publik secara luas ditindak tegas melalui teguran tertulis hingga usulan pembekuan/pencabutan izin operasional usaha."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "60. Penggunaan Tanda Daerah pada cap tera bertujuan untuk menunjukkan...",
+            opts: [
+                "Kode identitas Unit Metrologi Legal daerah yang melakukan pengujian/peneraan",
+                "Harga retribusi yang dibayarkan oleh pemilik alat",
+                "Tingkat kepekaan instrumen ukur",
+                "Tahun pembuatan alat ukur oleh pabrikan",
+                "Lokasi pabrik pembuat UTTP"
+            ],
+            ans: 0,
+            pem: "Fungsi Tanda Daerah: Tanda Daerah berisi lambang/kode huruf yang mengidentifikasikan Unit Metrologi Legal (UML) Pemerintah Daerah mana yang menerbitkan dan bertanggung jawab atas pengujian tera tersebut."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "61. Berdasarkan aturan metrologi legal, yang dimaksud dengan Tanda Pegawai (Cap Pegawai) adalah tanda tera yang mencantumkan...",
+            opts: [
+                "Nomor identitas/kode jabatan Pegawai Hakkim/Penera yang melakukan pengujian",
+                "Nomor induk kependudukan pemilik timbangan",
+                "Nama Kepala Dinas Perdagangan yang menjabat",
+                "Nomor telepon darurat dinas",
+                "Gelar pendidikan penera"
+            ],
+            ans: 0,
+            pem: "Fungsi Cap Pegawai: Cap Pegawai mengukir kode personal penera/petugas teknis yang melakukan pengetesan untuk menjamin akuntabilitas individu atas hasil pengujian."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "62. Pengawas Metrologi Legal dalam mengawasi penggunaan Satuan Ukuran wajib memastikan bahwa...",
+            opts: [
+                "Satuan yang digunakan dalam transaksi perdagangan dan dokumen resmi adalah Satuan Sistem Internasional (SI) atau satuan legal yang diakui undang-undang",
+                "Seluruh transaksi menggunakan satuan imperial Inggris (Inchi, Pound, Gallon)",
+                "Satuan tradisional daerah digunakan tanpa konversi acuan SI",
+                "Pedagang bebas menentukan nama satuan sendiri",
+                "Satuan massa diganti dengan satuan volume secara acak"
+            ],
+            ans: 0,
+            pem: "Pengawasan Satuan Ukuran: Pengawasan satuan ukuran memastikan kewajiban penggunaan Sistem Satuan Internasional (SI) seperti kg, meter, liter dalam setiap transaksi dan dokumen resmi."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "63. Dalam kasus kecurangan takaran BBM yang dilakukan dengan menyambungkan switch saklar tersembunyi, unsur pelanggaran pidana utama yang terpenuhi adalah...",
+            opts: [
+                "Kesengajaan menambah alat canggih untuk mengubah penunjukan takaran demi memperoleh keuntungan tidak sah",
+                "Kelalaian mengkalibrasi alat akibat lupa jadwal",
+                "Ketidakmampuan pengurus SPBU membayar retribusi daerah",
+                "Penggunaan merek BBM yang tidak terdaftar",
+                "Kegagalan menyediakan fasilitas toilet gratis"
+            ],
+            ans: 0,
+            pem: "Unsur Pidana Metrologi: Pemasangan perangkat/switch manipulatif merupakan bentuk kejahatan terencana (dolus) yang melanggar pasal perusakan/manipulasi penunjukan UTTP."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "64. Barang Dalam Keadaan Terbungkus (BDKT) yang diproduksi di dalam negeri maupun diimpor wajib memenuhi ketentuan...",
+            opts: [
+                "Kesesuaian kuantitas antara isi bersih aktual dengan keterangan kuantitas yang tercantum pada label kemasan",
+                "Warna plastik kemasan harus selalu transparan",
+                "Penggunaan bahasa asing pada seluruh teks label",
+                "Pencantuman logo merek dagang minimal pada 5 posisi",
+                "Penjualan hanya secara grosir"
+            ],
+            ans: 0,
+            pem: "Aturan Esensial BDKT: Persyaratan utama BDKT adalah kuantitas netto riil barang di dalam kemasan wajib sesuai dengan jumlah kuantitas yang dideklarasikan pada label."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "65. Sesuai ketentuan, UTTP yang diimpor dari luar negeri dan akan diperdagangkan di Indonesia wajib...",
+            opts: [
+                "Memiliki Persetujuan Tipe dan ditera di Indonesia sebelum dipasarkan/digunakan",
+                "Langsung dijual tanpa perlu pengujian jika membawa sertifikat negara asal",
+                "Diubah seluruh suku cadangnya dengan komponen lokal",
+                "Diberikan stiker bebas tera dari bea cukai",
+                "Hanya digunakan di kawasan bebas pajak"
+            ],
+            ans: 0,
+            pem: "Ketentuan UTTP Impor: UTTP impor wajib memenuhi izin tipe dan ditera/ditera ulang oleh Unit Metrologi Legal di Indonesia sebelum diizinkan beredar dan dipakai dalam transaksi."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "66. Jika hasil pengujian BDKT pada suatu lot produksi menyatakan lot tersebut 'TIDAK LULUS' (Penolakan Lot), maka tindakan yang wajib dilakukan produsen sesuai perintah pengawas adalah...",
+            opts: [
+                "Melakukan pelabelan ulang (re-labelling) isi bersih yang sesuai atau melakukan pengemasan ulang (re-packing) seluruh lot sebelum diizinkan beredar",
+                "Menjual lot tersebut ke daerah terpencil dengan harga murah",
+                "Membuang seluruh lot ke laut",
+                "Mengabaikan hasil uji dan tetap mendistribusikan barang",
+                "Membayar uang denda tanpa memperbaiki kuantitas barang"
+            ],
+            ans: 0,
+            pem: "Tindak Lanjut Penolakan Lot BDKT: Lot BDKT yang tidak lulus wajib ditarik dari jalur distribusi untuk dilakukan pengemasan ulang (re-packing) atau penyesuaian label (re-labelling) hingga memenuhi syarat legal."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "67. Dokumen resmi yang menerangkan bahwa suatu UTTP telah diperiksa dan diuji dengan hasil memenuhi syarat teknis metrologi legal adalah...",
+            opts: ["Surat Keterangan Hasil Pengujian (SKHP) / Sertifikat Tera", "Kwitansi Pembayaran Retribusi", "Surat Izin Usaha Perdagangan (SIUP)", "Berita Acara Sita Barang Bukti", "Kartu Tanda Anggota Pedagang"],
+            ans: 0,
+            pem: "Dokumen Legalitas Tera: SKHP atau Sertifikat Tera adalah dokumen resmi tertulis yang diterbitkan UML sebagai bukti sah bahwa UTTP telah lulus pengujian metrologi legal."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "68. Seorang pengusaha timbangan rakitan menjual timbangan buatan sendiri tanpa izin tipe dan tanpa cap tera sah kepada para pedagang ikan. Tindakan hukum yang paling tepat adalah...",
+            opts: [
+                "Penghentian kegiatan perakitan/penjualan, pengamanan barang bukti timbangan, dan proses penegakan hukum pidana metrologi legal",
+                "Mengizinkan penjualan asal pembeli tidak mengeluh",
+                "Memberikan cap tera sah secara gratis agar timbangan menjadi legal",
+                "Meminta pengusaha membagikan timbangan secara gratis ke rumah ibadah",
+                "Mengangkat pengusaha tersebut menjadi pejabat penera"
+            ],
+            ans: 0,
+            pem: "Penegakan Pidana UTTP Ilegal: Memproduksi dan memperdagangkan UTTP wajib tera tanpa izin tipe dan tera sah merupakan pelanggaran pidana serius terhadap UU Metrologi Legal."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "69. Dalam melakukan verifikasi lapangan, apabila pengawas menemukan konflik kepentingan (interest conflict) karena pemilik toko yang diuji adalah anggota keluarga dekatnya, tindakan etis profesional pengawas adalah...",
+            opts: [
+                "Melaporkan potensi konflik kepentingan kepada atasan dan meminta pengalihan penugasan kepada petugas pengawas lain",
+                "Tetap melakukan pengawasan dan memberikan kelonggaran BKD",
+                "Menyembunyikan hubungan keluarga dari pimpinan",
+                "Membuat laporan pengawasan palsu dari rumah",
+                "Meminta toko keluarga dibebaskan dari pengawasan selamanya"
+            ],
+            ans: 0,
+            pem: "Etika Integritas Pengawasan: Pengawas wajib mendeklarasikan potensi konflik kepentingan dan menyerahkan penugasan kepada sejawat untuk menjamin objektivitas dan integritas hasil pengawasan."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "70. Pengawasan Kemetrologian yang bersifat preventif dilakukan melalui...",
+            opts: [
+                "Sosialisasi, penyuluhan hukum, bimbingan teknis, dan pelayanan tera/tera ulang berkala",
+                "Penangkapan langsung pelaku usaha ke penjara tanpa peringatan",
+                "Penyitaan seluruh barang dagangan di pasar secara serentak",
+                "Penutupan pasar tradisional selama 1 bulan",
+                "Penerbitan surat denda otomatis dari aplikasi"
+            ],
+            ans: 0,
+            pem: "Bentuk Pengawasan Preventif: Pengawasan preventif berfokus pada upaya pencegahan pelanggaran melalui pembinaan, edukasi publik, sosialisasi regulasi, dan kemudahan pelayanan tera berkala."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "71. Menurut UU Metrologi Legal, yang dimaksud dengan 'Alat Perlengkapan' adalah...",
+            opts: [
+                "Alat yang dipergunakan atau diperuntukkan sebagai pelengkap atau tambahan pada UTTP yang menentukan hasil penimbangan/pengukuran",
+                "Peralatan kantor untuk mencetak SKHP",
+                "Kendaraan operasional pengawas metrologi",
+                "Pakaian dinas harian petugas penera",
+                "Kotak penyimpanan anak timbangan"
+            ],
+            ans: 0,
+            pem: "Definisi Alat Perlengkapan: Alat perlengkapan adalah instrumen tambahan yang terhubung pada UTTP (seperti penunjuk harga otomatis, kalkulator register, printer) yang menentukan atau mempengaruhi hasil pengukuran."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "72. Pada pelaksanaan tera ulang di luar kantor (pelayanan keliling), keabsahan pengujian dipersyaratkan tetap dipenuhi melalui...",
+            opts: [
+                "Penggunaan alat standar yang terkalibrasi dan memenuhi rantai ketertelusuran serta kondisi lingkungan uji yang terkontrol",
+                "Persetujuan lisan dari kepala desa setempat",
+                "Penggunaan perkiraan visual tanpa alat standar",
+                "Penyelesaian pengujian di bawah waktu 1 menit per timbangan",
+                "Pemberian diskon retribusi sebesar 50%"
+            ],
+            ans: 0,
+            pem: "Prinsip Pelayanan Keliling: Pelayanan tera ulang di luar kantor wajib menjaga keabsahan teknis metrologi dengan membawa alat standar terkalibrasi dan menerapkan metode uji baku."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "73. Apabila Tanda Jamin pada suatu UTTP mengalami kerusakan akibat bencana alam (force majeure), kewajiban pemilik UTTP adalah...",
+            opts: [
+                "Segera melaporkan kepada Unit Metrologi Legal untuk dilakukan pemeriksaan dan peneraan/penyegelan ulang",
+                "Memperbaiki sendiri tanda jamin menggunakan kawat biasa",
+                "Menggunakan UTTP tersebut seperti biasa tanpa melapor",
+                "Membakar UTTP tersebut karena dianggap membawa sial",
+                "Menjual UTTP ke pedagang lain"
+            ],
+            ans: 0,
+            pem: "Prosedur Force Majeure Segel: Apabila segel tera jamin rusak bukan karena kesengajaan (seperti bencana), pemilik wajib melapor ke UML untuk verifikasi ulang dan pembubuhan segel jamin baru."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "74. Berdasarkan prinsip pengawasan metrologi legal, tindakan penegakan hukum (represif) dilaksanakan dengan mengedepankan asas...",
+            opts: [
+                "Proposionalitas, kepastian hukum, akuntabilitas, dan transparansi prosedur",
+                "Kekerasan fisik dan intimidasi di lapangan",
+                "Kerahasiaan tanpa publikasi hasil",
+                "Keuntungan pendapatan daerah sebesar-besarnya",
+                "Subjektivitas keinginan petugas pengawas"
+            ],
+            ans: 0,
+            pem: "Asas Penegakan Hukum Metrologi: Penegakan hukum represif (pro-justitia) wajib berlandaskan asas kepastian hukum, proporsionalitas pelanggaran, transparan, dan akuntabel sesuai KUHAP."
+        },
+        {
+            subtes: "SUBTES 2 — PENGAWASAN, REGULASI & METROLOGI LEGAL",
+            q: "75. Tugas dan fungsi utama Unit Metrologi Legal (UML) Pemerintah Daerah Kabupaten/Kota dalam struktur organisasi dinas adalah...",
+            opts: [
+                "Pelaksanaan pelayanan teknis tera/tera ulang UTTP dan pengawasan kemetrologian di wilayah kerjanya",
+                "Penetapan tarif pajak bumi dan bangunan",
+                "Pemeriksaan kualitas gizi Makanan Tambahan",
+                "Pengaturan lalu lintas angkutan jalan",
+                "Penerbitan paspor perdagangan internasional"
+            ],
+            ans: 0,
+            pem: "Tupoksi UML: Unit Metrologi Legal Daerah bertugas menyelenggarakan pelayanan teknis tera/tera ulang UTTP, pengelolaan alat standar, serta pelaksanaan pengawasan metrologi legal di daerah."
+        },
+
+        // --- SUBTES 3: KOMPETENSI MANAJERIAL ASN (25 SOAL) ---
+        {
+            subtes: "SUBTES 3 — KOMPETENSI MANAJERIAL ASN",
+            q: "76. Saat melakukan pemeriksaan tera ulang alat ukur di pasar, seorang pengelola pasar menawarkan uang tunai kepada Anda agar laporan pengawasan dibuat cepat selesai tanpa pemeriksaan mendalam. Sikap yang paling tepat sesuai standar integritas ASN adalah...",
+            opts: [
+                "Menolak dengan sopan dan memberikan penjelasan bahwa pengujian harus dilakukan sesuai prosedur baku tanpa imbalan apapun",
+                "Menerima uang tersebut karena menganggapnya sebagai uang lelah dari pengelola pasar",
+                "Menerima uang tersebut lalu membagikannya kepada seluruh tim pengawas",
+                "Menolak uang tersebut tetapi mempercepat pemeriksaan tanpa standar teknis",
+                "Melaporkan pengelola pasar ke media sosial agar jera"
+            ],
+            ans: 0,
+            pem: "Kompetensi: Integritas. ASN wajib menjaga keteguhan prinsip integritas dengan menolak segala bentuk gratifikasi/suap serta menjalankan SOP secara konsisten dan profesional."
+        },
+        {
+            subtes: "SUBTES 3 — KOMPETENSI MANAJERIAL ASN",
+            q: "77. Anda adalah anggota tim pengawasan BDKT yang baru dibentuk. Salah satu anggota tim belum memahami cara mencatat data sampel BDKT sesuai format standar terbaru. Tindakan yang paling tepat adalah...",
+            opts: [
+                "Meninggalkan anggota tersebut dan mengerjakan seluruh pencatatan sendiri agar cepat",
+                "Melaporkan ketidakmampuan anggota tersebut langsung kepada pimpinan agar diganti",
+                "Membantu menjelaskan format standar pencatatan data BDKT dan membimbingnya hingga paham",
+                "Menegur anggota tersebut di depan seluruh tim agar lebih giat belajar",
+                "Membawa kasus ini ke rapat evaluasi bulanan tanpa memberikan bantuan teknis"
+            ],
+            ans: 2,
+            pem: "Kompetensi: Kerja Sama & Pengembangan Orang Lain. Membimbing rekan setim yang mengalami kesulitan (coaching) memperkuat kapasitas kolektif tim dan memperlancar pencapaian target."
+        },
+        {
+            subtes: "SUBTES 3 — KOMPETENSI MANAJERIAL ASN",
+            q: "78. Seorang pelaku usaha mendatangi loket pelayanan Metrologi Legal dengan nada marah karena menganggap proses tera alat ukurnya terlalu lama. Tindakan pelayanan publik yang paling tepat dilakukan adalah...",
+            opts: [
+                "Menolak melayani pelaku usaha tersebut sampai ia tenang dan meminta maaf",
+                "Mendengarkan keluhan dengan tenang, memberikan penjelasan mengenai alur serta estimasi waktu sesuai SOP pelayanan",
+                "Meminta petugas keamanan mengusir pelaku usaha tersebut keluar dari area kantor",
+                "Membalas dengan nada tegas agar pelaku usaha paham bahwa petugas sedang sibuk",
+                "Menyerahkan penanganan sepenuhnya kepada atasan tanpa berusaha meredakan situasi terlebih dahulu"
+            ],
+            ans: 1,
+            pem: "Kompetensi: Pelayanan Publik. Mengendalikan emosi, mendengarkan dengan empati, serta menyampaikan penjelasan berbasis SOP menciptakan kepastian layanan dan meredakan ketegangan."
+        },
+        {
+            subtes: "SUBTES 3 — KOMPETENSI MANAJERIAL ASN",
+            q: "79. Dinas Perdagangan mulai menerapkan sistem pendaftaran tera ulang secara daring (online). Seorang staf senior merasa ragu menggunakan sistem tersebut karena terbiasa dengan pencatatan manual. Tindakan Anda sebagai rekan kerja adalah...",
+            opts: [
+                "Membiarkan staf senior tersebut tetap menggunakan pencatatan manual",
+                "Mengajak dan mendampingi staf senior tersebut untuk mempelajari langkah-langkah penggunaan aplikasi daring secara bertahap",
+                "Melaporkan staf senior tersebut kepada pimpinan karena dianggap menghambat digitalisasi",
+                "Mengambil alih seluruh tugas pendaftaran daring staf senior tersebut seterusnya",
+                "Mengkritik kebiasaan lama staf senior di depan rekan kerja lainnya"
+            ],
+            ans: 1,
+            pem: "Kompetensi: Mengelola Perubahan & Kerja Sama. Pendampingan persuasif dan inklusif membantu mempercepat adaptasi teknologi baru bagi pegawai senior tanpa memicu resistensi."
+        },
+        {
+            subtes: "SUBTES 3 — KOMPETENSI MANAJERIAL ASN",
+            q: "80. Anda ditugaskan menyusun laporan hasil pelayanan tera/tera ulang mingguan. Pada saat yang sama, atasan meminta data statistik ringkas untuk bahan rapat mendadak dalam waktu 30 menit. Langkah yang paling tepat adalah...",
+            opts: [
+                "Menolak permintaan atasan karena sedang fokus menyusun laporan mingguan",
+                "Menyusun data statistik ringkas yang diminta atasan terlebih dahulu, lalu melanjutkan laporan mingguan setelahnya",
+                "Mengerjakan kedua laporan secara acak tanpa memprioritaskan salah satu",
+                "Meminta atasan menunda rapat sampai laporan mingguan Anda selesai seluruhnya",
+                "Pura-pura tidak membaca pesan dari atasan agar tidak terganggu"
+            ],
+            ans: 1,
+            pem: "Kompetensi: Orientasi pada Hasil & Prioritas Tugas. Mendahulukan tugas mendesak yang memiliki tenggat singkat dan dampak langsung bagi keputusan pimpinan merupakan wujud fleksibilitas kerja profesional."
+        },
+        {
+            subtes: "SUBTES 3 — KOMPETENSI MANAJERIAL ASN",
+            q: "81. Anda bertugas dalam tim pengujian tera ulang UTTP di area pedalaman. Salah satu peralatan standar uji mengalami penurunan akurasi akibat guncangan perjalanan. Sementara itu, antrean pedagang yang ingin menera alat ukurnya cukup panjang. Tindakan yang paling tepat adalah...",
+            opts: [
+                "Tetap menggunakan alat standar tersebut agar pelayanan selesai cepat dan masyarakat tidak kecewa",
+                "Menghentikan sementara pengujian, melakukan penyesuaian/kalibrasi ulang peralatan standar sesuai prosedur, baru melanjutkan pelayanan",
+                "Menerapkan perkiraan kasar penunjukan alat ukur pedagang tanpa menggunakan alat standar",
+                "Membatal seluruh kegiatan tera ulang dan langsung pulang ke kantor dinas",
+                "Meminta pedagang menentukan sendiri apakah alat ukurnya sah atau tidak"
+            ],
+            ans: 1,
+            pem: "Kompetensi: Pengambilan Keputusan & Akuntabilitas Teknis. Alat standar yang rusak membatalkan keabsahan hukum pengujian, sehingga kalibrasi penyesuaian wajib dilakukan terlebih dahulu demi menjaga akurasi legal."
+        },
+        {
+            subtes: "SUBTES 3 — KOMPETENSI MANAJERIAL ASN",
+            q: "82. Sebuah asosiasi pedagang mengajukan keberatan atas jadwal pengawasan metrologi legal yang bertepatan dengan puncak hari pasar. Mereka mengancam akan melakukan aksi protes jika jadwal tidak diubah. Sebagai koordinator tim pengawasan, langkah terbaik Anda adalah...",
+            opts: [
+                "Membatalkan seluruh rencana pengawasan di pasar tersebut untuk menghindari konflik",
+                "Mengajak perwakilan asosiasi pedagang berdiskusi untuk menjelaskan tujuan pengawasan serta menyepakati penyesuaian teknis alur pengawasan tanpa mengurangi efektivitas",
+                "Tetap melaksanakan pengawasan dengan membawa aparat pengamanan secara masif untuk menekan pedagang",
+                "Memindahkan lokasi pengawasan ke pasar lain secara diam-diam tanpa pemberitahuan",
+                "Melaporkan seluruh pedagang ke pihak kepolisian atas tuduhan penghambatan tugas"
+            ],
+            ans: 1,
+            pem: "Kompetensi: Komunikasi & Mengelola Konflik. Pendekatan dialogis persuasif membangun kesadaran hukum pedagang dan melahirkan kesepakatan teknis tanpa mengorbankan fungsi pengawasan."
+        },
+        {
+            subtes: "SUBTES 3 — KOMPETENSI MANAJERIAL ASN",
+            q: "83. Anda mendapatkan tugas melakukan pengawasan BDKT di beberapa supermarket. Dalam waktu bersamaan, atasan menugaskan Anda menjadi saksi ahli dalam persidangan dugaan pelanggaran metrologi. Kedua tugas jatuh pada hari dan jam yang sama. Tindakan yang harus dilakukan adalah...",
+            opts: [
+                "Menghadiri persidangan sebagai saksi ahli karena sifatnya mengikat hukum, serta berkoordinasi dengan atasan untuk mengatur ulang jadwal pengawasan BDKT",
+                "Melaksanakan pengawasan BDKT dan mengabaikan panggilan persidangan",
+                "Meminta rekan kerja menggantikan posisi Anda sebagai saksi ahli tanpa konfirmasi pengadilan",
+                "Tidak menghadiri kedua tugas tersebut karena bingung menentukan pilihan",
+                "Mengikuti persidangan sebentar lalu kabur di tengah acara untuk mengawasi BDKT"
+            ],
+            ans: 0,
+            pem: "Kompetensi: Perencanaan Prioritas & Pengambilan Keputusan. Kehadiran saksi ahli dalam peradilan memiliki kekuatan hukum mengikat mandatory, sehingga wajib diprioritaskan sembari menjadwalkan ulang pengawasan rutin."
+        },
+        {
+            subtes: "SUBTES 3 — KOMPETENSI MANAJERIAL ASN",
+            q: "84. Seorang pelaku usaha grosir bahan pokok adalah kerabat dekat dari atasan Anda. Ketika dilakukan uji petik BDKT, ditemukan kemasan beras grosir milik kerabat tersebut kurang dari kuantitas yang tertera. Atasan meminta Anda 'memaklumi' temuan tersebut. Tindakan berintegritas Anda adalah...",
+            opts: [
+                "Mengikuti instruksi atasan untuk menghapus data temuan dari laporan demi menjaga hubungan baik",
+                "Tetap mencatat data hasil uji petik secara akurat sesuai kenyataan, menyusun BAP, dan menyampaikannya secara profesional sesuai SOP pengawasan",
+                "Membocorkan informasi ini ke media massa agar atasan ditegur publik",
+                "Pura-pura sakit agar tidak perlu menyelesaikan laporan pengawasan BDKT tersebut",
+                "Mengubah angka hasil penimbangan agar terlihat lulus tetapi memberikan teguran lisan pribadi"
+            ],
+            ans: 1,
+            pem: "Kompetensi: Integritas & Menghindari Konflik Kepentingan. Pengawas wajib mempertahankan objektivitas dan kejujuran pencatatan data pengawasan tanpa terpengaruh intervensi atau nepotisme."
+        },
+        {
+            subtes: "SUBTES 3 — KOMPETENSI MANAJERIAL ASN",
+            q: "85. Dalam rangka meningkatkan koordinasi pengawasan metrologi legal lintas sektor, Anda ditunjuk mewakili dinas untuk berdiskusi dengan Kepolisian dan Kejaksaan. Namun, perwakilan instansi lain memiliki persepsi teknis yang berbeda mengenai pasal penyitaan UTTP. Sikap komunikasi Anda adalah...",
+            opts: [
+                "Ngotot bahwa pendapat Anda paling benar dan mengancam akan keluar dari ruang rapat",
+                "Menjelaskan dasar hukum metrologi legal secara faktual dan ilmiah, serta mendengarkan sudut pandang hukum acara mereka untuk mencapai kesepahaman prosedur bersama",
+                "Menerima seluruh pendapat instansi lain meskipun bertentangan dengan UU Metrologi Legal",
+                "Mengabaikan perbedaan pendapat dan menyusun aturan sendiri secara sepihak",
+                "Meminta rapat dibatalkan karena menganggap instansi lain tidak memahami metrologi"
+            ],
+            ans: 1,
+            pem: "Kompetensi: Komunikasi & Kerja Sama Lintas Instansi. Menjelaskan regulasi secara faktual sembari menghormati perspektif APH melahirkan penyelarasan SOP penegakan hukum yang solid."
+        },
+        {
+            subtes: "SUBTES 3 — KOMPETENSI MANAJERIAL ASN",
+            q: "86. Seorang warga masyarakat melaporkan dugaan kecurangan timbangan pedagang buah melalui media sosial dan menjadi viral. Pimpinan meminta Anda menangani masalah ini. Langkah pertama yang paling tepat adalah...",
+            opts: [
+                "Mengabaikan postingan tersebut karena menganggap keluhan media sosial tidak resmi",
+                "Segera melakukan verifikasi lapangan ke lokasi pedagang terkait, menguji akurasi timbangan, dan menyampaikan klarifikasi penanganan secara transparan kepada publik",
+                "Menuntut warga yang memposting dengan UU ITE karena mencemarkan nama baik pasar",
+                "Menutup seluruh toko buah di pasar tersebut tanpa pemeriksaan",
+                "Membuat pernyataan fiktif di media sosial bahwa timbangan pedagang sudah diperiksa dan akurat"
+            ],
+            ans: 1,
+            pem: "Kompetensi: Pelayanan Publik & Responsif Krisis. Aksi cepat verifikasi fakta lapangan (quick response) yang diikuti klarifikasi transparan memulihkan kepercayaan publik secara efektif."
+        },
+        {
+            subtes: "SUBTES 3 — KOMPETENSI MANAJERIAL ASN",
+            q: "87. Dalam penugasan pengawasan SPBU jelang libur panjang, ditemukan satu nozzle BBM subsidi jenis Pertalite memiliki takaran yang keluar dari batas BKD. Namun pengelola SPBU beralasan nozzle tersebut sangat dibutuhkan karena antrean kendaraan sangat panjang. Keputusan Anda adalah...",
+            opts: [
+                "Membiarkan nozzle tetap beroperasi demi mengurai antrean kendaraan",
+                "Tetap melakukan penyegelan pada nozzle yang melanggar BKD, menerbitkan BAP, serta meminta pengelola mengoptimalkan nozzle lain yang sah dan memenuhi syarat",
+                "Menyegel seluruh SPBU sehingga tidak ada BBM yang bisa disalurkan sama sekali",
+                "Meminta uang imbalan agar penyegelan ditunda sampai libur panjang selesai",
+                "Mengubah catatan kesalahan volume agar nozzle terlihat masuk batas BKD"
+            ],
+            ans: 1,
+            pem: "Kompetensi: Pengambilan Keputusan & Penegakan Hukum. Tindakan penyegelan harus dilakukan spesifik pada alat yang melanggar BKD untuk melindungi konsumen, tanpa melumpuhkan total operasional nozzle lain yang valid."
+        },
+        {
+            subtes: "SUBTES 3 — KOMPETENSI MANAJERIAL ASN",
+            q: "88. Dalam rapat penyusunan SOP Pelayanan Tera Ulang, terdapat benturan pandangan antara tim teknis penguji dan tim administrasi keuangan terkait alur verifikasi pembayaran. Sebagai koordinator rapat, langkah Anda adalah...",
+            opts: [
+                "Memilih pandangan tim teknis karena menganggap bidang teknis adalah yang paling penting",
+                "Memfasilitasi pemetaan alur bersama (value stream mapping) yang mengintegrasikan kecepatan pemeriksaan teknis dan keabsahan akuntabilitas keuangan secara seimbang",
+                "Membubarkan rapat dan menyerahkan penyusunan SOP kepada atasan",
+                "Mengadopsi seluruh usulan tanpa menyelaraskan perbedaan yang ada",
+                "Meminta kedua tim berdebat sampai salah satu menyerah"
+            ],
+            ans: 1,
+            pem: "Kompetensi: Manajemen Konflik & Mengelola Kerja Sama. Integrasi alur kerja menyelaraskan persyaratan akuntabilitas keuangan dan efisiensi teknis menjadi satu SOP yang padu."
+        },
+        {
+            subtes: "SUBTES 3 — KOMPETENSI MANAJERIAL ASN",
+            q: "89. Anda ditunjuk sebagai Ketua Tim Penanganan Kasus Kejahatan Metrologi Legal yang melibatkan jaringan pengusaha SPBU dengan dugaan manipulasi alat ukur elektronik tersembunyi. Saat pengawasan lapangan, tim Anda mendapat intimidasi fisik dari kelompok massa suruhan oknum pengusaha. Di sisi lain, bukti digital kecurangan berada dalam bahaya dimusnahkan jika pengawasan tertunda. Langkah kepemimpinan taktis paling tepat adalah...",
+            opts: [
+                "Instruksikan tim segera mundur dari lokasi dan menghentikan seluruh proses pengawasan demi keselamatan jiwa seluruh anggota",
+                "Tetap bertahan secara nekat di lokasi tanpa bantuan pengamanan untuk mengamankan bukti fisik meskipun berisiko keselamatan tinggi",
+                "Lakukan koordinasi darurat dengan Kepolisian/APH setempat untuk meminta bantuan pengamanan resmi dengan cepat, sembari memerintahkan sebagian anggota mengamankan bukti digital secara cermat dan mendokumentasikan tindakan intimidasi dalam BAP Kejadian",
+                "Menegosiasikan uang damai dengan oknum pengusaha agar massa dibubarkan",
+                "Memerintahkan anggota tim melawan aksi massa secara fisik di lokasi pengawasan"
+            ],
+            ans: 2,
+            pem: "Kompetensi: Kepemimpinan Krisis & Pengambilan Keputusan Strategis. Pemimpin wajib mengamankan keselamatan jiwa personel via sinergi APH resmi sembari secara cermat mengamankan bukti digital penanganan pidana."
+        },
+        {
+            subtes: "SUBTES 3 — KOMPETENSI MANAJERIAL ASN",
+            q: "90. Sebuah Peraturan Menteri Perdagangan terbaru mengamanatkan perubahan mendasar pada metode pengujian BDKT dari metode konvensional menjadi metode pengujian statistik berbasis digital dalam waktu transisi 3 bulan. Sebagian besar Pengawas senior merasa terancam dan menolak penerapan metode baru. Sebagai koordinator pengawasan BDKT, strategi manajemen perubahan paling efektif adalah...",
+            opts: [
+                "Mewajibkan penggunaan metode baru secara serta-merta dan memberikan sanksi pemotongan tunjangan bagi pegawai yang menolak",
+                "Menunda penerapan Peraturan Menteri tersebut secara sepihak sampai seluruh pegawai senior pensiun",
+                "Menyelenggarakan program pelatihan intensif bertahap, membimbing secara langsung melalui contoh kasus nyata, serta membentuk tim pendampingan sejawat (peer-mentoring) antara staf muda dan senior untuk mengawal masa transisi",
+                "Mengizinkan pegawai senior menggunakan metode lama seterusnya",
+                "Mengabaikan Peraturan Menteri tersebut dan melanjutkan cara kerja lama"
+            ],
+            ans: 2,
+            pem: "Kompetensi: Mengelola Perubahan & Pengembangan Orang Lain. Mengelola resistensi dilakukan melalui pendekatan edukasi bertahap dan peer-mentoring untuk memadukan pengalaman senior dan keahlian digital muda."
+        },
+        {
+            subtes: "SUBTES 3 — KOMPETENSI MANAJERIAL ASN",
+            q: "91. Dalam evaluasi tahunan, Unit Metrologi Legal (UML) tempat Anda bekerja mencatatkan penurunan tingkat kepatuhan tera ulang oleh pedagang pasar tradisional sebesar 40%. Hasil survei menunjukkan akar masalah meliputi: persepsi biaya retribusi mahal, informasi jadwal tidak sampai, dan ketakutan timbangan rusak disita. Rencana aksi strategis holistik yang disusun adalah...",
+            opts: [
+                "Meningkatkan razia gabungan dengan Satpol PP untuk menangkap seluruh pedagang yang melanggar",
+                "Mengembangkan program 'Metrologi Edukatif & Ramah': menyusun sosialisasi terpadu melalui tokoh pasar, transparansi biaya retribusi, menyediakan fasilitas klinik perbaikan timbangan gratis bekerja sama dengan reparir sah, serta menyederhanakan lokasi pelayanan",
+                "Menurunkan tarif retribusi menjadi nol secara sepihak tanpa persetujuan Perda",
+                "Membiarkan tingkat kepatuhan menurun karena pasar tradisional dianggap sulit diatur",
+                "Mewajibkan pedagang membeli timbangan baru merek tertentu"
+            ],
+            ans: 1,
+            pem: "Kompetensi: Pelayanan Publik & Analisis Masalah Holistik. Menyasar akar masalah melalui edukasi, transparansi, kemudahan akses, dan penyediaan klinik perbaikan timbangan menyelesaikan masalah kepatuhan secara permanen."
+        },
+        {
+            subtes: "SUBTES 3 — KOMPETENSI MANAJERIAL ASN",
+            q: "92. Anda adalah Ketua Tim Sidik Kasus yang sedang mendalami dugaan kejahatan metrologi sistematis pada penyaluran BBM industri. Di tengah proses investigasi, Anda menerima dokumen anonim yang membocorkan bahwa salah satu pejabat internal di dinas Anda menerima aliran dana rutin untuk membocorkan jadwal pengawasan. Langkah berintegritas dan taktis yang wajib ditempuh adalah...",
+            opts: [
+                "Mengabaikan dokumen tersebut karena statusnya anonim dan fokus saja pada pengusaha BBM",
+                "Melakukan verifikasi dan validasi awal atas kebenaran dokumen anonim tersebut secara tertutup, mengamankan barang bukti pendukung, dan melaporkan secara resmi kepada Inspektorat Daerah/APH sesuai saluran Whistleblowing System (WBS)",
+                "Langsung menuduh pejabat tersebut di depan media massa",
+                "Mengkonfrontasi pejabat tersebut secara pribadi dan memintanya membagi uang tersebut",
+                "Menghentikan seluruh investigasi karena takut terseret dalam konflik internal"
+            ],
+            ans: 1,
+            pem: "Kompetensi: Integritas Organisasi & Akuntabilitas Hukum. Menindaklanjuti indikasi kejahatan internal secara verifikatif via mekanisme WBS/Inspektorat menegakkan keadilan tanpa kegaduhan prematur."
+        },
+        {
+            subtes: "SUBTES 3 — KOMPETENSI MANAJERIAL ASN",
+            q: "93. Hasil audit eksternal menemukan bahwa terdapat selisih anggaran operasional pelayanan tera luar kantor antara yang dilaporkan dengan bukti kas di lapangan akibat penggunaan sistem reimbursement manual. Sebagai pengelola pelayanan, tindakan perbaikan sistemik yang harus diterapkan adalah...",
+            opts: [
+                "Meminta petugas tera menutup selisih anggaran tersebut menggunakan uang pribadi mereka",
+                "Mengubah sistem administrasi keuangan menjadi berbasis digital terintegrasi (e-reimbursement) dengan kewajiban uploading bukti transaksi riil secara real-time dan verifikasi bertingkat",
+                "Menghapuskan seluruh kegiatan pelayanan tera di luar kantor",
+                "Mengabaikan temuan audit karena menganggap nilai selisihnya relatif kecil",
+                "Membuat kwitansi fiktif baru untuk menyamakan catatan laporan"
+            ],
+            ans: 1,
+            pem: "Kompetensi: Pengelolaan Sistem & Inovasi Akuntabilitas. Mentransformasi sistem manual menjadi e-reimbursement digital menutup celah kecurangan anggaran dan memberikan transparansi keuangan."
+        },
+        {
+            subtes: "SUBTES 3 — KOMPETENSI MANAJERIAL ASN",
+            q: "94. Saat memimpin pengawasan BDKT minyak goreng di pasar induk, Anda menemukan sebuah merek baru yang dijual murah namun ternyata isi bersihnya kurang 10% dari label. Penjualan merek ini sangat diminati warga kurang mampu. Tindakan berimbang dan tegas yang harus diambil adalah...",
+            opts: [
+                "Membiarkan minyak goreng tersebut tetap dijual karena membantu masyarakat kurang mampu",
+                "Menghentikan sementara peredaran dan menyegel lot BDKT tersebut, menerbitkan BAP, serta memanggil produsen/distributor untuk diproses hukum sekaligus menuntut penyesuaian isi/label demi melindungi masyarakat dari penipuan kuantitas",
+                "Menyita seluruh minyak goreng untuk dibagikan secara gratis kepada anggota tim pengawas",
+                "Hanya menegur pedagang eceran di pasar tanpa menindak produsen minyak goreng tersebut",
+                "Menaikkan harga minyak goreng tersebut agar sesuai dengan isi bersihnya"
+            ],
+            ans: 1,
+            pem: "Kompetensi: Pelayanan Publik & Penegakan Aturan. Menindak tegas produsen BDKT deceptive melindungi konsumen miskin dari penipuan takaran terselubung."
+        },
+        {
+            subtes: "SUBTES 3 — KOMPETENSI MANAJERIAL ASN",
+            q: "95. Sebuah program digitalisasi pelayanan tera ulang yang telah direncanakan selama 6 bulan terancam gagal diluncurkan minggu depan karena vendor pengembang software terlambat menyelesaikan fitur integrasi pembayaran nontunai. Pimpinan menuntut launching tetap berjalan sesuai jadwal. Langkah mitigasi risiko terbaik adalah...",
+            opts: [
+                "Membatalkan seluruh rencana launching digitalisasi dan kembali ke sistem manual",
+                "Menerapkan strategi 'Soft Launching' berfokus pada fitur pendaftaran dan penjadwalan yang sudah stabil, sementara pembayaran tetap menggunakan modul transfer/teller resmi secara paralel hingga integrasi siap 100%",
+                "Memaksa meluncurkan aplikasi yang penuh dengan kekeliruan (bugs) pembayaran",
+                "Menyalahkan vendor di depan media massa saat acara launching berlangsung",
+                "Pura-pura aplikasi sudah siap dan menerima pembayaran tunai di luar sistem resmi"
+            ],
+            ans: 1,
+            pem: "Kompetensi: Manajemen Risiko & Orientasi pada Hasil. Melakukan soft-launching bertahap menjaga komitmen tenggat waktu pimpinan sembari meniadakan risiko kegagalan transaksi keuangan."
+        },
+        {
+            subtes: "SUBTES 3 — KOMPETENSI MANAJERIAL ASN",
+            q: "96. Anda adalah koordinator pengawasan yang menemukan indikasi bahwa sebuah perusahaan manufaktur besar secara rutin melakukan 'modifikasi teknis' pada meter arus cair (flowmeter) CPO ekspor. Ketika hendak diinspeksi, perusahaan menutup akses dengan dalih rahasia kawasan industri terbatas. Langkah hukum dan koordinatif yang wajib dilakukan adalah...",
+            opts: [
+                "Mundur dan membatalkan pengawasan karena takut berhadapan dengan perusahaan besar",
+                "Menyusun Laporan Kejadian Resmi, berkoordinasi dengan PPNS Kemetrologian dan Pimpinan Dinas untuk menerbitkan Surat Perintah Tugas Khusus, serta meminta pendampingan Polisi/Kejaksaan untuk melakukan pengawasan mendadak dan pengamanan alat bukti sesuai UU",
+                "Memaksa masuk dengan mendobrak gerbang perusahaan tanpa dokumen perintah",
+                "Menerima tawaran sponsor kegiatan dinas dari perusahaan tersebut",
+                "Mengabaikan penemuan tersebut dan mengalihkan pengawasan ke pedagang kecil"
+            ],
+            ans: 1,
+            pem: "Kompetensi: Akuntabilitas Hukum & Kepemimpinan Taktis. Menghadapi korporasi tidak kooperatif dilakukan dengan melengkapi legalitas formal (Surat Tugas Khusus) dan sinergi pendampingan APH."
+        },
+        {
+            subtes: "SUBTES 3 — KOMPETENSI MANAJERIAL ASN",
+            q: "97. Unit kerja Anda ditargetkan meraih predikat Wilayah Bebas dari Korupsi (WBK). Namun, dari hasil uji petik independen, masih ditemukan persepsi masyarakat bahwa proses permohonan tera ulang membutuhkan 'uang lelah' untuk petugas lapangan. Langkah sistemik dan radikal untuk memberantas praktik tersebut adalah...",
+            opts: [
+                "Membuat banner penolakan pungli yang besar di kantor tanpa mengubah alur pelayanan",
+                "Melakukan digitalisasi penuh sistem pembayaran retribusi (cashless payment), menerapkan sistem penugasan acak (randomized assignment) petugas tera via aplikasi, dan memperketat pengawasan melekat serta sanksi disiplin tegas",
+                "Menghentikan seluruh pungutan retribusi tera ulang secara sepihak",
+                "Membela diri di media sosial bahwa tuduhan masyarakat tidak terbukti",
+                "Mengancam tidak akan melayani warga yang memberikan penilaian negatif dalam survei"
+            ],
+            ans: 1,
+            pem: "Kompetensi: Integritas Organisasi & Transformasi Pelayanan. Menghilangkan transaksi tunai (cashless) dan mengacak penugasan lapangan secara digital memotong potensi pungli secara permanen."
+        },
+        {
+            subtes: "SUBTES 3 — KOMPETENSI MANAJERIAL ASN",
+            q: "98. Saat memimpin pengawasan BDKT pada stasiun pengisian elpiji (SPBE), tim Anda menemukan bahwa 15% tabung gas 3 kg memiliki berat bersih di bawah toleransi minus yang diizinkan. Pemilik SPBE adalah pimpinan partai politik lokal yang sedang berkampanye. Langkah berintegritas dan profesional Anda adalah...",
+            opts: [
+                "Menunda pengawasan dan penyegelan sampai masa kampanye politik selesai",
+                "Tetap menjalankan pengujian secara transparan berbasis data objektif, menghentikan pengisian pada line mesin yang rusak, menerbitkan BAP Pengawasan BDKT, dan melaporkannya secara tegak lurus sesuai regulasi tanpa terpengaruh dinamika politik",
+                "Mengubah isi laporan BDKT menjadi lulus seluruhnya untuk menghindari benturan politik",
+                "Membocorkan temuan tersebut kepada media lawan politik",
+                "Meminta jaminan jabatan dari pemilik SPBE agar kasus tidak dilanjutkan"
+            ],
+            ans: 1,
+            pem: "Kompetensi: Integritas Netralitas ASN & Penegakan Aturan. Netralitas dan independensi ASN mewajibkan penegakan hukum BDKT berbasis data objektif tanpa terpengaruh posisi politik pemilik usaha."
+        },
+        {
+            subtes: "SUBTES 3 — KOMPETENSI MANAJERIAL ASN",
+            q: "99. Dalam proses penyusunan rencana kerja dinas, terjadi pemotongan durasi kegiatan tera ulang pasar dari 10 hari menjadi 4 hari akibat efisiensi waktu anggaran. Tim pengawas mengeluh tidak akan sanggup mencapai target kualitas uji. Sebagai koordinator pengawasan, langkah Anda adalah...",
+            opts: [
+                "Menolak melakukan kegiatan tera ulang pasar sama sekali",
+                "Melakukan rekayasa ulang proses (business process re-engineering): menyederhanakan alur administrasi prapengujian via pra-pendaftaran, membagi tim menjadi sub-unit paralel, dan memfokuskan pengujian pada titik-titik krusial tanpa mengurangi standar teknis",
+                "Menguji hanya 20% timbangan dan membubuhkan cap tera sah pada 80% sisanya tanpa diuji",
+                "Menyuruh pedagang pasar melakukan pengujian mandiri di rumah masing-masing",
+                "Mengabaikan keluhan tim dan memaksa mereka bekerja tanpa perubahan metode kerja"
+            ],
+            ans: 1,
+            pem: "Kompetensi: Re-engineering Proses & Orientasi pada Hasil. Menyiasati pemangkasan waktu dilakukan via digitalisasi pendaftaran awal dan pembagian sub-tim paralel tanpa mengorbankan mutu uji."
+        },
+        {
+            subtes: "SUBTES 3 — KOMPETENSI MANAJERIAL ASN",
+            q: "100. Anda dipercaya menyusun pedoman Kode Etik Pengawas Metrologi Legal di tingkat kabupaten. Kasus yang paling sering terjadi adalah dilema interaksi sosial antara pengawas dan pedagang tradisional yang sering memberikan hasil bumi saat pengawasan. Norma aturan paling tepat yang harus dituangkan dalam pedoman adalah...",
+            opts: [
+                "Mengizinkan penerimaan hasil bumi selama nilainya di bawah Rp 50.000,-",
+                "Menetapkan batasan tegas larangan penerimaan pemberian dalam bentuk apapun (zero-gratification policy), menyediakan mekanisme penolakan secara edukatif dan santun, serta mewajibkan pelaporan setiap penawaran gratifikasi ke Unit Pengendalian Gratifikasi (UPG)",
+                "Melarang pengawas berbicara dengan pedagang di luar proses pemeriksaan fisik",
+                "Mewajibkan pengawas membeli seluruh barang dagangan pedagang yang diuji",
+                "Menyerahkan kebijakan penerimaan barang kepada masing-masing pribadi pengawas"
+            ],
+            ans: 1,
+            pem: "Kompetensi: Kebijakan Etika Integritas. Penerapan prinsip Zero-Gratification secara tegas dilengkapi dengan panduan edukasi penolakan santun menjamin keteguhan profesionalisme pengawas."
+        }
+    ];
+
+    let currentQIdx = 0;
+    let userAnswers = {};
+    let timerInterval = null;
+    let isNexting = false;
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedName = localStorage.getItem('prc_nama_peserta_ntb');
+        if(savedName) document.getElementById('inputNama').value = savedName;
+        updateStatusBadges();
+    });
+
+    function getPName() {
+        let name = document.getElementById('inputNama').value.trim();
+        if(!name) {
+            name = localStorage.getItem('prc_nama_peserta_ntb') || "";
+        }
+        return name;
+    }
+
+    function saveName() {
+        const val = document.getElementById('inputNama').value.trim();
+        localStorage.setItem('prc_nama_peserta_ntb', val);
+    }
+
+    function updateStatusBadges() {
+        const score = localStorage.getItem(`prc_metro_full100_skor`);
+        const badge = document.getElementById(`stFull`);
+        if(score !== null) {
+            badge.textContent = `Selesai (Nilai: ${score})`;
+            badge.classList.add('done');
+        }
+    }
+
+    function showHome() {
+        if(timerInterval) clearInterval(timerInterval);
+        document.getElementById('viewHome').style.display = 'block';
+        document.getElementById('viewQuiz').style.display = 'none';
+        document.getElementById('viewRekap').style.display = 'none';
+        updateStatusBadges();
+    }
+
+    function startFullTest() {
+        const pName = getPName();
+        if(!pName) {
+            alert("Harap masukkan Nama Lengkap Anda terlebih dahulu!");
+            return;
+        }
+
+        currentQIdx = 0;
+        userAnswers = {};
+        isNexting = false;
+
+        const now = new Date();
+        sessionStartTime = now;
+        sessionStartTimeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+        document.getElementById('viewHome').style.display = 'none';
+        document.getElementById('viewQuiz').style.display = 'block';
+        document.getElementById('viewRekap').style.display = 'none';
+
+        renderNavGrid();
+        loadQuestion(0);
+        startTimer(120 * 60); // 120 Menit untuk 100 Soal
+    }
+
+    function loadQuestion(idx) {
+        currentQIdx = idx;
+        const qData = bankSoalMaster[idx];
+        
+        document.getElementById('q-subtes-tag').textContent = qData.subtes;
+        document.getElementById('q-no').textContent = `Soal ${idx + 1} dari 100`;
+        document.getElementById('q-text').innerText = qData.q;
+
+        let optsHtml = '';
+        qData.opts.forEach((opt, i) => {
+            const isSelected = userAnswers[idx] === i ? 'selected' : '';
+            optsHtml += `<div class="opt ${isSelected}" onclick="selectOption(${i})">${String.fromCharCode(65 + i)}. ${opt}</div>`;
+        });
+        document.getElementById('options').innerHTML = optsHtml;
+
+        document.getElementById('btn-next').textContent = idx === 99 ? "Selesai & Submit" : "Selanjutnya";
+        renderNavGrid();
+    }
+
+    function selectOption(optIdx) {
+        if(isNexting) return;
+        userAnswers[currentQIdx] = optIdx;
+        loadQuestion(currentQIdx);
+        
+        isNexting = true;
+        setTimeout(() => {
+            if(currentQIdx < 99) {
+                nextQ();
+            }
+            isNexting = false;
+        }, 150);
+    }
+
+    function renderNavGrid() {
+        let gridHtml = '';
+        for(let i = 0; i < 100; i++) {
+            let cls = 'nav-item';
+            if(userAnswers[i] !== undefined) cls += ' filled';
+            if(i === currentQIdx) cls += ' active';
+            gridHtml += `<div class="${cls}" onclick="loadQuestion(${i})">${i + 1}</div>`;
+        }
+        document.getElementById('navGrid').innerHTML = gridHtml;
+    }
+
+    function nextQ() {
+        if(currentQIdx === 99) {
+            if(confirm("Apakah Anda yakin ingin menyelesaikan seluruh 100 Soal Tes Kompetensi ASN Metrologi ini?")) {
+                finishTest();
+            }
+            return;
+        }
+        loadQuestion(currentQIdx + 1);
+    }
+
+    function prevQ() {
+        if(currentQIdx > 0) loadQuestion(currentQIdx - 1);
+    }
+
+    function startTimer(seconds) {
+        if(timerInterval) clearInterval(timerInterval);
+        let t = seconds;
+        timerInterval = setInterval(() => {
+            let m = Math.floor(t / 60);
+            let s = t % 60;
+            document.getElementById('timer').textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+            if(--t < 0) {
+                clearInterval(timerInterval);
+                alert("Waktu pengerjaan Ujian 100 Soal telah habis!");
+                finishTest();
+            }
+        }, 1000);
+    }
+
+    function finishTest() {
+        if(timerInterval) clearInterval(timerInterval);
+
+        let benarSub1 = 0, benarSub2 = 0, benarSub3 = 0;
+
+        bankSoalMaster.forEach((q, i) => {
+            if(userAnswers[i] === q.ans) {
+                if(i < 40) benarSub1++;
+                else if(i < 75) benarSub2++;
+                else benarSub3++;
+            }
+        });
+
+        let totalBenar = benarSub1 + benarSub2 + benarSub3;
+        let skorAkhir = totalBenar; // Skor Skala 100
+
+        localStorage.setItem(`prc_metro_full100_skor`, skorAkhir);
+        localStorage.setItem(`prc_metro_full100_benar1`, benarSub1);
+        localStorage.setItem(`prc_metro_full100_benar2`, benarSub2);
+        localStorage.setItem(`prc_metro_full100_benar3`, benarSub3);
+        localStorage.setItem(`prc_metro_full100_ans`, JSON.stringify(userAnswers));
+
+        sendToDatabasePRC(skorAkhir, benarSub1, benarSub2, benarSub3);
+
+        alert(`Ujian Full Test Selesai!\nNilai Akhir Anda: ${skorAkhir} / 100\n\nSubtes 1 Teknis: ${benarSub1}/40\nSubtes 2 Pengawasan: ${benarSub2}/35\nSubtes 3 Manajerial: ${benarSub3}/25`);
+        showRekap();
+    }
+
+    function sendToDatabasePRC(skorAkhir, b1, b2, b3) {
+        const pName = getPName();
+        const endTime = new Date();
+        const sessionEndTimeStr = endTime.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        
+        let durasiSec = sessionStartTime ? Math.round((endTime - sessionStartTime) / 1000) : 0;
+        let durasiMin = Math.floor(durasiSec / 60);
+        let durasiRestSec = durasiSec % 60;
+        let sessionDurationStr = `${durasiMin} Menit ${durasiRestSec} Detik`;
+
+        const todayStr = new Date().toLocaleDateString('id-ID');
+
+        // Payload terstruktur kompatibel penuh dengan Apps Script DATABASE REKAP NILAI AJA
+        const payload = {
+            sessionId: currentSessionId,
+            NamaSiswa: pName,
+            namaSiswa: pName,
+            program: "ASN",
+            NamaTryout: "TES KOMPETENSI ASN METROLOGI — FULL TEST 100 SOAL",
+            namaTryout: "TES KOMPETENSI ASN METROLOGI — FULL TEST 100 SOAL",
+            tanggal: todayStr,
+            waktuMulai: sessionStartTimeStr || "-",
+            waktuSelesai: sessionEndTimeStr,
+            durasi: sessionDurationStr,
+
+            // Mapping Bucket Subtes Metrologi
+            kecerdasan: `Sub1 (Teknis): ${b1}/40`,
+            kepribadian: `Sub2 (Pengawasan): ${b2}/35`,
+            kecermatan: `Sub3 (Manajerial): ${b3}/25`,
+
+            tiu: b1 * 2.5,
+            twk: b2 * 2.85,
+            tkp: b3 * 4.0,
+
+            pengetahuanUmum: skorAkhir,
+            nilaiAkhir: skorAkhir
+        };
+
+        if(GAS_URL) {
+            fetch(GAS_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).catch(err => console.log("DB sync status:", err));
+        }
+    }
+
+    function showRekap() {
+        const pName = getPName();
+        document.getElementById('viewHome').style.display = 'none';
+        document.getElementById('viewQuiz').style.display = 'none';
+        document.getElementById('viewRekap').style.display = 'block';
+
+        document.getElementById('namaPesertaRekap').textContent = "PESERTA: " + pName.toUpperCase();
+
+        const skorAkhir = parseInt(localStorage.getItem(`prc_metro_full100_skor`) || 0);
+        const b1 = parseInt(localStorage.getItem(`prc_metro_full100_benar1`) || 0);
+        const b2 = parseInt(localStorage.getItem(`prc_metro_full100_benar2`) || 0);
+        const b3 = parseInt(localStorage.getItem(`prc_metro_full100_benar3`) || 0);
+
+        const totalBenar = b1 + b2 + b3;
+
+        document.getElementById('totalBenar').textContent = `${totalBenar} / 100`;
+        document.getElementById('skorAkurasi').textContent = `${skorAkhir}%`;
+        document.getElementById('nilaiAkhir').textContent = skorAkhir;
+
+        let txtStatus = 'Kualifikasi Memerlukan Peningkatan Intensif pada Analisis Perhitungan Ketidakpastian, Penerapan Regulasi BDKT, dan Kepemimpinan Krisis.';
+        let txtRekomendasi = 'Pelajari kembali modul perhitungan ketidakpastian tipe A/B, penegakan hukum BDKT, serta latihan analisis studi kasus keputusan manajerial birokrasi.';
+
+        if(skorAkhir >= 80) {
+            txtStatus = 'MEMENUHI KUALIFIKASI SANGAT TINGGI (ADVANCED / PROFESIONAL METROLOGI). Menguasai Analisis Pengukuran, Regulasi Legal, dan Kepemimpinan ASN.';
+            txtRekomendasi = 'Pertahankan kompetensi teknis dan kepemimpinan berintegritas tinggi dalam mengawal ketertiban metrologi legal di daerah.';
+        } else if(skorAkhir >= 65) {
+            txtStatus = 'MEMENUHI KUALIFIKASI STANDAR (UPPER-INTERMEDIATE). Memahami Konsepdasar & Pengawasan, Perlu Pemantapan pada Kasus Perhitungan Rumit.';
+            txtRekomendasi = 'Tingkatkan akurasi kalkulasi volumetri/massa, batas toleransi BKD, dan pendalaman pasal penegakan pidana kemetrologian.';
+        }
+
+        const tbody = document.getElementById('tbodyRekap');
+        tbody.innerHTML = `
+            <tr>
+                <td><b>SUBTES 1: KOMPETENSI TEKNIS KEMETROLOGIAN</b></td>
+                <td>40 Soal</td>
+                <td><b>${b1} / 40</b></td>
+                <td><b>${Math.round((b1/40)*100)}</b></td>
+            </tr>
+            <tr>
+                <td><b>SUBTES 2: PENGAWASAN, REGULASI & METROLOGI LEGAL</b></td>
+                <td>35 Soal</td>
+                <td><b>${b2} / 35</b></td>
+                <td><b>${Math.round((b2/35)*100)}</b></td>
+            </tr>
+            <tr>
+                <td><b>SUBTES 3: KOMPETENSI MANAJERIAL ASN</b></td>
+                <td>25 Soal</td>
+                <td><b>${b3} / 25</b></td>
+                <td><b>${Math.round((b3/25)*100)}</b></td>
+            </tr>
+        `;
+
+        document.getElementById('txtStatus').textContent = txtStatus;
+        document.getElementById('txtRekomendasi').textContent = txtRekomendasi;
+    }
+
+    function downloadPembahasanSemua() {
+        const pName = getPName();
+        const skorAkhir = localStorage.getItem(`prc_metro_full100_skor`) || 0;
+        const savedAns = JSON.parse(localStorage.getItem(`prc_metro_full100_ans`) || '{}');
+
+        let printWindow = window.open('', '_blank');
+        let htmlContent = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Pembahasan 100 Soal Metrologi - ${pName}</title>
+                <style>
+                    body { font-family: Arial, sans-serif; padding: 20px; color: #000; line-height: 1.5; }
+                    h1, h2, h3 { text-align: center; margin: 4px 0; }
+                    .header-box { border: 2px solid #b45309; padding: 15px; margin-bottom: 20px; background: #fef3c7; border-radius: 8px; }
+                    .q-box { border: 1px solid #cbd5e1; padding: 12px; margin-bottom: 12px; border-radius: 6px; page-break-inside: avoid; }
+                    .q-sub { font-size:11px; font-weight:bold; color:#b45309; text-transform:uppercase; }
+                    .q-text { font-weight: bold; margin: 5px 0 8px 0; }
+                    .opt-list { margin-left: 15px; font-size:13px; }
+                    .correct-ans { color: #15803d; font-weight: bold; }
+                    .wrong-ans { color: #b91c1c; font-weight: bold; }
+                    .pem-box { background: #f8fafc; border-left: 4px solid #d97706; padding: 8px; margin-top: 8px; font-size: 13px; white-space: pre-line; }
+                </style>
+            </head>
+            <body>
+                <h1>PERSONA RESEARCH & CONSULTING</h1>
+                <h2>PEMBAHASAN RESMI TES KOMPETENSI ASN METROLOGI (FULL TEST 100 SOAL)</h2>
+                
+                <div class="header-box">
+                    <p style="margin:3px 0;"><b>NAMA PESERTA:</b> ${pName.toUpperCase()}</p>
+                    <p style="margin:3px 0;"><b>TANGGAL TES:</b> ${new Date().toLocaleDateString('id-ID')}</p>
+                    <p style="margin:3px 0;"><b>NILAI AKHIR:</b> ${skorAkhir} / 100</p>
+                </div>
+        `;
+
+        bankSoalMaster.forEach((qData, i) => {
+            const userChoiceIdx = savedAns[i];
+            const isCorrect = userChoiceIdx === qData.ans;
+            
+            let userChoiceText = userChoiceIdx !== undefined ? `${String.fromCharCode(65 + userChoiceIdx)}. ${qData.opts[userChoiceIdx]}` : "Tidak Dijawab";
+            let correctChoiceText = `${String.fromCharCode(65 + qData.ans)}. ${qData.opts[qData.ans]}`;
+
+            htmlContent += `
+                <div class="q-box">
+                    <div class="q-sub">${qData.subtes}</div>
+                    <div class="q-text">Soal ${i + 1}: ${qData.q}</div>
+                    <div class="opt-list">
+            `;
+
+            qData.opts.forEach((opt, oIdx) => {
+                htmlContent += `<div>${String.fromCharCode(65 + oIdx)}. ${opt}</div>`;
+            });
+
+            htmlContent += `
+                    </div>
+                    <p style="margin: 6px 0 2px 0; font-size:13px;">
+                        Jawaban Anda: <span class="${isCorrect ? 'correct-ans' : 'wrong-ans'}">${userChoiceText}</span>
+                    </p>
+                    <p style="margin: 2px 0; font-size:13px;">
+                        Jawaban Benar: <span class="correct-ans">${correctChoiceText}</span>
+                    </p>
+                    <div class="pem-box">
+                        <b>PEMBAHASAN EDUKATIF LENGKAP:</b><br>${qData.pem}
+                    </div>
+                </div>
+            `;
+        });
+
+        htmlContent += `
+            </body>
+            </html>
+        `;
+
+        printWindow.document.write(htmlContent);
+        printWindow.document.close();
+        printWindow.focus();
+        setTimeout(() => {
+            printWindow.print();
+        }, 500);
+    }
+</script>
+</body>
+</html>
