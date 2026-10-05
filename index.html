@@ -8,17 +8,19 @@
         :root { --navy: #000000; --gold: #d4a017; --bg: #f8fafc; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); margin: 0; padding: 0; color: #1e293b; }
         header { background: #000000; color: white; padding: 20px; text-align: center; border-bottom: 5px solid var(--gold); }
-        .container { max-width: 950px; margin: 40px auto; padding: 0 20px; }
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
         .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
         .login-box { text-align: center; max-width: 450px; margin: 50px auto; }
         .login-box input { width: 80%; padding: 12px; font-size: 16px; border: 2px solid #cbd5e1; border-radius: 8px; text-align: center; margin: 15px 0; outline: none; }
         .login-box input:focus { border-color: var(--gold); }
-        .btn { background: var(--navy); color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; text-decoration: none; display: inline-block; text-align: center; transition: 0.2s; }
+        .btn { background: var(--navy); color: white; border: none; padding: 10px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; text-decoration: none; display: inline-block; text-align: center; font-size: 14px; transition: 0.2s; }
         .btn:hover { background: #1e293b; color: var(--gold); }
         .btn-gold { background: var(--gold); color: #000000; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 20px; }
-        .subtes-card { background: white; padding: 25px; border-radius: 10px; border-left: 6px solid var(--navy); box-shadow: 0 4px 12px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; }
+        .btn-gold:hover { background: #b8860b; color: #ffffff; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
+        .subtes-card { background: white; padding: 20px; border-radius: 10px; border-left: 6px solid var(--navy); box-shadow: 0 4px 12px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; }
         .subtes-card:hover { transform: translateY(-3px); transition: 0.3s; }
+        .package-group { margin-top: 15px; display: flex; flex-direction: column; gap: 8px; }
         .error-msg { color: #dc2626; font-size: 14px; margin-top: 10px; font-weight: bold; display: none; }
     </style>
 </head>
@@ -45,10 +47,10 @@
     <div id="viewMenu" style="display: none;">
         <div class="card" style="text-align: center; background: #fffbeb; border: 1px solid #fde68a;">
             <h3 style="margin:0; color:var(--navy);">Selamat Datang di Sistem CAT ProASN Metrologi</h3>
-            <p style="font-size:14px; color:#78350f; margin:8px 0 0;">Silakan pilih modul subtes atau tryout mix di bawah ini.</p>
+            <p style="font-size:14px; color:#78350f; margin:8px 0 0;">Silakan pilih subtes dan latihan soal (Paket 1 atau Paket 2) di bawah ini.</p>
         </div>
 
-        <h3 style="color:var(--navy); border-bottom: 2px solid var(--gold); padding-bottom: 5px;">DAFTAR MENU SUBTES & TRYOUT</h3>
+        <h3 style="color:var(--navy); border-bottom: 2px solid var(--gold); padding-bottom: 5px;">DAFTAR MODUL SUBTES & TRYOUT</h3>
         <div class="grid">
             
             <!-- SUBTES 1 -->
@@ -58,7 +60,10 @@
                     <p style="font-weight:bold; color:#334155; margin:6px 0;">Kompetensi Teknis Kemetrologian</p>
                     <p style="font-size:12px; color:#64748b;">Simulasi soal dasar metrologi, UTTP, pengujian, dan perhitungan teknis.</p>
                 </div>
-                <a href="kompetensi_teknis_kemetrologian_1.html" class="btn" style="margin-top:15px;">MULAI SUBTES 1</a>
+                <div class="package-group">
+                    <a href="kompetensi_teknis_kemetrologian_1.html" class="btn">Latihan Soal 1</a>
+                    <a href="kompetensi_teknis_kemetrologian_2.html" class="btn btn-gold">Latihan Soal 2</a>
+                </div>
             </div>
 
             <!-- SUBTES 2 -->
@@ -68,7 +73,10 @@
                     <p style="font-weight:bold; color:#334155; margin:6px 0;">Pengawasan, Regulasi & Metrologi Legal</p>
                     <p style="font-size:12px; color:#64748b;">Simulasi regulasi UU No. 2 Tahun 1981, pengawasan, serta tera ulang.</p>
                 </div>
-                <a href="mix_2.html" class="btn btn-gold" style="margin-top:15px;">MULAI SUBTES 2</a>
+                <div class="package-group">
+                    <a href="mix_2.html" class="btn">Latihan Soal 1</a>
+                    <a href="mix_2.html" class="btn btn-gold">Latihan Soal 2</a>
+                </div>
             </div>
 
             <!-- SUBTES 3 -->
@@ -78,7 +86,10 @@
                     <p style="font-weight:bold; color:#334155; margin:6px 0;">Kompetensi Manajerial ASN</p>
                     <p style="font-size:12px; color:#64748b;">Simulasi kompetensi manajerial, sosial kultural, dan kepemimpinan ASN.</p>
                 </div>
-                <a href="mix_2.html" class="btn" style="margin-top:15px;">MULAI SUBTES 3</a>
+                <div class="package-group">
+                    <a href="mix_2.html" class="btn">Latihan Soal 1</a>
+                    <a href="mix_2.html" class="btn btn-gold">Latihan Soal 2</a>
+                </div>
             </div>
 
             <!-- TRYOUT MIX -->
@@ -88,7 +99,10 @@
                     <p style="font-weight:bold; color:#334155; margin:6px 0;">Latihan Soal Tryout Komprehensif</p>
                     <p style="font-size:12px; color:#64748b;">Simulasi latihan soal tryout mix gabungan lengkap.</p>
                 </div>
-                <a href="mix_2.html" class="btn" style="margin-top:15px; background:#16a34a;">MULAI TRYOUT MIX</a>
+                <div class="package-group">
+                    <a href="mix_2.html" class="btn" style="background:#16a34a;">Paket Tryout 1</a>
+                    <a href="mix_2.html" class="btn btn-gold">Paket Tryout 2</a>
+                </div>
             </div>
 
         </div>
